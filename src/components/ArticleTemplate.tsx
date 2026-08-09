@@ -44,7 +44,7 @@ export default function ArticleTemplate({ article, related, categories, trending
           <PostMeta
             author={{ name: article.authorName || "Admin", avatar: article.authorAvatar || "https://media.licdn.com/dms/image/v2/D4E03AQEZDHRQ7O0C2w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714234759381?e=1787788800&v=beta&t=BQdZSVLBXmNimnQbwknQXQh5QEpHnPOzNRMsbOIK4Uo" }}
             date={article.date || article.createdAt}
-            category={{ label: article.categoryLabel || article.category, color: article.categoryColor || "#f27100" }}
+            category={{ label: article.categoryLabel || article.category, color: article.categoryColor || "#004df2" }}
             comments={String(article.comments?.length || 0)}
           />
           <AdSlot pageType="article" position="atf-rectangle" articleSlug={article.slug} />
