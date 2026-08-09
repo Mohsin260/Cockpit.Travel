@@ -1430,125 +1430,110 @@ ${ad.code}
         transformOrigin: "center top",
     };
 
-    const stickyWrapperClass = isStickyFooter
-        ? "fixed bottom-0 left-1/2 -translate-x-1/2 z-[999]"
-        : "";
+    const adContent = (
+        <div
+            className={`ad-container ${className} flex flex-col items-center justify-center ${fullWidth ? "w-full" : "mx-auto"}`}
+            data-ad-position={position}
+            onClick={handleAdClick}
+            style={{ ...containerStyle, ...appearanceStyle, overflow: "hidden" }}
+        >
+            {containerSizing && isMounted && (
+                <style dangerouslySetInnerHTML={{
+                    __html: `
+                    [data-ad-position="${position}"] .ad-media-wrapper {
+                        cursor: ${ad.clickThroughUrl || ad.url || isVastAd ? 'pointer' : 'default'} !important;
+                    }
+                    [data-ad-position="${position}"] img,
+                    [data-ad-position="${position}"] video:not(.video-js):not(.vjs-tech) {
+                        width: 100% !important;
+                        height: 100% !important;
+                        object-fit: ${appearance.objectFit} !important;
+                        display: block !important;
+                        margin: 0 auto !important;
+                        position: relative !important;
+                        transform: scale(${appearance.mediaScale}) !important;
+                    }
+                    [data-ad-position="${position}"] .ad-media-wrapper {
+                        width: ${containerSizing.desktop.width}px !important;
+                        height: ${containerSizing.desktop.height}px !important;
+                        max-width: 100% !important;
+                    }
+                    [data-ad-position="${position}"] .ad-media-wrapper > div:first-child,
+                    [data-ad-position="${position}"] .ad-media-wrapper > div:first-child iframe,
+                    [data-ad-position="${position}"] #Trendsposts-video-ad-${position},
+                    [data-ad-position="${position}"] #Trendsposts-banner-ad-${position} {
+                        width: 100% !important;
+                        height: 100% !important;
+                        max-width: 100% !important;
+                        max-height: 100% !important;
+                    }
+                    @media (max-width: 768px) and (min-width: 481px) {
+                        [data-ad-position="${position}"] .ad-media-wrapper {
+                            width: ${containerSizing.tablet.width}px !important;
+                            height: ${containerSizing.tablet.height}px !important;
+                        }
+                    }
+                    @media (max-width: 480px) {
+                        [data-ad-position="${position}"] .ad-media-wrapper {
+                            width: ${containerSizing.mobile.width}px !important;
+                            height: ${containerSizing.mobile.height}px !important;
+                        }
+                    }
+                `}} />
+            )}
+            <div className="relative w-full h-full flex items-center justify-center group">
+                <div 
+                    className="ad-media-wrapper relative flex items-center justify-center"
+                    onClick={handleAdClick}
+                >
+                    {displayLabel && (
+                        <div className="absolute top-2 left-2 z-50 pointer-events-none">
+                            <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-black/60 text-white/90 backdrop-blur-sm">
+                                AD
+                            </span>
+                        </div>
+                    )}
+                    <div
+                        ref={adContainerRef}
+                        className="w-full h-full flex items-center justify-center relative overflow-hidden z-0"
+                    />
+                    {!isProviderAd && (appearance.showInfoIcon || appearance.showCloseButton) && (
+                        <AdActionsPopover
+                            onOpenChange={setIsPopoverOpen}
+                            side={position === "sticky-footer" ? "top" : "bottom"}
+                            onSubmit={async (reason, customText) => {
+                                if (!ad || !ad._id) return;
+                                try {
+                                    await fetch(`/api/ads/${ad._id}/analytics`, {
+                                        method: "POST",
+                                        headers: { "Content-Type": "application/json" },
+                                        body: JSON.stringify({ event: "close", closeReason: reason, customText: customText || undefined }),
+                                    });
+                                    if (reason !== "reported_ad") setIsClosed(true);
+                                } catch (err) {
+                                    console.error("Failed to track close reason:", err);
+                                }
+                            }}
+                        />
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+
+    if (isStickyFooter) {
+        return (
+            <div className="fixed bottom-0 left-1/2 -translate-x-1/2 z-[999]">
+                <div className="relative inline-block">
+                    {adContent}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <>
-            <div className={stickyWrapperClass}>
-            <div className="relative inline-block">
-            <div
-                className={`ad-container ${className} flex flex-col items-start justify-start ${fullWidth ? "w-full" : "mx-auto"}`}
-                data-ad-position={position}
-                onClick={handleAdClick}
-                style={{ ...containerStyle, ...appearanceStyle, overflow: "hidden" }}
-            >
-                {/* Responsive CSS for tablet and mobile sizes + Universal Image/Video scaling */}
-                {containerSizing && isMounted && (
-                    <style dangerouslySetInnerHTML={{
-                        __html: `
-                        [data-ad-position="${position}"] .ad-media-wrapper {
-                            cursor: ${ad.clickThroughUrl || ad.url || isVastAd ? 'pointer' : 'default'} !important;
-                        }
-
-                        /* Universal image and video scaling for ALL ad types - COVER mode (no black bars) */
-                        [data-ad-position="${position}"] img,
-                        [data-ad-position="${position}"] video:not(.video-js):not(.vjs-tech) {
-                            width: 100% !important;
-                            height: 100% !important;
-                            object-fit: ${appearance.objectFit} !important;
-                            display: block !important;
-                            margin: 0 auto !important;
-                            position: relative !important;
-                            transform: scale(${appearance.mediaScale}) !important;
-                        }
-
-                        /* Target dimensions for the actual media wrapper */
-                        [data-ad-position="${position}"] .ad-media-wrapper {
-                            width: ${containerSizing.desktop.width}px !important;
-                            height: ${containerSizing.desktop.height}px !important;
-                            max-width: 100% !important;
-                        }
-
-                        /* Force ONLY the media container and its children to fill the wrapper */
-                        [data-ad-position="${position}"] .ad-media-wrapper > div:first-child,
-                        [data-ad-position="${position}"] .ad-media-wrapper > div:first-child iframe,
-                        [data-ad-position="${position}"] #Trendsposts-video-ad-${position},
-                        [data-ad-position="${position}"] #Trendsposts-banner-ad-${position} {
-                            width: 100% !important;
-                            height: 100% !important;
-                            max-width: 100% !important;
-                            max-height: 100% !important;
-                        }
-                        
-                        /* Container responsive sizing */
-                        @media (max-width: 768px) and (min-width: 481px) {
-                            [data-ad-position="${position}"] .ad-media-wrapper {
-                                width: ${containerSizing.tablet.width}px !important;
-                                height: ${containerSizing.tablet.height}px !important;
-                            }
-                        }
-                        @media (max-width: 480px) {
-                            [data-ad-position="${position}"] .ad-media-wrapper {
-                                width: ${containerSizing.mobile.width}px !important;
-                                height: ${containerSizing.mobile.height}px !important;
-                            }
-                        }
-                    `}} />
-                )}
-
-                <div className="relative w-full h-full flex items-center justify-center group">
-                    <div 
-                        className="ad-media-wrapper relative flex items-center justify-center"
-                        onClick={handleAdClick}
-                    >
-                        {/* AD Badge - On actual ad content (video/image) */}
-                        {displayLabel && (
-                            <div className="absolute top-2 left-2 z-50 pointer-events-none">
-                                <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-black/60 text-white/90 backdrop-blur-sm">
-                                    AD
-                                </span>
-                            </div>
-                        )}
-                        
-                        <div
-                            ref={adContainerRef}
-                            className="w-full h-full flex items-center justify-center relative overflow-hidden z-0"
-                        >
-                        </div>
-
-                        {/* Overlay panel for ad options, similar to Google Ads style */}
-                        {!isProviderAd && (appearance.showInfoIcon || appearance.showCloseButton) && (
-                            <AdActionsPopover
-                                onOpenChange={setIsPopoverOpen}
-                                side={position === "sticky-footer" ? "top" : "bottom"}
-                                onSubmit={async (reason, customText) => {
-                                    if (!ad || !ad._id) return;
-                                    try {
-                                        await fetch(`/api/ads/${ad._id}/analytics`, {
-                                            method: "POST",
-                                            headers: { "Content-Type": "application/json" },
-                                            body: JSON.stringify({
-                                                event: "close",
-                                                closeReason: reason,
-                                                customText: customText || undefined,
-                                            }),
-                                        });
-                                        if (reason !== "reported_ad") {
-                                            setIsClosed(true);
-                                        }
-                                    } catch (err) {
-                                        console.error("Failed to track close reason:", err);
-                                    }
-                                }}
-                            />
-                        )}
-                    </div>
-                </div>
-            </div>
-            </div>
-            </div>
+            {adContent}
         </>
     );
 }
