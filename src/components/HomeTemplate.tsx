@@ -60,6 +60,7 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
         <Subscribe />
       </main>
       <Footer />
+      <AdSlot pageType="homepage" position="sticky-footer" />
     </div>
   );
 }

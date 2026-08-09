@@ -7,6 +7,7 @@
  *
  * Connects to cockpittravel-db → adsnippets collection.
  * Only inserts ads for positions that don't already exist (idempotent).
+ * Also updates cardStyle for existing native_feed ads if mismatched.
  * Safe to run multiple times.
  */
 import "dotenv/config";
@@ -84,12 +85,18 @@ const ADS: AdDefinition[] = [
     name: "Bottom Leaderboard — Homepage Footer",
     templateType: "html_banner",
   },
+  {
+    position: "sticky-footer",
+    pageType: "homepage",
+    name: "Sticky Footer — Homepage",
+    templateType: "html_banner",
+  },
 
   // ── In-Feed Native (Hero) ──────────────────────────────────────────
   {
     position: "in-feed-1",
     pageType: "homepage",
-    name: "In-Feed 1 — Hero Recent News Grid",
+    name: "In-Feed: Hero Recent News",
     templateType: "native_feed",
     nativeContent: {
       title: "The Hidden Beaches of Portugal Nobody Talks About",
@@ -103,13 +110,13 @@ const ADS: AdDefinition[] = [
       categoryColor: "#54bd05",
       readTime: "6 min",
       author: "Rafael Costa",
-      cardStyle: "news-grid",
+      cardStyle: "hero-recent",
     },
   },
   {
     position: "in-feed-2",
     pageType: "homepage",
-    name: "In-Feed 2 — Hero Featured Slider",
+    name: "In-Feed: Hero Slider",
     templateType: "native_feed",
     nativeContent: {
       title: "Why Business Class Is Cheaper Than You Think in 2026",
@@ -123,7 +130,7 @@ const ADS: AdDefinition[] = [
       categoryColor: "#0073ff",
       readTime: "5 min",
       author: "Sarah Chen",
-      cardStyle: "news-grid",
+      cardStyle: "hero-featured",
     },
   },
 
@@ -131,7 +138,7 @@ const ADS: AdDefinition[] = [
   {
     position: "in-feed-3",
     pageType: "homepage",
-    name: "In-Feed 3 — Hotels Side Cards",
+    name: "In-Feed: Hotels Side Cards",
     templateType: "native_feed",
     nativeContent: {
       title: "Boutique Hotels Under $100 in Southeast Asia",
@@ -151,7 +158,7 @@ const ADS: AdDefinition[] = [
   {
     position: "in-feed-4",
     pageType: "homepage",
-    name: "In-Feed 4 — Hotels Carousel",
+    name: "In-Feed: Hotels Carousel",
     templateType: "native_feed",
     nativeContent: {
       title: "All-Inclusive Resorts That Are Actually Worth It",
@@ -165,7 +172,7 @@ const ADS: AdDefinition[] = [
       categoryColor: "#e033e0",
       readTime: "7 min",
       author: "David Kim",
-      cardStyle: "news-grid",
+      cardStyle: "popular-articles",
     },
   },
 
@@ -173,7 +180,7 @@ const ADS: AdDefinition[] = [
   {
     position: "in-feed-5",
     pageType: "homepage",
-    name: "In-Feed 5 — Travel Intel Left Cards",
+    name: "In-Feed: Travel Intel Left",
     templateType: "native_feed",
     nativeContent: {
       title: "AI Travel Assistants: The Future of Trip Planning",
@@ -187,13 +194,13 @@ const ADS: AdDefinition[] = [
       categoryColor: "#f27100",
       readTime: "6 min",
       author: "Lisa Wang",
-      cardStyle: "carousel",
+      cardStyle: "travel-intel",
     },
   },
   {
     position: "in-feed-6",
     pageType: "homepage",
-    name: "In-Feed 6 — Travel Intel Right Cards",
+    name: "In-Feed: Travel Intel Right",
     templateType: "native_feed",
     nativeContent: {
       title: "Best Travel Credit Cards: Earn Miles on Every Purchase",
@@ -207,7 +214,7 @@ const ADS: AdDefinition[] = [
       categoryColor: "#f27100",
       readTime: "8 min",
       author: "Tom Bradley",
-      cardStyle: "carousel",
+      cardStyle: "travel-intel",
     },
   },
 
@@ -215,7 +222,7 @@ const ADS: AdDefinition[] = [
   {
     position: "in-feed-7",
     pageType: "homepage",
-    name: "In-Feed 7 — Destinations Article Grid",
+    name: "In-Feed: Destinations Grid",
     templateType: "native_feed",
     nativeContent: {
       title: "A Digital Nomad's Guide to Chiang Mai, Thailand",
@@ -229,13 +236,13 @@ const ADS: AdDefinition[] = [
       categoryColor: "#f27100",
       readTime: "7 min",
       author: "James Liu",
-      cardStyle: "latest-articles",
+      cardStyle: "top-destinations",
     },
   },
   {
     position: "in-feed-8",
     pageType: "homepage",
-    name: "In-Feed 8 — Destinations Sidebar Tabs",
+    name: "In-Feed: Destinations Tabs",
     templateType: "native_feed",
     nativeContent: {
       title: "Europe's Best-Kept Secret Destinations",
@@ -249,7 +256,7 @@ const ADS: AdDefinition[] = [
       categoryColor: "#54bd05",
       readTime: "5 min",
       author: "Anna Schmidt",
-      cardStyle: "sidebar-list",
+      cardStyle: "sidebar-tabs",
     },
   },
 
@@ -257,7 +264,7 @@ const ADS: AdDefinition[] = [
   {
     position: "in-feed-9",
     pageType: "homepage",
-    name: "In-Feed 9 — Flights Small Cards",
+    name: "In-Feed: Flights Small Cards",
     templateType: "native_feed",
     nativeContent: {
       title: "The Carry-On Suitcase That Survived 50 Flights",
@@ -271,7 +278,7 @@ const ADS: AdDefinition[] = [
       categoryColor: "#f27100",
       readTime: "4 min",
       author: "Emily Park",
-      cardStyle: "latest-articles",
+      cardStyle: "top-flights",
     },
   },
 
@@ -298,12 +305,18 @@ const ADS: AdDefinition[] = [
     name: "Bottom Leaderboard — Article Footer",
     templateType: "html_banner",
   },
+  {
+    position: "sticky-footer",
+    pageType: "article",
+    name: "Sticky Footer — Article",
+    templateType: "html_banner",
+  },
 
   // ── In-Feed Native (Article Content) ───────────────────────────────
   {
     position: "in-content-1",
     pageType: "article",
-    name: "In-Content 1 — After Paragraph 2",
+    name: "In-Content: After Para 2",
     templateType: "native_feed",
     nativeContent: {
       title: "Travel Insurance From $9/Week — World Nomads",
@@ -317,13 +330,13 @@ const ADS: AdDefinition[] = [
       categoryColor: "#6366F1",
       readTime: "",
       author: "",
-      cardStyle: "news-grid",
+      cardStyle: "article-inline",
     },
   },
   {
     position: "in-content-2",
     pageType: "article",
-    name: "In-Content 2 — After Paragraph 4",
+    name: "In-Content: After Para 4",
     templateType: "native_feed",
     nativeContent: {
       title: "The Best Travel Credit Cards of 2026 — NerdWallet",
@@ -337,13 +350,13 @@ const ADS: AdDefinition[] = [
       categoryColor: "#6366F1",
       readTime: "",
       author: "",
-      cardStyle: "news-grid",
+      cardStyle: "article-inline",
     },
   },
   {
     position: "in-feed-related",
     pageType: "article",
-    name: "Related Posts Carousel — Native Slide",
+    name: "Related Posts Carousel",
     templateType: "native_feed",
     nativeContent: {
       title: "Why Every Traveler Needs a Portable Charger in 2026",
@@ -357,7 +370,7 @@ const ADS: AdDefinition[] = [
       categoryColor: "#f27100",
       readTime: "3 min",
       author: "Chris Anderson",
-      cardStyle: "news-grid",
+      cardStyle: "related-articles",
     },
   },
 
@@ -365,7 +378,7 @@ const ADS: AdDefinition[] = [
   {
     position: "sidebar-sticky",
     pageType: "article",
-    name: "Sidebar Below Tabs — Native Circular Cards",
+    name: "Sidebar Sticky",
     templateType: "native_feed",
     nativeContent: {
       title: "Rent a Car Anywhere — Kayak",
@@ -379,13 +392,13 @@ const ADS: AdDefinition[] = [
       categoryColor: "#10B981",
       readTime: "",
       author: "",
-      cardStyle: "sidebar-list",
+      cardStyle: "sidebar-ad",
     },
   },
   {
     position: "follow-native",
     pageType: "article",
-    name: "Follow Widget — Social Card Native",
+    name: "Follow Widget",
     templateType: "native_feed",
     nativeContent: {
       title: "Cockpit Deals",
@@ -423,16 +436,50 @@ async function main() {
 
   // Find which positions already have ads
   const existing = await AdSnippet.find({}).lean();
-  const existingKeys = new Set(existing.map((ad: any) => `${ad.pageType}:${ad.position}`));
+  const existingMap = new Map(existing.map((ad: any) => [`${ad.pageType}:${ad.position}`, ad]));
   console.log(`\n[seed-ads] found ${existing.length} existing ad snippets`);
-  console.log(`[seed-ads] configured: ${[...existingKeys].join(", ") || "(none)"}`);
+  console.log(`[seed-ads] configured: ${[...existingMap.keys()].join(", ") || "(none)"}`);
 
   let created = 0;
+  let updated = 0;
   let skipped = 0;
 
   for (const adDef of ADS) {
     const key = `${adDef.pageType}:${adDef.position}`;
-    if (existingKeys.has(key)) {
+    const existingAd = existingMap.get(key);
+
+    // Build the correct nativeContent
+    const correctNativeContent = adDef.templateType === "native_feed" && adDef.nativeContent ? {
+      title: adDef.nativeContent.title,
+      excerpt: adDef.nativeContent.excerpt,
+      image: adDef.nativeContent.image,
+      sponsorLabel: adDef.nativeContent.sponsorLabel,
+      sponsorName: adDef.nativeContent.sponsorName,
+      sponsorLogo: adDef.nativeContent.sponsorLogo || "",
+      clickThroughUrl: adDef.nativeContent.clickThroughUrl,
+      category: adDef.nativeContent.category,
+      categoryColor: adDef.nativeContent.categoryColor,
+      readTime: adDef.nativeContent.readTime,
+      author: adDef.nativeContent.author,
+      layout: ["sidebar-list", "sidebar-featured", "review-list", "social-card", "sidebar-ad"].includes(adDef.nativeContent.cardStyle || "") ? "row" : "column",
+      cardStyle: adDef.nativeContent.cardStyle || "news-grid",
+    } : null;
+
+    if (existingAd) {
+      // Check if cardStyle needs updating
+      if (correctNativeContent && existingAd.templateType === "native_feed") {
+        const currentCardStyle = existingAd.nativeContent?.cardStyle;
+        const correctCardStyle = correctNativeContent.cardStyle;
+        if (currentCardStyle !== correctCardStyle) {
+          await AdSnippet.updateOne(
+            { _id: existingAd._id },
+            { $set: { "nativeContent.cardStyle": correctCardStyle } }
+          );
+          console.log(`  🔧 ${key} — cardStyle: "${currentCardStyle}" → "${correctCardStyle}"`);
+          updated++;
+          continue;
+        }
+      }
       console.log(`  ⏭  ${key} — already configured, skipping`);
       skipped++;
       continue;
@@ -459,22 +506,8 @@ async function main() {
       locale: "en",
     };
 
-    if (adDef.templateType === "native_feed" && adDef.nativeContent) {
-      doc.nativeContent = {
-        title: adDef.nativeContent.title,
-        excerpt: adDef.nativeContent.excerpt,
-        image: adDef.nativeContent.image,
-        sponsorLabel: adDef.nativeContent.sponsorLabel,
-        sponsorName: adDef.nativeContent.sponsorName,
-        sponsorLogo: adDef.nativeContent.sponsorLogo || "",
-        clickThroughUrl: adDef.nativeContent.clickThroughUrl,
-        category: adDef.nativeContent.category,
-        categoryColor: adDef.nativeContent.categoryColor,
-        readTime: adDef.nativeContent.readTime,
-        author: adDef.nativeContent.author,
-        layout: ["sidebar-list", "sidebar-featured", "review-list", "social-card"].includes(adDef.nativeContent.cardStyle || "") ? "row" : "column",
-        cardStyle: adDef.nativeContent.cardStyle || "news-grid",
-      };
+    if (correctNativeContent) {
+      doc.nativeContent = correctNativeContent;
     }
 
     await (AdSnippet as any).create(doc);
@@ -483,7 +516,7 @@ async function main() {
     created++;
   }
 
-  console.log(`\n[seed-ads] done: ${created} created, ${skipped} skipped`);
+  console.log(`\n[seed-ads] done: ${created} created, ${updated} updated cardStyle, ${skipped} skipped`);
 
   // Show final state
   const finalAds = await AdSnippet.find({}).lean();

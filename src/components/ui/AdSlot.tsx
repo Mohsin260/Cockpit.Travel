@@ -1389,9 +1389,23 @@ ${ad.code}
         return null;
     }
 
+    // Don't render anything if the ad has no actual content
+    const hasContent = !!(
+        ad.code?.trim() ||
+        ad.mediaUrl?.trim() ||
+        ad.url?.trim() ||
+        ad.vastUrl?.trim() ||
+        ad.vastTagUrl?.trim() ||
+        (ad as any).nativeContent?.title
+    );
+    if (!hasContent) {
+        return null;
+    }
+
     const displayLabel = appearance.showLabel ? appearance.labelText : "";
 
     // Apply size constraints from configuration — responsive per viewport
+    const isStickyFooter = position === "sticky-footer";
     const containerStyle: React.CSSProperties = {
         maxWidth: "100%",
         height: "100%",
@@ -1416,8 +1430,14 @@ ${ad.code}
         transformOrigin: "center top",
     };
 
+    const stickyWrapperClass = isStickyFooter
+        ? "fixed bottom-0 left-1/2 -translate-x-1/2 z-[999]"
+        : "";
+
     return (
         <>
+            <div className={stickyWrapperClass}>
+            <div className="relative inline-block">
             <div
                 className={`ad-container ${className} flex flex-col items-start justify-start ${fullWidth ? "w-full" : "mx-auto"}`}
                 data-ad-position={position}
@@ -1526,6 +1546,8 @@ ${ad.code}
                         )}
                     </div>
                 </div>
+            </div>
+            </div>
             </div>
         </>
     );
