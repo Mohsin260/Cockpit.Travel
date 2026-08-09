@@ -46,6 +46,26 @@ export default async function ArticleSlugPage({
     views: a.views || 0,
   }));
 
+  const recentTab = [...tabArticles].sort((a, b) => {
+    const aDate = new Date(allArticles.articles.find(x => x.slug === a.slug)?.date || 0).getTime();
+    const bDate = new Date(allArticles.articles.find(x => x.slug === b.slug)?.date || 0).getTime();
+    return bDate - aDate;
+  }).slice(0, 5);
+
+  const popularTab = [...tabArticles].sort((a, b) => b.views - a.views).slice(0, 5);
+
+  const trendyTab = [...tabArticles].sort((a, b) => {
+    const aArticle = allArticles.articles.find(x => x.slug === a.slug);
+    const bArticle = allArticles.articles.find(x => x.slug === b.slug);
+    const aDate = new Date(aArticle?.date || 0).getTime();
+    const bDate = new Date(bArticle?.date || 0).getTime();
+    const now = Date.now();
+    const dayMs = 86400000;
+    const aRecency = Math.max(1, 30 - (now - aDate) / dayMs);
+    const bRecency = Math.max(1, 30 - (now - bDate) / dayMs);
+    return (b.views * bRecency) - (a.views * aRecency);
+  }).slice(0, 5);
+
   function bodyContentToBlocks(body?: string, fallbackExcerpt?: string): { type: string; text: string }[] {
     if (!body) return [{ type: "paragraph", text: fallbackExcerpt || "" }];
     return body
@@ -73,9 +93,9 @@ export default async function ArticleSlugPage({
       { name: "Twitter", followers: "72K", color: "#1DA1F2", icon: "twitter" },
     ],
     tags: article.tags || [],
-    recentArticles: tabArticles.slice(0, 5),
-    popularArticles: [...tabArticles].sort((a, b) => b.views - a.views).slice(0, 5),
-    trendyArticles: tabArticles.slice(0, 5),
+    recentArticles: recentTab,
+    popularArticles: popularTab,
+    trendyArticles: trendyTab,
   };
 
   return (
@@ -93,7 +113,7 @@ export default async function ArticleSlugPage({
               category: { label: categoryObj.label, color: categoryObj.color },
               author: {
                 name: article.authorName,
-                avatar: "",
+                avatar: article.author_avatar || "",
                 bio: "",
               },
               views: String(article.views || 0),
@@ -111,7 +131,7 @@ export default async function ArticleSlugPage({
               },
               author: {
                 name: a.authorName,
-                avatar: "",
+                avatar: a.author_avatar || "",
                 bio: "",
               },
               views: String(a.views || 0),
@@ -121,8 +141,8 @@ export default async function ArticleSlugPage({
               nextPost: null as any,
             }))}
             categories={categories}
-            trending={tabArticles}
-            recent={tabArticles}
+            trending={popularTab}
+            recent={recentTab}
           />
         </main>
         <Footer />

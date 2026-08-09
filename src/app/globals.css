@@ -190,11 +190,20 @@ ul {
   justify-content: center;
 }
 
-.nerio-preloader .loader-container .loader-icon img {
+.loader-brand {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0a0a23;
+  letter-spacing: -0.5px;
+  white-space: nowrap;
+}
+
+.loader-brand-dot {
+  color: #00a521;
+}
+
+.loader-brand, .loader-brand-dot {
   animation: loader-pulse alternate 900ms infinite;
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
 }
 
 /* ========================
@@ -1431,7 +1440,7 @@ ul {
   padding: 1px 10px 0;
   border-radius: 0 100px 100px 70px;
   font-weight: 500;
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   line-height: 22px;
   position: relative;
@@ -1600,6 +1609,17 @@ ul {
 
 .hero-featured-card .fpg-post-cat {
   margin-bottom: 0;
+}
+
+.hero-featured-card .fpg-post-cat .post-cat {
+  font-size: 9px;
+  line-height: 16px;
+  padding: 1px 6px;
+  letter-spacing: -0.3px;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .hero-featured-card .fpg-post-title {

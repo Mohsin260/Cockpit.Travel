@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 
 export default function Preloader() {
   const [hidden, setHidden] = useState(false);
@@ -15,35 +14,25 @@ export default function Preloader() {
     return () => clearTimeout(timer);
   }, []);
 
+  const content = (
+    <div className="loader-container">
+      <div className="loader-icon">
+        <span className="loader-brand">Cockpit<span className="loader-brand-dot">.</span>Travel</span>
+      </div>
+    </div>
+  );
+
   if (!mounted) {
     return (
       <div className="nerio-preloader">
-        <div className="loader-container">
-          <div className="loader-icon">
-            <Image
-              src="/assets/images/preloader.png"
-              alt="Travel News"
-              width={40}
-              height={40}
-            />
-          </div>
-        </div>
+        {content}
       </div>
     );
   }
 
   return (
     <div className={`nerio-preloader ${hidden ? "hidden" : ""}`}>
-      <div className="loader-container">
-        <div className="loader-icon">
-          <Image
-            src="/assets/images/preloader.png"
-            alt="Travel News"
-            width={40}
-            height={40}
-          />
-        </div>
-      </div>
+      {content}
     </div>
   );
 }

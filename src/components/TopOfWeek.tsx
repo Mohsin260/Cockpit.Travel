@@ -150,9 +150,11 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-[30px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
             {articles.slice(0, 10).map((post, i) => (
-              <ArticleCard key={i} post={post} />
+              <>
+                <ArticleCard key={i} post={post} />
+                {i === 3 && <InFeedNativeAd position="in-feed-7" cardStyle="top-destinations" />}
+              </>
             ))}
-            <InFeedNativeAd position="in-feed-7" cardStyle="top-destinations" />
           </div>
 
           <div className="flex flex-col gap-[30px]">

@@ -128,6 +128,10 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
                             style={{
                               "--catCurrentBgColor": categoryColors[post.category] || "#f27100",
                               "--catCurrentColor": "#ffffff",
+                              fontSize: "10px",
+                              lineHeight: "18px",
+                              padding: "1px 7px 0",
+                              letterSpacing: "-0.3px",
                             } as React.CSSProperties}
                           >
                             {post.categoryLabel}

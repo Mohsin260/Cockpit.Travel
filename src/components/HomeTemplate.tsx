@@ -46,7 +46,15 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
           articles={destinationArticles}
           recentArticles={articles.slice(0, 4)}
           popularArticles={[...articles].sort((a: any, b: any) => (b.views || 0) - (a.views || 0)).slice(0, 4)}
-          trendyArticles={[...articles].sort((a: any, b: any) => (b.views || 0) - (a.views || 0)).slice(0, 4)}
+          trendyArticles={[...articles].sort((a: any, b: any) => {
+            const aDate = new Date(a.date || 0).getTime();
+            const bDate = new Date(b.date || 0).getTime();
+            const now = Date.now();
+            const dayMs = 86400000;
+            const aRecency = Math.max(1, 30 - (now - aDate) / dayMs);
+            const bRecency = Math.max(1, 30 - (now - bDate) / dayMs);
+            return ((b.views || 0) * bRecency) - ((a.views || 0) * aRecency);
+          }).slice(0, 4)}
           categories={categories}
           tags={["Hotels", "Flights", "Destinations", "Traveling", "Travel Intelligence", "Budget", "Luxury", "Adventure", "Culture", "Food"]}
         />

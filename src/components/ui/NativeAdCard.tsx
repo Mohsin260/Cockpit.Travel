@@ -418,22 +418,9 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 </div>
                 <div style={{ display: "table-cell", verticalAlign: "top", padding: "0 0 0 15px" }}>
                     {nc.category && style.showCategory && (
-                        <span
-                            className="inline-block"
-                            style={{
-                                backgroundColor: nc.categoryColor || "#ef4444",
-                                color: "#fff",
-                                fontSize: "11px",
-                                padding: "0px 6px",
-                                lineHeight: "16px",
-                                letterSpacing: "0.5px",
-                                textTransform: "uppercase",
-                                marginBottom: "6px",
-                                fontWeight: 600,
-                            }}
-                        >
-                            {nc.category}
-                        </span>
+                                <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
+                                    {nc.category}
+                                </span>
                     )}
                     <h5 style={{ marginTop: 0, lineHeight: style.titleLineHeight, fontSize: style.titleSize, fontWeight: 400, color: "var(--heading-color, #fff)", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
                         {nc.title}
@@ -480,20 +467,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 >
                     <div style={{ pointerEvents: "auto" }}>
                         {nc.category && style.showCategory && (
-                            <span
-                                className="inline-block"
-                                style={{
-                                    backgroundColor: nc.categoryColor || "#EF4444",
-                                    color: "#fff",
-                                    fontSize: "11px",
-                                    padding: "0px 6px",
-                                    lineHeight: "16px",
-                                    letterSpacing: "0.5px",
-                                    textTransform: "uppercase",
-                                    marginBottom: "5px",
-                                    fontWeight: 600,
-                                }}
-                            >
+                            <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#EF4444" }}>
                                 {nc.category}
                             </span>
                         )}
@@ -602,7 +576,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                     </h6>
                     <div className="flex items-center gap-2" style={{ fontSize: "12px", color: "var(--meta-fcolor, #888)", marginBottom: "5px" }}>
                         {nc.category && style.showCategory && (
-                            <span style={{ backgroundColor: nc.categoryColor || "#4c66a3", color: "#fff", fontSize: "14px", padding: "0px 8px", lineHeight: "20px", textTransform: "uppercase", fontWeight: 600 }}>{nc.category}</span>
+                            <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#4c66a3" }}>{nc.category}</span>
                         )}
                         <span style={{ color: "#71717a", fontSize: "10px", fontWeight: 400, textTransform: "uppercase" }}>Sponsored</span>
                     </div>
@@ -680,6 +654,51 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     // ── "hero-featured" style: matches .hero-featured-card (dark bg, border, padding) ──
     const imgWidth = (style as any).imageWidth;
     const imgAspect = (style as any).imageAspect;
+
+    // ── "top-destinations" style: matches TopOfWeek ArticleCard (200×130 thumb + pill + title + meta icons) ──
+    if (cardStyle === "top-destinations") {
+        return (
+            <div
+                ref={containerRef}
+                className="group flex gap-[20px] pb-[20px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0 cursor-pointer"
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`Sponsored: ${nc.title}`}
+            >
+                <div className="block flex-shrink-0 w-[200px] h-[130px] rounded-[10px] overflow-hidden">
+                    {nc.image ? (
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
+                    )}
+                </div>
+                <div className="flex-1 min-w-0 flex flex-col justify-center">
+                    {nc.category && (
+                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
+                            {nc.category}
+                        </span>
+                    )}
+                    <h5 className="mt-[8px] text-[16px] font-bold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
+                        {nc.title}
+                    </h5>
+                    <ul className="flex items-center gap-[12px] mt-[8px] text-[12px] text-[var(--bodyColor)]">
+                        {(nc.author || nc.sponsorName) && (
+                            <li className="flex items-center gap-[4px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                <span>{nc.author || nc.sponsorName}</span>
+                            </li>
+                        )}
+                        <li className="flex items-center gap-[4px]">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            <span>Sponsored</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+
     if (cardStyle === "hero-featured") {
         return (
             <div
@@ -699,7 +718,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 </div>
                 <div className="flex-1 min-w-0">
                     {nc.category && (
-                        <span className="inline-block mb-[2px]" style={{ backgroundColor: nc.categoryColor || "#ef4444", color: "#fff", fontSize: "10px", padding: "0px 6px", lineHeight: "16px", textTransform: "uppercase", fontWeight: 600 }}>
+                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white w-fit mb-[2px]" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
                             {nc.category}
                         </span>
                     )}
@@ -731,7 +750,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 </div>
                 <div className="flex-1 min-w-0 flex flex-col justify-center gap-1">
                     {nc.category && (
-                        <span className="inline-block w-fit" style={{ backgroundColor: nc.categoryColor || "#ef4444", color: "#fff", fontSize: "11px", padding: "0px 6px", lineHeight: "16px", textTransform: "uppercase", fontWeight: 600 }}>
+                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white w-fit" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
                             {nc.category}
                         </span>
                     )}
@@ -778,7 +797,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 </div>
                 <div className="flex-1 min-w-0">
                     {nc.category && style.showCategory && (
-                        <span className="inline-block mb-1" style={{ backgroundColor: nc.categoryColor || "#ef4444", color: "#fff", fontSize: "11px", padding: "0px 6px", lineHeight: "16px", textTransform: "uppercase", fontWeight: 600 }}>
+                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white w-fit mb-1" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
                             {nc.category}
                         </span>
                     )}
@@ -787,17 +806,112 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         style={{
                             fontSize: style.titleSize,
                             lineHeight: style.titleLineHeight,
-                            color: "var(--heading-color, #fff)",
+                            color: ["hero-featured", "hero-recent", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured"].includes(cardStyle)
+                                ? "#fff"
+                                : "var(--titleColor, #1a1a2e)",
                         }}
                     >
                         {nc.title}
                     </h5>
-                    <div className="flex items-center gap-2" style={{ fontSize: "11px", color: "var(--meta-fcolor, #888)" }}>
+                    <div className="flex items-center gap-2" style={{
+                        fontSize: "11px",
+                        color: ["hero-featured", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured"].includes(cardStyle)
+                            ? "rgba(255,255,255,0.6)"
+                            : "var(--bodyColor, #616C74)"
+                    }}>
                         {(nc.author || nc.sponsorName) && style.showAuthor && (
                             <span>By {nc.author || nc.sponsorName}</span>
                         )}
                         <span>Sponsored</span>
                     </div>
+                </div>
+            </div>
+        );
+    }
+
+    // ── "popular-articles" style: matches BreakingNews carousel card (border container + 16:10 image + meta) ──
+    if (cardStyle === "popular-articles") {
+        return (
+            <div
+                ref={containerRef}
+                className="group flex h-full flex-col bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[12px] overflow-hidden p-[16px] transition-all duration-300 hover:shadow-md cursor-pointer"
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`Sponsored: ${nc.title}`}
+            >
+                {nc.image && (
+                    <div className="block relative overflow-hidden rounded-[8px] aspect-[16/10] flex-shrink-0">
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
+                    </div>
+                )}
+                <div className="flex flex-col flex-1 pt-[16px]">
+                    {nc.category && (
+                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white w-fit" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
+                            {nc.category}
+                        </span>
+                    )}
+                    <h4 className="mt-[10px] text-[18px] font-bold text-[var(--titleColor)] leading-[1.35] line-clamp-2">
+                        {nc.title}
+                    </h4>
+                    <ul className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-[12px] mt-auto text-[14px] text-[var(--bodyColor)]">
+                        {(nc.author || nc.sponsorName) && (
+                            <li className="flex items-center gap-1">
+                                <span>By</span>
+                                <span className="font-medium text-[var(--titleColor)]">{nc.author || nc.sponsorName}</span>
+                            </li>
+                        )}
+                        <li className="flex items-center gap-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            <span>Sponsored</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+
+    // ── "related-articles" style: matches RelatedPosts carousel card (border + rounded + category + title + meta) ──
+    if (cardStyle === "related-articles") {
+        return (
+            <div
+                ref={containerRef}
+                className="group flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full cursor-pointer"
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`Sponsored: ${nc.title}`}
+            >
+                {nc.image && (
+                    <div className="block w-full h-[200px] rounded-[10px] overflow-hidden flex-shrink-0">
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    </div>
+                )}
+                <div className="flex-1 flex flex-col justify-between min-w-0 px-[15px]">
+                    <div className="fpg-post-content-inner">
+                        {nc.category && (
+                            <div className="fpg-post-cat mt-[12px] mb-[7px]">
+                                <span className="post-cat inline-flex px-[10px] text-white font-medium text-[12px] uppercase leading-[22px] rounded-tl-none rounded-tr-[100px] rounded-br-[100px] rounded-bl-[70px]" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
+                                    {nc.category}
+                                </span>
+                            </div>
+                        )}
+                        <h6 className="fpg-post-title mt-[9px] mb-[7px]">
+                            <span className="text-[16px] font-semibold text-black leading-[1.4] line-clamp-2">
+                                {nc.title}
+                            </span>
+                        </h6>
+                    </div>
+                    <ul className="fpg-post-meta flex items-center gap-[10px] text-[14px] text-[var(--bodyColor,#616C74)]">
+                        {(nc.author || nc.sponsorName) && (
+                            <li>
+                                <span className="fpg-meta">By <span className="text-gray-600">{nc.author || nc.sponsorName}</span></span>
+                            </li>
+                        )}
+                        <li>
+                            <span className="fpg-meta">Sponsored</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         );
@@ -827,7 +941,9 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 style={{
                     fontSize: style.titleSize,
                     lineHeight: style.titleLineHeight,
-                    color: "var(--heading-color, #fff)",
+                    color: ["hero-featured", "hero-recent", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured"].includes(cardStyle)
+                        ? "#fff"
+                        : "var(--titleColor, #1a1a2e)",
                     display: "-webkit-box",
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: "vertical",
@@ -836,7 +952,12 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             >
                 {nc.title}
             </h5>
-            <div className="flex items-center gap-2" style={{ fontSize: "12px", color: "var(--meta-fcolor, #888)" }}>
+            <div className="flex items-center gap-2" style={{
+                fontSize: "12px",
+                color: ["hero-featured", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured"].includes(cardStyle)
+                    ? "rgba(255,255,255,0.6)"
+                    : "var(--bodyColor, #616C74)"
+            }}>
                 <span>Sponsored</span>
             </div>
         </div>

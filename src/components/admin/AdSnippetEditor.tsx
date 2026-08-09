@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useState, useCallback, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useDropzone, type FileRejection } from "react-dropzone";
 import {
   Save, X, FileImage, FileVideo,
@@ -433,6 +434,17 @@ export default function AdSnippetEditor({
   );
   const [nativeImageSelectionOpen, setNativeImageSelectionOpen] = useState(false);
   const [nativeLogoSelectionOpen, setNativeLogoSelectionOpen] = useState(false);
+
+  // Fetch categories from database for category dropdown
+  const { data: categoriesData } = useQuery({
+    queryKey: ["dashboard-categories"],
+    queryFn: async () => {
+      const res = await fetch("/api/dashboard/categories", { cache: "no-store" });
+      if (!res.ok) throw new Error("Failed to load categories");
+      return res.json();
+    },
+  });
+  const dbCategories = categoriesData?.items || [];
   const [mediaUrl, setMediaUrl] = useState(editingPosition.mediaUrl || editingPosition.url || "");
   const [clickUrl, setClickUrl] = useState(editingPosition.clickThroughUrl || "");
   const [mediaSelectionOpen, setMediaSelectionOpen] = useState(false);
@@ -942,13 +954,25 @@ export default function AdSnippetEditor({
                     {/* Category Badge */}
                     <div className="space-y-1">
                       <label className="text-xs font-medium">Category Badge</label>
-                      <Input
+                      <select
                         value={nativeContent.category}
-                        onChange={(e) => updateNativeField("category", e.target.value)}
-                        placeholder="Technology"
-                        maxLength={100}
-                        className="text-xs"
-                      />
+                        onChange={(e) => {
+                          const selectedSlug = e.target.value;
+                          const selectedCat = dbCategories.find((c: any) => c.slug === selectedSlug);
+                          updateNativeField("category", selectedCat?.label || selectedSlug);
+                          if (selectedCat?.color) {
+                            updateNativeField("categoryColor", selectedCat.color);
+                          }
+                        }}
+                        className="w-full p-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-xs"
+                      >
+                        <option value="">None</option>
+                        {dbCategories.map((cat: any) => (
+                          <option key={cat.slug} value={cat.slug}>
+                            {cat.label}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     {/* Read Time */}
                     <div className="space-y-1">

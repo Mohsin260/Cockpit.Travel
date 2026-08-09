@@ -59,6 +59,7 @@ export interface Article {
   categoryLabel: string;
   author: string;
   authorName: string;
+  author_avatar?: string;
   date: string;
   readTime: number;
   image?: string;
