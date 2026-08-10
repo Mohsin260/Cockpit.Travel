@@ -128,10 +128,26 @@ function VastVideoPlayer({ src, poster, vastTagUrl }: { src: string; poster?: st
 
       const wrapper = document.createElement("div");
       wrapper.innerHTML = `
-        <div id="hero-vast-wrapper-${targetId}" style="width:100%; position:relative; overflow:hidden; background:#000; border-radius:6px;">
-          <video id="${targetId}" class="video-js vjs-big-play-centered" style="width:100%; aspect-ratio:16/9; display:block;" playsinline webkit-playsinline="true" poster="${poster || ""}"></video>
+        <div id="hero-vast-wrapper-${targetId}" style="width:100%; position:relative; overflow:hidden; background:#000; border-radius:6px; aspect-ratio:16/9;">
+          <video id="${targetId}" class="video-js vjs-big-play-centered" style="width:100%; height:100%; display:block;" playsinline webkit-playsinline="true" poster="${poster || ""}"></video>
         </div>
         <style>
+          /* Hero VAST player — force fixed aspect ratio, no fluid expansion */
+          #hero-vast-wrapper-${targetId} .video-js {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+          }
+          #hero-vast-wrapper-${targetId} .video-js .vjs-tech {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+          }
           /* IMA Ad Container — fill the entire player area */
           #hero-vast-wrapper-${targetId} .ima-ad-container,
           #hero-vast-wrapper-${targetId} [class*="ima-ad-container"] {
@@ -190,6 +206,11 @@ function VastVideoPlayer({ src, poster, vastTagUrl }: { src: string; poster?: st
             display: flex !important;
             opacity: 1 !important;
             visibility: visible !important;
+            position: absolute !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
             z-index: 10001 !important;
           }
           #hero-vast-wrapper-${targetId} .vjs-fullscreen-control {
@@ -217,9 +238,10 @@ function VastVideoPlayer({ src, poster, vastTagUrl }: { src: string; poster?: st
         muted: true,
         controls: true,
         preload: "none",
-        fluid: true,
-        responsive: true,
+        fluid: false,
+        responsive: false,
         nativeControlsForTouch: false,
+        fill: true,
       });
       playerRef.current = player;
 
@@ -294,6 +316,10 @@ function VastVideoPlayer({ src, poster, vastTagUrl }: { src: string; poster?: st
       if (playerRef.current) {
         try { playerRef.current.dispose(); } catch (e) {}
         playerRef.current = null;
+      }
+      // Clear all child nodes to prevent duplicate players on re-mount (React Strict Mode)
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
       }
     };
   }, [src, poster, vastTagUrl]);
