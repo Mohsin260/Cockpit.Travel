@@ -50,7 +50,7 @@ export default function ArticleTemplate({ article, related, categories, trending
             comments={String(article.comments?.length || 0)}
           />
           <AdSlot pageType="article" position="atf-rectangle" articleSlug={article.slug} />
-          <ArticleBody content={article.content} />
+          <ArticleBody content={article.bodyContent || article.content} />
           <TagsAndShare tags={article.tags || []} />
           <AuthorBox author={{ name: article.authorName || "Admin", avatar: article.authorAvatar || "", bio: article.authorBio || "" }} />
           <PostNavigation
