@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface Article {
   slug: string;
@@ -19,14 +20,15 @@ interface TabWidgetProps {
 
 type TabKey = "recent" | "popular" | "trendy";
 
-const tabs: { key: TabKey; label: string }[] = [
-  { key: "recent", label: "Recent" },
-  { key: "popular", label: "Popular" },
-  { key: "trendy", label: "Trendy" },
-];
-
 export default function TabWidget({ recentArticles = [], popularArticles = [], trendyArticles = [] }: TabWidgetProps) {
+  const t = useTranslations();
   const [activeTab, setActiveTab] = useState<TabKey>("recent");
+
+  const tabs: { key: TabKey; label: string }[] = [
+    { key: "recent", label: t("article.recent") },
+    { key: "popular", label: t("article.popular") },
+    { key: "trendy", label: t("home.trendingNow") },
+  ];
 
   const tabData: Record<TabKey, Article[]> = {
     recent: recentArticles,

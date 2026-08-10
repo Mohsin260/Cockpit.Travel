@@ -3310,3 +3310,123 @@ ul {
     text-align: center;
   }
 }
+
+/* ═══════════════════════════════════════════
+   RTL Support for Arabic
+   ═══════════════════════════════════════════ */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .ml-0,
+[dir="rtl"] .ml-\[-0\.40rem\],
+[dir="rtl"] .ml-\[-0\.10rem\] {
+  margin-left: 0;
+  margin-right: inherit;
+}
+
+[dir="rtl"] .rstb-offcanvas-panel {
+  right: auto;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+[dir="rtl"] .rstb-offcanvas-panel.show-offcanvas {
+  transform: translateX(0);
+}
+
+[dir="rtl"] .mobile-panel-wrapper.position-right {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .mobile-panel-wrapper.position-right.show-panel {
+  transform: translateX(0);
+}
+
+[dir="rtl"] .hero-featured-content .fpg-btn-wrapper a::after {
+  content: "←";
+  margin-right: 8px;
+  margin-left: 0;
+}
+
+[dir="rtl"] .offcanvas-contact-list li,
+[dir="rtl"] .footer-post-meta li {
+  direction: rtl;
+}
+
+[dir="rtl"] .fpg-ticker-label {
+  direction: rtl;
+}
+
+[dir="rtl"] .sub-menu {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .mega-menu {
+  left: auto;
+  right: 0;
+}
+
+[dir="rtl"] .header-actions-desktop {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .footer-brand {
+  direction: rtl;
+}
+
+[dir="rtl"] .footer-copyright-inner {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-form-area .search-field {
+  text-align: right;
+}
+
+[dir="rtl"] .rs-post-quote-box {
+  border-right: 4px solid var(--primaryColor);
+  border-left: none;
+  padding-right: 20px;
+  padding-left: 0;
+}
+
+[dir="rtl"] .rs-has-check-icon li::before {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+/* Arabic font override */
+[dir="rtl"] body {
+  font-family: var(--font-noto-arabic), "Inter Tight", sans-serif;
+}
+
+[dir="rtl"] .font-title,
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3,
+[dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+  font-family: var(--font-noto-arabic), "Inter Tight", sans-serif;
+}
+
+/* Flip arrow icons for RTL */
+[dir="rtl"] .ri-arrow-right-line,
+[dir="rtl"] .hero-view-all-btn svg,
+[dir="rtl"] .fpg-btn-wrapper svg {
+  transform: scaleX(-1);
+}
+
+/* RTL tag cloud scroll */
+[dir="rtl"] .tag-cloud-track {
+  transform: translateX(0) !important;
+}
+
+/* RTL newsletter arrow */
+[dir="rtl"] .newsletter-arrow {
+  transform: scaleX(-1);
+}
+
+/* RTL contact send button arrow */
+[dir="rtl"] .is-btn::after {
+  transform: scaleX(-1);
+}

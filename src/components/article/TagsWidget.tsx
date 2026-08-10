@@ -1,9 +1,12 @@
+import { useTranslations } from "@/hooks/useTranslations";
+
 export default function TagsWidget({ tags }: { tags: string[] }) {
+  const t = useTranslations();
   return (
     <div>
       <div className="flex items-center gap-[10px] mb-[20px]">
         <h3 className="font-title text-black text-[18px] font-bold whitespace-nowrap">
-          Tags
+          {t("sidebar.tags")}
         </h3>
         <span className="w-[8px] h-[8px] rotate-45 bg-[#0073FF] flex-shrink-0"></span>
         <div className="flex-1 flex flex-col gap-[4px]">

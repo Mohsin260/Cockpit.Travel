@@ -3,6 +3,8 @@
 import { useState, type ReactElement } from "react";
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import { useTranslations } from "@/hooks/useTranslations";
+import { formatDate as formatDateLocale } from "@/lib/dateFormat";
 
 interface Article {
   slug: string;
@@ -47,8 +49,7 @@ function getHref(article: Article) {
 
 function formatDate(dateStr: string) {
   try {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    return formatDateLocale(dateStr, { year: "numeric", month: "long", day: "numeric" });
   } catch {
     return dateStr;
   }
@@ -123,7 +124,14 @@ function TabItem({ post }: { post: Article }) {
 }
 
 export default function TopOfWeek({ articles, recentArticles, popularArticles, trendyArticles, categories, tags }: TopOfWeekProps) {
+  const t = useTranslations();
   const [activeTab, setActiveTab] = useState<TabKey>("recent");
+
+  const tabLabels: { key: TabKey; label: string }[] = [
+    { key: "recent", label: t("article.recent") },
+    { key: "popular", label: t("article.popular") },
+    { key: "trendy", label: t("home.trendingNow") },
+  ];
 
   const tabData: Record<TabKey, Article[]> = {
     recent: recentArticles,
@@ -135,9 +143,9 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
     <section className="top-of-week-section py-[60px] bg-white">
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[28px] font-bold text-[var(--titleColor)]">Destinations</h2>
+          <h2 className="text-[28px] font-bold text-[var(--titleColor)]">{t("sections.destinations")}</h2>
           <Link href="/category/destinations" className="group inline-flex items-center gap-2 text-[var(--titleColor)] font-semibold text-base no-underline relative">
-            <span>View All</span>
+            <span>{t("common.viewAll")}</span>
             <span className="inline-flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 12" className="w-[18px] h-3 fill-current">
                 <path fillRule="evenodd" clipRule="evenodd" d="M16.2079 5.0991C14.0115 5.0991 12.0097 3.0991 12.0097 0.900901V0H10.2079V0.900901C10.2079 2.4991 10.9088 3.9982 12.0088 5.0991H0.892578V6.9009H12.0088C10.9088 8.0018 10.2079 9.5009 10.2079 11.0991V12H12.0097V11.0991C12.0097 8.9018 14.0115 6.9009 16.2079 6.9009H17.1088V5.0991H16.2079Z" />
@@ -186,7 +194,7 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
             </div>
 
             <div className="bg-[var(--cardBg,#f9fafb)] rounded-[12px] p-[24px]">
-              <h4 className="text-[16px] font-bold text-[var(--titleColor)] mb-[16px]">Tags</h4>
+              <h4 className="text-[16px] font-bold text-[var(--titleColor)] mb-[16px]">{t("sidebar.tags")}</h4>
               <div className="flex flex-wrap gap-[8px]">
                 {tags.map((tag, i) => (
                   <Link

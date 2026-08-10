@@ -7,6 +7,8 @@ import "swiper/swiper-bundle.css";
 import Link from "next/link";
 import { generateSlug } from "@/lib/slug";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import { useTranslations } from "@/hooks/useTranslations";
+import { formatDate as formatDateLocale } from "@/lib/dateFormat";
 
 interface Article {
   slug: string;
@@ -41,14 +43,14 @@ function getHref(article: Article) {
 
 function formatDate(dateStr: string) {
   try {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    return formatDateLocale(dateStr, { year: "numeric", month: "long", day: "numeric" });
   } catch {
     return dateStr;
   }
 }
 
 export default function Hero({ featured, featuredCards, recentNews }: HeroProps) {
+  const t = useTranslations();
   const featuredColor = categoryColors[featured.category] || "#f27100";
 
   return (
@@ -94,7 +96,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
               </li>
             </ul>
             <div className="fpg-btn-wrapper">
-              <Link href={getHref(featured)}>Read Article</Link>
+              <Link href={getHref(featured)}>{t("hero.readArticle")}</Link>
             </div>
           </div>
 
@@ -173,10 +175,10 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
 
         <div className="hero-recent">
           <div className="hero-recent-header">
-            <h4>Recent News</h4>
+            <h4>{t("hero.recentNews")}</h4>
             <Link href="/blog" className="hero-view-all-btn">
-              <span className="button-text" data-text="View All">
-                View All
+              <span className="button-text" data-text={t("hero.viewAll")}>
+                {t("hero.viewAll")}
               </span>
               <span className="button-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 12">

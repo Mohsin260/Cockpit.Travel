@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { cookies } from "next/headers";
 import { AuthProvider } from "@/components/providers/auth-provider";
+import { DEPLOYMENT_LOCALE, isRtl } from "@/lib/i18n";
 
 export const metadata: Metadata = {
   title: {
@@ -31,9 +32,11 @@ export default async function DashboardLayout({
   const sidebarCookie = cookieStore.get("sidebar_state")?.value;
   const defaultOpen = sidebarCookie === "true" || sidebarCookie === undefined;
 
+  const dir = isRtl(DEPLOYMENT_LOCALE) ? "rtl" : "ltr";
+
   return (
     <div
-      dir="ltr"
+      dir={dir}
       className={cn(
         "min-h-screen w-full bg-background font-sans text-foreground antialiased flex",
         activeThemeValue ? `theme-${activeThemeValue}` : "",

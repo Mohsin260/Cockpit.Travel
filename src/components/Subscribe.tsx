@@ -1,12 +1,9 @@
 "use client";
 
+import { useTranslations } from "@/hooks/useTranslations";
+
 export default function Subscribe() {
-  const heading = "Subscribe to our newsletter";
-  const placeholder = "Enter your email";
-  const buttonText = "Subscribe";
-  const consentText = "I agree to the";
-  const termsLink = "/terms-of-service";
-  const termsText = "Terms & Conditions";
+  const t = useTranslations();
 
   return (
     <section className="pb-[80px] bg-white">
@@ -30,7 +27,7 @@ export default function Subscribe() {
           <div className="relative z-[2] flex items-center justify-between px-[24px] md:px-[40px] py-[38px]">
             <div className="w-full max-w-[470px] relative z-10">
               <h3 className="text-white text-[22px] md:text-[24px] font-bold leading-none mb-[22px]">
-                {heading}
+                {t("newsletter.title")}
               </h3>
 
               <form onSubmit={(e) => e.preventDefault()}>
@@ -38,14 +35,14 @@ export default function Subscribe() {
                   <input
                     type="email"
                     required
-                    placeholder={placeholder}
+                    placeholder={t("newsletter.emailPlaceholder")}
                     className="w-full h-full bg-transparent outline-none border-none pl-[18px] pr-[150px] text-[15px] text-[#1f2937] placeholder:text-[#9b9b9b]"
                   />
                   <button
                     type="submit"
                     className="absolute right-[4px] top-[4px] bottom-[4px] px-[26px] rounded-[6px] bg-[#0d6efd] hover:bg-[#0052cc] transition-all duration-300 inline-flex items-center justify-center gap-2 text-white font-medium text-[15px]"
                   >
-                    <span>{buttonText}</span>
+                    <span>{t("newsletter.subscribe")}</span>
                     <span className="inline-flex items-center overflow-hidden w-[16px] h-[16px] relative">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -69,12 +66,12 @@ export default function Subscribe() {
                     className="w-[15px] h-[15px] rounded-[3px] border border-white/50 bg-transparent accent-[#0d6efd]"
                   />
                   <span>
-                    {consentText}{" "}
+                    {t("newsletter.subscribe")}{" "}
                     <a
-                      href={termsLink}
+                      href="/terms-of-service"
                       className="underline hover:opacity-70 transition-opacity"
                     >
-                      {termsText}
+                      {t("footer.termsAgreements")}
                     </a>
                   </span>
                 </label>

@@ -7,6 +7,13 @@ import TopStories from "@/components/TopStories";
 import Subscribe from "@/components/Subscribe";
 import Footer from "@/components/Footer";
 import AdSlot from "@/components/ui/AdSlot";
+import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
+
+const tagsByLocale: Record<string, string[]> = {
+  en: ["Hotels", "Flights", "Destinations", "Traveling", "Travel Intelligence", "Budget", "Luxury", "Adventure", "Culture", "Food"],
+  es: ["Hoteles", "Vuelos", "Destinos", "Viajes", "Inteligencia de Viajes", "Presupuesto", "Lujo", "Aventura", "Cultura", "Gastronomía"],
+  ar: ["الفنادق", "الرحلات", "الوجهات", "السفر", "معلومات السفر", "الميزانية", "الفخامة", "المغامرة", "الثقافة", "الطعام"],
+};
 
 export default function HomeTemplate({ articles, categories }: { articles: any[]; categories: any[]; [key: string]: any }) {
   const hotelArticles = articles.filter((a: any) => a.category === "hotels");
@@ -56,7 +63,7 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
             return ((b.views || 0) * bRecency) - ((a.views || 0) * aRecency);
           }).slice(0, 4)}
           categories={categories}
-          tags={["Hotels", "Flights", "Destinations", "Traveling", "Travel Intelligence", "Budget", "Luxury", "Adventure", "Culture", "Food"]}
+          tags={tagsByLocale[DEPLOYMENT_LOCALE] || tagsByLocale.en}
         />
 
         <AdSlot pageType="homepage" position="mid-leaderboard-4" />

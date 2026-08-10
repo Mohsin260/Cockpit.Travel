@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "@/hooks/useTranslations";
 
 export default function SearchWidget() {
+  const t = useTranslations();
   const [query, setQuery] = useState("");
 
   return (
@@ -11,7 +13,7 @@ export default function SearchWidget() {
         <form className="relative">
           <input
             type="search"
-            placeholder="Search Keyword..."
+            placeholder={t("common.searchPlaceholder")}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full h-[44px] border-none rounded-none bg-shade px-[15px] pr-[55px] text-[15px] text-bodyColor placeholder:text-bodyColor outline-none font-body"

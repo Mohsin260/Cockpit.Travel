@@ -1,3 +1,5 @@
+import { useTranslations } from "@/hooks/useTranslations";
+
 const fallbackImages: Record<string, string> = {
   Hotels: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
   Flights: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=400&h=300&fit=crop",
@@ -11,11 +13,12 @@ export default function CategoriesWidget({
 }: {
   categories: { name: string; count: number; href: string; image?: string }[];
 }) {
+  const t = useTranslations();
   return (
     <div>
       <div className="flex items-center gap-[10px] mb-[20px]">
         <h3 className="font-title text-black text-[18px] font-bold whitespace-nowrap">
-          Explore Categories
+          {t("sidebar.exploreCategories")}
         </h3>
         <span className="w-[8px] h-[8px] rotate-45 bg-[#0073FF] flex-shrink-0"></span>
         <div className="flex-1 flex flex-col gap-[4px]">

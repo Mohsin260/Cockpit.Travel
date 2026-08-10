@@ -29,17 +29,25 @@ function stripMongoId(obj: any): any {
   return obj;
 }
 
+function isVideoUrl(url?: string): boolean {
+  if (!url) return false;
+  const cleanUrl = url.split('?')[0].toLowerCase();
+  return cleanUrl.endsWith('.mp4') || cleanUrl.endsWith('.webm') || cleanUrl.endsWith('.mov') || cleanUrl.endsWith('.m4v');
+}
+
 function mapArticle(article: any): Article {
-  const heroMediaUrl =
-    article.articleMedia?.heroCoverMedia?.url || article.image || article.entity_A?.image || "";
+  const rawUrl = article.articleMedia?.heroCoverMedia?.url || "";
+  const poster = article.articleMedia?.heroCoverMedia?.poster || "";
+  // For <img> tags on cards: use poster when URL is a video
+  const imageForCards = isVideoUrl(rawUrl) && poster
+    ? poster
+    : rawUrl || poster || article.image || article.entity_A?.image || "";
 
   const articleMedia = { ...(article.articleMedia || {}) };
   if (!articleMedia.heroCoverMedia) {
     articleMedia.heroCoverMedia = {};
   }
-  if (!articleMedia.heroCoverMedia.url && heroMediaUrl) {
-    articleMedia.heroCoverMedia = { ...articleMedia.heroCoverMedia, url: heroMediaUrl };
-  }
+  // Keep heroCoverMedia.url as the original URL so article pages can play the video
 
   return {
     id: article._id?.toString?.() || article.id || "",
@@ -52,7 +60,7 @@ function mapArticle(article: any): Article {
     authorName: article.authorName,
     date: article.date,
     readTime: article.readTime,
-    image: heroMediaUrl,
+    image: imageForCards,
     featured: article.featured,
     tags: article.tags,
     views: article.views,

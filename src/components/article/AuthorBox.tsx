@@ -6,11 +6,17 @@ export default function AuthorBox({
   return (
     <div className="rstb-author-info-box flex flex-col sm:flex-row items-center sm:items-start mb-[30px] bg-shade rounded-[8px] p-[30px] sm:pr-[120px]">
       <div className="author-avatar flex-shrink-0 mb-[20px] sm:mb-0 sm:mr-[30px]">
-        <img
-          src={author.avatar}
-          alt={author.name}
-          className="w-[160px] h-[160px] rounded-full object-cover border-[5px] border-white"
-        />
+        {author.avatar ? (
+          <img
+            src={author.avatar}
+            alt={author.name}
+            className="w-[160px] h-[160px] rounded-full object-cover border-[5px] border-white"
+          />
+        ) : (
+          <div className="w-[160px] h-[160px] rounded-full bg-primary/10 border-[5px] border-white flex items-center justify-center">
+            <span className="text-4xl font-bold text-primary">{author.name?.charAt(0) || "A"}</span>
+          </div>
+        )}
       </div>
       <div className="author-desc flex-1 text-center sm:text-left">
         <h3 className="author-name font-title text-titleColor text-[20px] font-bold mb-[7px]">

@@ -15,6 +15,7 @@ import FollowWidget from "@/components/article/FollowWidget";
 import TagsWidget from "@/components/article/TagsWidget";
 import SearchWidget from "@/components/article/SearchWidget";
 import AdSlot from "@/components/ui/AdSlot";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface ArticleTemplateProps {
   article: any;
@@ -25,6 +26,7 @@ interface ArticleTemplateProps {
 }
 
 export default function ArticleTemplate({ article, related, categories, trending, recent }: ArticleTemplateProps) {
+  const t = useTranslations();
   if (!article) return null;
 
   const sidebarCategories = (categories || []).map((c: any) => ({
@@ -39,7 +41,7 @@ export default function ArticleTemplate({ article, related, categories, trending
       <AdSlot pageType="article" position="top-leaderboard" articleSlug={article.slug} />
       <div className="flex flex-col lg:flex-row gap-[30px] items-start">
         <div className="w-full lg:w-[67%] min-w-0">
-          <FeaturedImage src={article.articleMedia?.heroCoverMedia?.url || article.featuredImage} alt={article.title} />
+          <FeaturedImage src={article.articleMedia?.heroCoverMedia?.url || article.featuredImage} poster={article.articleMedia?.heroCoverMedia?.poster} vastTagUrl={article.articleMedia?.heroCoverMedia?.vastTagUrl} alt={article.title} />
           <ArticleTitle title={article.title} />
           <PostMeta
             author={{ name: article.authorName || "Admin", avatar: article.authorAvatar || "https://media.licdn.com/dms/image/v2/D4E03AQEZDHRQ7O0C2w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714234759381?e=1787788800&v=beta&t=BQdZSVLBXmNimnQbwknQXQh5QEpHnPOzNRMsbOIK4Uo" }}
@@ -68,10 +70,10 @@ export default function ArticleTemplate({ article, related, categories, trending
           />
           <CategoriesWidget categories={sidebarCategories} />
           <FollowWidget socialCards={[
-            { name: "Facebook", followers: "Follow Us", color: "#0073FF", icon: "facebook" },
-            { name: "Twitter", followers: "Follow Us", color: "#121213", icon: "twitter" },
-            { name: "Instagram", followers: "Follow Us", color: "linear-gradient(29deg, #BE08AF 0%, #F10811 100%)", icon: "instagram" },
-            { name: "LinkedIn", followers: "Follow Us", color: "#0077B5", icon: "linkedin" },
+            { name: "Facebook", followers: t("sidebar.followUs"), color: "#0073FF", icon: "facebook" },
+            { name: "Twitter", followers: t("sidebar.followUs"), color: "#121213", icon: "twitter" },
+            { name: "Instagram", followers: t("sidebar.followUs"), color: "linear-gradient(29deg, #BE08AF 0%, #F10811 100%)", icon: "instagram" },
+            { name: "LinkedIn", followers: t("sidebar.followUs"), color: "#0077B5", icon: "linkedin" },
           ]} />
           <TagsWidget tags={article.tags || []} />
         </aside>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import { useTranslations } from "@/hooks/useTranslations";
 
 const socialIcons: Record<string, { path: string; viewBox: string }> = {
   facebook: {
@@ -42,11 +43,12 @@ export default function FollowWidget({
 }: {
   socialCards: { name: string; followers: string; color: string; icon: string }[];
 }) {
+  const t = useTranslations();
   return (
     <div>
       <div className="flex items-center gap-[10px] mb-[20px]">
         <h4 className="elementor-heading-title text-[18px] font-bold text-black whitespace-nowrap">
-          Follow Us
+          {t("sidebar.followUs")}
         </h4>
         <span className="w-[8px] h-[8px] rotate-45 bg-[#0073FF] flex-shrink-0"></span>
         <div className="flex-1 flex flex-col gap-[4px]">

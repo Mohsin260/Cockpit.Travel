@@ -23,7 +23,36 @@
     "join": "Únete",
     "followers": "seguidores",
     "subscribers": "suscriptores",
-    "articles": "artículos"
+    "articles": "artículos",
+    "views": "vistas",
+    "by": "Por",
+    "search": "Buscar",
+    "clearFilter": "Limpiar filtro",
+    "relevance": "Relevancia",
+    "resultsFor": "Resultados para",
+    "noResults": "Sin resultados para",
+    "enterKeyword": "Ingresa una palabra clave para encontrar artículos.",
+    "tryDifferent": "Intenta con otras palabras clave o explora nuestras categorías.",
+    "savedArticle": "artículo guardado",
+    "savedArticles": "artículos guardados"
+  },
+  "nav": {
+    "home": "Inicio",
+    "features": "Destacados",
+    "flights": "Vuelos",
+    "pages": "Páginas",
+    "contact": "Contacto",
+    "staticLegal": "Estáticos y Legales",
+    "aboutUs": "Sobre nosotros",
+    "categoryLayout": "Diseño de categoría",
+    "postLayout": "Diseño de publicación",
+    "privacyPolicy": "Política de Privacidad y GDPR/CCPA",
+    "termsOfService": "Términos de Servicio",
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "author": "Autor",
+    "latest": "Últimas",
+    "popular": "Populares"
   },
   "header": {
     "contact": "Contacto",
@@ -43,7 +72,36 @@
     "hqLocation": "Nueva York, EE.UU. (Sede central)",
     "address": "1123 Fictional St, San Francisco, CA 94103",
     "tollFree": "Sin cargos",
-    "callLabel": "Llamar"
+    "callLabel": "Llamar",
+    "searchPlaceholder": "Buscar...",
+    "liveNews": "Noticias en vivo",
+    "offcanvasDesc": "Tu socio de confianza para encontrar las mejores ofertas de vuelos, reservas de hoteles e inspiración de viajes en todo el mundo.",
+    "quickContact": "Contacto rápido:",
+    "getInTouch": "Ponte en contacto"
+  },
+  "ticker": {
+    "news1": "Dubai lanza nuevas rutas de vuelo directo a 12 destinos asiáticos",
+    "news2": "Resort en Maldives abre restaurante y spa submarino",
+    "news3": "Precios de pases de tren europeos reducidos para la temporada de invierno 2026",
+    "news4": "Nuevo acuerdo de viaje sin visado firmado entre India y Japón",
+    "news5": "Bali introduce tarifa de sostenibilidad turística a partir del próximo mes",
+    "news6": "Cockpit Travel clasificado como el mejor sitio de comparación de vuelos en Asia"
+  },
+  "tags": {
+    "flights": "Vuelos",
+    "hotels": "Hoteles",
+    "beach": "Playa",
+    "adventure": "Aventura",
+    "cruises": "Cruceros",
+    "backpacking": "Mochileo",
+    "luxury": "Lujo",
+    "budget": "Económico",
+    "solo": "Solo",
+    "family": "Familia",
+    "europe": "Europa",
+    "asia": "Asia",
+    "travel": "Viajes",
+    "visa": "Visa"
   },
   "footer": {
     "getMyApp": "Obtener mi app",
@@ -57,7 +115,17 @@
     "privacyPolicy": "Política de Privacidad",
     "copyright": "Copyright@2025 Cockpit.Travel",
     "deepDiveDescription": "Tu fuente de confianza para noticias de viajes, guías de destinos, reseñas de hoteles y actualizaciones de vuelos.",
-    "loremDescription": "Es un hecho establecido de largo tiempo que un lector se distraerá con el contenido legible de una página cuando mire su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de letras, a diferencia de."
+    "loremDescription": "Es un hecho establecido de largo tiempo que un lector se distraerá con el contenido legible de una página cuando mire su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de letras, a diferencia de.",
+    "topCategories": "Principales categorías",
+    "tags": "Etiquetas",
+    "privacyPolicyLink": "Política de privacidad",
+    "termsAgreements": "Términos y acuerdos",
+    "hotels": "Hoteles",
+    "flights": "Vuelos",
+    "destinations": "Destinos",
+    "traveling": "Viajes",
+    "travelIntelligence": "Inteligencia de viajes",
+    "poweredBy": "Desarrollado por"
   },
   "consent": {
     "title": "Aviso de Cookies y Consentimiento",
@@ -98,7 +166,10 @@
     "followUs": "Síguenos",
     "emailUs": "Envíanos un correo",
     "pressMedia": "Prensa y Medios",
-    "submitTip": "Enviar una noticia"
+    "submitTip": "Enviar una noticia",
+    "twitter": "Twitter",
+    "facebook": "Facebook",
+    "instagram": "Instagram"
   },
   "home": {
     "viewAllCategories": "Ver todas las categorías",
@@ -115,6 +186,18 @@
     "latestVideoNews": "Últimas noticias en video",
     "calendar": "Calendario",
     "trendingTopics": "Temas tendencia"
+  },
+  "hero": {
+    "recentNews": "Noticias recientes",
+    "viewAll": "Ver todo",
+    "readArticle": "Leer artículo"
+  },
+  "sections": {
+    "hotels": "Hoteles",
+    "destinations": "Destinos",
+    "flights": "Vuelos",
+    "travelIntelligence": "Inteligencia de viajes",
+    "viewChannel": "Ver canal"
   },
   "homepage": {
     "title": "Configuración de Página Principal",
@@ -180,7 +263,8 @@
     "linkCopied": "¡Enlace copiado al portapapeles!",
     "recent": "Reciente",
     "popular": "Popular",
-    "random": "Aleatorio"
+    "random": "Aleatorio",
+    "categories": "Categorías"
   },
   "comparison": {
     "verdict": "Veredicto",
@@ -234,6 +318,23 @@
     "failedToSubscribe": "Error al suscribirse",
     "unexpectedError": "Ocurrió un error inesperado"
   },
+  "newsletterPage": {
+    "emailAddress": "Correo electrónico",
+    "alertPreferences": "Preferencias de alertas",
+    "priceDropAlerts": "Alertas de bajada de precio",
+    "verdictChangeAlerts": "Alertas de cambio de veredicto",
+    "doubleOptIn": "Se requiere doble confirmación. Puedes cancelar tu suscripción en cualquier momento. Solo almacenamos tu correo electrónico, idioma y preferencias de alertas. Consulta nuestra Política de Privacidad para más detalles.",
+    "confirmCheckEmail": "Por favor revisa tu correo electrónico para confirmar tu suscripción (se requiere doble confirmación). Recibirás alertas de bajada de precio y cambios de veredicto según tus preferencias."
+  },
+  "bookmarks": {
+    "title": "Mis marcadores",
+    "noBookmarks": "Aún no hay marcadores",
+    "saveToReadLater": "Guarda artículos para leerlos más tarde.",
+    "browseArticles": "Explorar artículos →"
+  },
+  "searchPage": {
+    "emailAddress": "Correo electrónico"
+  },
   "pagesCategories": {
     "business": "Negocios",
     "technology": "Tecnología",
@@ -282,7 +383,10 @@
     "loadingTrending": "Cargando artículos tendencia...",
     "loadingCategories": "Cargando categorías...",
     "loadingTags": "Cargando etiquetas...",
-    "loadingRecent": "Cargando publicaciones recientes..."
+    "loadingRecent": "Cargando publicaciones recientes...",
+    "exploreCategories": "Explorar categorías",
+    "followUs": "Síguenos",
+    "tags": "Etiquetas"
   },
   "widgets": {
     "weather": {
@@ -307,5 +411,86 @@
     },
     "tags": "Etiquetas",
     "topStories": "Principales historias"
+  },
+  "aboutUs": {
+    "title": "Sobre nosotros",
+    "breadcrumbLabel": "Páginas",
+    "intro": "Bienvenido a Cockpit.Travel — tu fuente confiable de noticias de viajes, análisis en profundidad y cobertura completa de destinos de todo el mundo.",
+    "founded": "Fundado con pasión por el periodismo de viajes, ofrecemos reportajes oportunos y precisos sobre múltiples temas incluyendo vuelos, hoteles, destinos, inteligencia de viajes y tendencias emergentes en la industria turística.",
+    "team": "Nuestro equipo de periodistas y analistas experimentados trabajan las 24 horas para traerte noticias de última hora, entrevistas exclusivas y comentarios perspicaces que te mantienen informado y conectado con el mundo de los viajes.",
+    "missionTitle": "Nuestra Misión",
+    "mission": "Proporcionar a los lectores cobertura de viajes honesta, precisa y atractiva que informe, inspire y conecte a viajeros de todo el mundo. Creemos en el poder de los viajes para unir a las personas y contar historias que importan.",
+    "teamTitle": "Nuestro Equipo",
+    "teamDesc": "Nuestro equipo editorial está compuesto por periodistas de viajes veteranos, analistas de datos y especialistas multimedia que comparten un objetivo común: ofrecer contenido de viajes de la más alta calidad a nuestros lectores cada día."
+  },
+  "privacyPage": {
+    "title": "Política de Privacidad",
+    "lastUpdated": "Última actualización",
+    "introTitle": "Introducción",
+    "introText": "Cockpit.Travel (\"nosotros\", \"nuestro\" o \"nos\") se compromete a proteger su privacidad. Esta Política de Privacidad explica cómo recopilamos, usamos, divulgamos y protegemos su información cuando visita nuestro sitio web.",
+    "collectTitle": "Información que recopilamos",
+    "collectText": "Podemos recopilar información sobre usted de diversas maneras. La información que podemos recopilar en el Sitio incluye:",
+    "personalData": "Datos personales: Información de identificación personal, como su nombre y dirección de correo electrónico, que nos proporciona voluntariamente cuando nos contacta o se suscribe a nuestro boletín.",
+    "derivativeData": "Datos derivados: Información que nuestros servidores recopilan automáticamente cuando accede al Sitio, como su dirección IP, tipo de navegador, sistema operativo, horarios de acceso y las páginas que ha visitado.",
+    "financialData": "Datos financieros: Información financiera, como datos relacionados con su método de pago, que podemos recopilar cuando compra, solicita o solicita información sobre nuestros servicios.",
+    "socialData": "Datos de redes sociales: Información de usuarios de sitios de redes sociales, como Facebook, Twitter, Instagram, incluyendo su nombre, nombre de usuario de la red social y foto de perfil.",
+    "useTitle": "Uso de su información",
+    "useText": "Tener información precisa sobre usted nos permite brindarle una experiencia fluida, eficiente y personalizada. Específicamente, podemos usar la información recopilada sobre usted a través del Sitio para:",
+    "useItems": [
+      "Crear y gestionar su cuenta",
+      "Enviar correos electrónicos sobre su cuenta o pedido",
+      "Cumplir y gestionar compras, pedidos, pagos y otras transacciones",
+      "Generar un perfil personal sobre usted para hacer futuras visitas más personalizadas",
+      "Aumentar la eficiencia y operación del Sitio",
+      "Monitorear y analizar el uso y las tendencias para mejorar su experiencia",
+      "Notificarle sobre actualizaciones del Sitio",
+      "Realizar otras actividades comerciales según sea necesario"
+    ],
+    "disclosureTitle": "Divulgación de su información",
+    "disclosureText": "Podemos compartir la información que hemos recopilado sobre usted en ciertas situaciones. Su información puede divulgarse de la siguiente manera:",
+    "lawDisclosure": "Por ley o para proteger derechos: Si creemos que la divulgación de información es necesaria para cumplir con la ley o proteger nuestros derechos.",
+    "thirdPartyDisclosure": "Proveedores de servicios de terceros: Podemos compartir su información con terceros que realizan servicios por nosotros o en nuestro nombre.",
+    "marketingDisclosure": "Comunicaciones de marketing: Con su consentimiento, podemos compartir su información con terceros para fines de marketing.",
+    "businessDisclosure": "Transferencias comerciales: Podemos compartir o transferir su información en relación con una fusión, venta o adquisición.",
+    "cookiesTitle": "Cookies y tecnologías de rastreo",
+    "cookiesText": "Podemos usar cookies, balizas web, píxeles de rastreo y otras tecnologías de rastreo en el Sitio para ayudar a personalizar el Sitio y mejorar su experiencia. Cuando accede al Sitio, su información personal no se recopila a través del uso de tecnología de rastreo. La mayoría de los navegadores están configurados para aceptar cookies de forma predeterminada. Puede eliminar o rechazar cookies, pero tenga en cuenta que dicha acción podría afectar la disponibilidad y funcionalidad del Sitio.",
+    "securityTitle": "Seguridad de su información",
+    "securityText": "Usamos medidas de seguridad administrativas, técnicas y físicas para ayudar a proteger su información personal. Si bien hemos tomado pasos razonables para asegurar la información personal que nos proporciona, tenga en cuenta que a pesar de nuestros esfuerzos, ninguna medida de seguridad es perfecta o impenetrable.",
+    "contactTitle": "Contáctenos",
+    "contactText": "Si tiene preguntas o comentarios sobre esta Política de Privacidad, por favor contáctenos en:"
+  },
+  "termsPage": {
+    "title": "Términos y Servicios",
+    "lastUpdated": "Última actualización",
+    "agreementTitle": "Acuerdo con los términos",
+    "agreementText": "Al acceder y usar Cockpit.Travel (\"el Sitio\"), usted acepta y acepta estar sujeto a los términos y disposiciones de este acuerdo. Si no está de acuerdo con lo anterior, por favor no use este servicio.",
+    "licenseTitle": "Licencia de uso",
+    "licenseText": "Se otorga permiso para descargar temporalmente una copia de los materiales (información o software) en Cockpit.Travel únicamente para visualización transitoria personal y no comercial. Esta es la concesión de una licencia, no una transferencia de título, y bajo esta licencia usted no puede:",
+    "licenseItems": [
+      "Modificar o copiar los materiales",
+      "Usar los materiales para cualquier propósito comercial o para cualquier exhibición pública (comercial o no comercial)",
+      "Intentar descompilar o realizar ingeniería inversa de cualquier software contenido en el Sitio",
+      "Eliminar cualquier notificación de copyright u otras notificaciones propietarias de los materiales",
+      "Transferir los materiales a otra persona o \"espejo\" los materiales en cualquier otro servidor"
+    ],
+    "disclaimerTitle": "Descargo de responsabilidad",
+    "disclaimerText": "Los materiales en Cockpit.Travel se proporcionan en una base 'tal cual'. Cockpit.Travel no ofrece garantías, expresas o implícitas, y por la presente niega y rechaza todas las demás garantías incluyendo, sin limitación, garantías implícitas o condiciones de comerciabilidad, idoneidad para un propósito particular, o no infracción de propiedad intelectual u otra violación de derechos.",
+    "limitationsTitle": "Limitaciones",
+    "limitationsText": "En ningún caso Cockpit.Travel o sus proveedores serán responsables por cualquier daño (incluyendo, sin limitación, daños por pérdida de datos o beneficios, o debido a interrupción del negocio) que surja del uso o la incapacidad de usar los materiales en el Sitio, incluso si Cockpit.Travel o un representante autorizado ha sido notificado oralmente o por escrito de la posibilidad de dicho daño.",
+    "accuracyTitle": "Precisión de los materiales",
+    "accuracyText": "Los materiales que aparecen en el Sitio pueden incluir errores técnicos, tipográficos o fotográficos. Cockpit.Travel no garantiza que cualquiera de los materiales en su sitio web sean precisos, completos o actuales. Cockpit.Travel puede hacer cambios en los materiales contenidos en su sitio web en cualquier momento sin previo aviso.",
+    "linksTitle": "Enlaces",
+    "linksText": "Cockpit.Travel no ha revisado todos los sitios enlazados a su sitio web y no es responsable del contenido de ningún sitio enlazado. La inclusión de cualquier enlace no implica respaldo por parte de Cockpit.Travel del sitio. El uso de cualquier sitio web enlazado es bajo su propio riesgo.",
+    "modificationsTitle": "Modificaciones",
+    "modificationsText": "Cockpit.Travel puede revisar estos términos de servicio para su sitio web en cualquier momento sin previo aviso. Al usar este sitio web, usted acepta estar sujeto a la versión actual de estos términos de servicio.",
+    "governingLawTitle": "Ley aplicable",
+    "governingLawText": "Estos términos y condiciones están regidos e interpretados de acuerdo con las leyes y usted se somete irrevocablemente a la jurisdicción exclusiva de los tribunales en esa ubicación.",
+    "contactInfoTitle": "Información de contacto",
+    "contactInfoText": "Si tiene alguna pregunta sobre estos Términos, por favor contáctenos en:"
+  },
+  "blogPage": {
+    "title": "Blog",
+    "description": "Todos los artículos en Cockpit.Travel — noticias de viajes, guías de destinos y cobertura en profundidad.",
+    "allArticles": "Todos los artículos"
   }
 }

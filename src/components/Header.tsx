@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface NavChild {
   label: string;
@@ -19,135 +20,14 @@ interface NavItem {
   children?: NavChild[];
 }
 
-const navItems: NavItem[] = [
-  { label: "Home", href: "/" },
-  {
-    label: "Features",
-    hasMegaMenu: true,
-    children: [
-      { label: "Best beach resorts in Maldives", href: "#" },
-      { label: "Top 10 budget cities in Europe", href: "#" },
-      { label: "Hidden gems of Southeast Asia", href: "#" },
-      { label: "Luxury safari lodges in Kenya", href: "#" },
-      { label: "Weekend getaways from Dubai", href: "#" },
-      { label: "Solo travel safety tips 2026", href: "#" },
-    ],
-  },
-  {
-    label: "Flights",
-    hasMegaMenu: true,
-    children: [
-      { label: "Cheap flights to Bali", href: "#" },
-      { label: "Business class deals from India", href: "#" },
-      { label: "Direct flights to Maldives", href: "#" },
-      { label: "Airline reviews and ratings", href: "#" },
-    ],
-  },
-  {
-    label: "Pages",
-    hasSubMenu: true,
-    children: [
-      { label: "About Us", href: "/about-us" },
-      { label: "Author", href: "/author" },
-      {
-        label: "Category Layout", href: "#", hasSubMenu: true,
-        children: [
-          { label: "Category Layout 01", href: "/category/athletics" },
-          { label: "Category Layout 02", href: "/category/basketball" },
-          { label: "Category Layout 03", href: "/category/cricket" },
-          { label: "Category Layout 04", href: "/category/esports" },
-          { label: "Category Layout 05", href: "/category/football" },
-        ],
-      },
-      {
-        label: "Post Layout", href: "#", hasSubMenu: true,
-        children: [
-          { label: "Post Layout 01", href: "#" },
-          { label: "Post Layout 02", href: "#" },
-          { label: "Post Layout 03", href: "#" },
-          { label: "Post Layout 04", href: "#" },
-          { label: "Post Layout 05", href: "#" },
-          { label: "Post Layout 06", href: "#" },
-        ],
-      },
-    ],
-  },
-  { label: "Contact", href: "/contact" },
-  {
-    label: "Static & Legal",
-    hasSubMenu: true,
-    children: [
-      { label: "About Us", href: "/about-us" },
-      { label: "Privacy Policy & GDPR/CCPA", href: "/privacy-policy" },
-      { label: "Terms of Service", href: "/terms-of-service" },
-    ],
-  },
-];
-
 interface MobileNavItem {
   label: string;
   href?: string;
   children?: MobileNavItem[];
 }
 
-const mobileNavItems: MobileNavItem[] = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about-us" },
-  { label: "Author", href: "/author" },
-  {
-    label: "Pages",
-    children: [
-      {
-        label: "Category Layout",
-        children: [
-          { label: "Category Layout 01", href: "/category/athletics" },
-          { label: "Category Layout 02", href: "/category/basketball" },
-          { label: "Category Layout 03", href: "/category/cricket" },
-          { label: "Category Layout 04", href: "/category/esports" },
-          { label: "Category Layout 05", href: "/category/football" },
-        ],
-      },
-      {
-        label: "Post Layout",
-        children: [
-          { label: "Post Layout 01", href: "#" },
-          { label: "Post Layout 02", href: "#" },
-          { label: "Post Layout 03", href: "#" },
-          { label: "Post Layout 04", href: "#" },
-          { label: "Post Layout 05", href: "#" },
-        ],
-      },
-      { label: "Login", href: "/login" },
-      { label: "Register", href: "/register" },
-    ],
-  },
-  { label: "Contact", href: "/contact" },
-  {
-    label: "Static & Legal",
-    children: [
-      { label: "About Us", href: "/about-us" },
-      { label: "Privacy Policy & GDPR/CCPA", href: "/privacy-policy" },
-      { label: "Terms of Service", href: "/terms-of-service" },
-    ],
-  },
-];
-
-const tickerNews = [
-  "Dubai launches new direct flight routes to 12 Asian destinations",
-  "Maldives resort opens underwater restaurant and spa",
-  "European rail pass prices slashed for winter 2026 season",
-  "New visa-free travel agreement signed between India and Japan",
-  "Bali introduces tourist sustainability fee starting next month",
-  "Cockpit Travel ranked top flight comparison site in Asia",
-];
-
-const tags = [
-  "Flights", "Hotels", "Beach", "Adventure", "Cruises", "Backpacking",
-  "Luxury", "Budget", "Solo", "Family", "Europe", "Asia",
-  "Travel", "Visa",
-];
-
 export default function Header() {
+  const t = useTranslations();
   const [searchOpen, setSearchOpen] = useState(false);
   const [offcanvasOpen, setOffcanvasOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -158,6 +38,139 @@ export default function Header() {
   const searchRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const tagTrackRef = useRef<HTMLDivElement>(null);
+
+  const navItems = useMemo<NavItem[]>(() => [
+    { label: t("nav.home"), href: "/" },
+    {
+      label: t("nav.features"),
+      hasMegaMenu: true,
+      children: [
+        { label: t("ticker.news1"), href: "#" },
+        { label: t("ticker.news2"), href: "#" },
+        { label: t("ticker.news3"), href: "#" },
+        { label: t("ticker.news4"), href: "#" },
+        { label: t("ticker.news5"), href: "#" },
+        { label: t("ticker.news6"), href: "#" },
+      ],
+    },
+    {
+      label: t("nav.flights"),
+      hasMegaMenu: true,
+      children: [
+        { label: t("ticker.news1"), href: "#" },
+        { label: t("ticker.news2"), href: "#" },
+        { label: t("ticker.news3"), href: "#" },
+        { label: t("ticker.news4"), href: "#" },
+      ],
+    },
+    {
+      label: t("nav.pages"),
+      hasSubMenu: true,
+      children: [
+        { label: t("nav.aboutUs"), href: "/about-us" },
+        { label: t("nav.author"), href: "/author" },
+        {
+          label: t("nav.categoryLayout"), href: "#", hasSubMenu: true,
+          children: [
+            { label: "Category Layout 01", href: "/category/athletics" },
+            { label: "Category Layout 02", href: "/category/basketball" },
+            { label: "Category Layout 03", href: "/category/cricket" },
+            { label: "Category Layout 04", href: "/category/esports" },
+            { label: "Category Layout 05", href: "/category/football" },
+          ],
+        },
+        {
+          label: t("nav.postLayout"), href: "#", hasSubMenu: true,
+          children: [
+            { label: "Post Layout 01", href: "#" },
+            { label: "Post Layout 02", href: "#" },
+            { label: "Post Layout 03", href: "#" },
+            { label: "Post Layout 04", href: "#" },
+            { label: "Post Layout 05", href: "#" },
+            { label: "Post Layout 06", href: "#" },
+          ],
+        },
+      ],
+    },
+    { label: t("nav.contact"), href: "/contact" },
+    {
+      label: t("nav.staticLegal"),
+      hasSubMenu: true,
+      children: [
+        { label: t("nav.aboutUs"), href: "/about-us" },
+        { label: t("nav.privacyPolicy"), href: "/privacy-policy" },
+        { label: t("nav.termsOfService"), href: "/terms-of-service" },
+      ],
+    },
+  ], [t]);
+
+  const mobileNavItems = useMemo<MobileNavItem[]>(() => [
+    { label: t("nav.home"), href: "/" },
+    { label: t("nav.aboutUs"), href: "/about-us" },
+    { label: t("nav.author"), href: "/author" },
+    {
+      label: t("nav.pages"),
+      children: [
+        {
+          label: t("nav.categoryLayout"),
+          children: [
+            { label: "Category Layout 01", href: "/category/athletics" },
+            { label: "Category Layout 02", href: "/category/basketball" },
+            { label: "Category Layout 03", href: "/category/cricket" },
+            { label: "Category Layout 04", href: "/category/esports" },
+            { label: "Category Layout 05", href: "/category/football" },
+          ],
+        },
+        {
+          label: t("nav.postLayout"),
+          children: [
+            { label: "Post Layout 01", href: "#" },
+            { label: "Post Layout 02", href: "#" },
+            { label: "Post Layout 03", href: "#" },
+            { label: "Post Layout 04", href: "#" },
+            { label: "Post Layout 05", href: "#" },
+          ],
+        },
+        { label: t("nav.login"), href: "/login" },
+        { label: t("nav.register"), href: "/register" },
+      ],
+    },
+    { label: t("nav.contact"), href: "/contact" },
+    {
+      label: t("nav.staticLegal"),
+      children: [
+        { label: t("nav.aboutUs"), href: "/about-us" },
+        { label: t("nav.privacyPolicy"), href: "/privacy-policy" },
+        { label: t("nav.termsOfService"), href: "/terms-of-service" },
+      ],
+    },
+  ], [t]);
+
+  const tickerNews = useMemo(() => [
+    t("ticker.news1"),
+    t("ticker.news2"),
+    t("ticker.news3"),
+    t("ticker.news4"),
+    t("ticker.news5"),
+    t("ticker.news6"),
+  ], [t]);
+
+  const tags = useMemo(() => [
+    t("tags.flights"),
+    t("tags.hotels"),
+    t("tags.beach"),
+    t("tags.adventure"),
+    t("tags.cruises"),
+    t("tags.backpacking"),
+    t("tags.luxury"),
+    t("tags.budget"),
+    t("tags.solo"),
+    t("tags.family"),
+    t("tags.europe"),
+    t("tags.asia"),
+    t("tags.travel"),
+    t("tags.visa"),
+  ], [t]);
 
   const canGoPrev = tagOffset > 0;
   const canGoNext = tagOffset < maxTagOffset;
@@ -362,7 +375,7 @@ export default function Header() {
                               ))}
                             </div>
                             <div className="mega-menu-item">
-                              <div className="mega-menu-item-title">Latest</div>
+                              <div className="mega-menu-item-title">{t("nav.latest")}</div>
                               {item.children.slice(3).map((child) => (
                                 <Link key={child.label} href={child.href} className="mega-menu-item-link">
                                   {child.label}
@@ -370,7 +383,7 @@ export default function Header() {
                               ))}
                             </div>
                             <div className="mega-menu-item">
-                              <div className="mega-menu-item-title">Popular</div>
+                              <div className="mega-menu-item-title">{t("nav.popular")}</div>
                               {item.children.slice(0, 2).map((child) => (
                                 <Link key={child.label} href={child.href} className="mega-menu-item-link">
                                   {child.label}
@@ -451,7 +464,12 @@ export default function Header() {
                       </svg>
                     </button>
                     <div className="mobile-panel-logo">
-                      <Image src="/assets/images/logo.png" alt="logo" width={150} height={35} style={{ height: 35, width: "auto" }} />
+                      {/* <Image src="/assets/images/logo.png" alt="logo" width={150} height={35} style={{ height: 35, width: "auto" }} /> */}
+                      <h2 className="text-xxl text-white font-bold ml-0">
+                        <span className="text-[#0073FF]">Cockpit</span>
+                        <span className="text-white">.</span>
+                        <span className="text-white" style={{ marginLeft: '-0.40rem' }}>Travel</span>
+                      </h2>
                     </div>
                     <ul className="mobile-menu has-vertical-divider">
                       {renderMobileMenu(mobileNavItems)}
@@ -469,7 +487,7 @@ export default function Header() {
                 </Link>
 
                 <Link href="/register" className="rs-button style-default text-anim-flip-top hidden lg:inline-flex" style={{ height: 50, padding: "0 25px" }}>
-                  <span className="button-text" data-text="Sign Up">Sign Up</span>
+                  <span className="button-text" data-text={t("header.signUp")}>{t("header.signUp")}</span>
                 </Link>
 
                 <div ref={searchRef}>
@@ -493,7 +511,7 @@ export default function Header() {
                     </button>
                     <div className={`search-form-area ${searchOpen ? "search-open" : ""}`}>
                       <form role="search">
-                        <input type="search" className="search-field" placeholder="Search..." />
+                        <input type="search" className="search-field" placeholder={t("header.searchPlaceholder")} />
                       </form>
                     </div>
                   </div>
@@ -539,7 +557,7 @@ export default function Header() {
                           <a href="/category/hotels"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=150&h=150&fit=crop" alt="Travel Backpack" width={150} height={150} /></a>
                         </div>
                         <div className="offcanvas-contact">
-                          <h4>Quick Contact:</h4>
+                          <h4>{t("header.quickContact")}</h4>
                           <ul className="offcanvas-contact-list">
                             <li>
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -570,7 +588,7 @@ export default function Header() {
                         </div>
                         <div className="offcanvas-cta">
                           <Link href="/contact" className="rs-button style-default text-anim-flip-top w-full" style={{ height: 50 }}>
-                            <span className="button-text" data-text="Get In Touch">Get In Touch</span>
+                            <span className="button-text" data-text={t("header.getInTouch")}>{t("header.getInTouch")}</span>
                           </Link>
                         </div>
                       </div>
@@ -590,7 +608,7 @@ export default function Header() {
               <div className="fpg-post-ticker">
                 <div className="fpg-ticker-top">
                   <span className="fpg-popup-circle" />
-                  <p className="fpg-ticker-label">Live News</p>
+                  <p className="fpg-ticker-label">{t("header.liveNews")}</p>
                 </div>
                 <div className="fpg-ticker-content">
                   {tickerNews.map((news, i) => (
@@ -701,13 +719,13 @@ export default function Header() {
                                 ))}
                               </div>
                               <div className="mega-menu-item">
-                                <div className="mega-menu-item-title">Latest</div>
+                                <div className="mega-menu-item-title">{t("nav.latest")}</div>
                                 {item.children.slice(3).map((child) => (
                                   <Link key={child.label} href={child.href} className="mega-menu-item-link">{child.label}</Link>
                                 ))}
                               </div>
                               <div className="mega-menu-item">
-                                <div className="mega-menu-item-title">Popular</div>
+                                <div className="mega-menu-item-title">{t("nav.popular")}</div>
                                 {item.children.slice(0, 2).map((child) => (
                                   <Link key={child.label} href={child.href} className="mega-menu-item-link">{child.label}</Link>
                                 ))}
@@ -784,7 +802,7 @@ export default function Header() {
                   </Link>
 
                   <Link href="/register" className="rs-button style-default text-anim-flip-top hidden lg:inline-flex" style={{ height: 50, padding: "0 25px" }}>
-                    <span className="button-text" data-text="Sign Up">Sign Up</span>
+                    <span className="button-text" data-text={t("header.signUp")}>{t("header.signUp")}</span>
                   </Link>
 
                   <div className="rstb-mini-search">
@@ -826,7 +844,7 @@ export default function Header() {
                             </Link>
                           </div>
                           <p className="offcanvas-description">
-                            Your trusted partner for finding the best flight deals, hotel bookings, and travel inspiration worldwide.
+                            {t("header.offcanvasDesc")}
                           </p>
                           <div className="offcanvas-gallery">
                             <a href="/category/flights"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150&h=150&fit=crop" alt="Beach Paradise" width={150} height={150} /></a>
@@ -837,7 +855,7 @@ export default function Header() {
                             <a href="/category/hotels"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=150&h=150&fit=crop" alt="Travel Backpack" width={150} height={150} /></a>
                           </div>
                           <div className="offcanvas-contact">
-                            <h4>Quick Contact:</h4>
+                            <h4>{t("header.quickContact")}</h4>
                             <ul className="offcanvas-contact-list">
                               <li>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -868,7 +886,7 @@ export default function Header() {
                           </div>
                           <div className="offcanvas-cta">
                             <Link href="/contact" className="rs-button style-default text-anim-flip-top w-full" style={{ height: 50 }}>
-                              <span className="button-text" data-text="Get In Touch">Get In Touch</span>
+                              <span className="button-text" data-text={t("header.getInTouch")}>{t("header.getInTouch")}</span>
                             </Link>
                           </div>
                         </div>

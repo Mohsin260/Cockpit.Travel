@@ -1,56 +1,8 @@
 "use client";
 
 import Image from "next/image";
-
-const categories = [
-  { name: "Hotels", href: "#" },
-  { name: "Flights", href: "#" },
-  { name: "Destinations", href: "#" },
-  { name: "Traveling", href: "#" },
-  { name: "Travel Intelligence", href: "#" },
-];
-
-const recentPosts = [
-  {
-    title: "Top 10 luxury hotels in Dubai for 2025",
-    href: "/top-luxury-hotels-in-dubai-for-2025",
-    author: "Matt Rosnor",
-    views: "98 Views",
-    image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=200&h=200&fit=crop",
-  },
-  {
-    title: "Emirates launches new direct routes to Southeast Asia",
-    href: "/emirates-launches-new-direct-routes-to-southeast-asia",
-    author: "Matt Rosnor",
-    views: "83 Views",
-    image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=200&h=200&fit=crop",
-  },
-  {
-    title: "Santorini the ultimate Greek island escape",
-    href: "/santorini-ultimate-greek-island-guide",
-    author: "Matt Rosnor",
-    views: "79 Views",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=200&h=200&fit=crop",
-  },
-];
-
-const tags = [
-  "Hotels",
-  "Flights",
-  "Destinations",
-  "Traveling",
-  "Travel Intelligence",
-  "Budget",
-  "Luxury",
-  "Adventure",
-  "Culture",
-  "Food",
-  "Visa",
-  "Airlines",
-  "Resorts",
-  "Backpacking",
-  "Solo Travel",
-];
+import { useTranslations } from "@/hooks/useTranslations";
+import { useMemo } from "react";
 
 const CircleIcon = () => (
   <svg
@@ -63,6 +15,52 @@ const CircleIcon = () => (
 );
 
 export default function Footer() {
+  const t = useTranslations();
+
+  const categories = useMemo(() => [
+    { name: t("footer.hotels"), href: "#" },
+    { name: t("footer.flights"), href: "#" },
+    { name: t("footer.destinations"), href: "#" },
+    { name: t("footer.traveling"), href: "#" },
+    { name: t("footer.travelIntelligence"), href: "#" },
+  ], [t]);
+
+  const recentPosts = useMemo(() => [
+    {
+      title: t("ticker.news1"),
+      href: "#",
+      author: "Matt Rosnor",
+      views: "98 Views",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=200&h=200&fit=crop",
+    },
+    {
+      title: t("ticker.news2"),
+      href: "#",
+      author: "Matt Rosnor",
+      views: "83 Views",
+      image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=200&h=200&fit=crop",
+    },
+    {
+      title: t("ticker.news3"),
+      href: "#",
+      author: "Matt Rosnor",
+      views: "79 Views",
+      image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=200&h=200&fit=crop",
+    },
+  ], [t]);
+
+  const tags = useMemo(() => [
+    t("footer.hotels"),
+    t("footer.flights"),
+    t("footer.destinations"),
+    t("footer.traveling"),
+    t("footer.travelIntelligence"),
+    t("tags.budget"),
+    t("tags.luxury"),
+    t("tags.adventure"),
+    t("tags.visa"),
+    t("tags.backpacking"),
+  ], [t]);
   return (
     <footer className="rstb-footer">
       {/* Main Footer Content */}
@@ -85,8 +83,7 @@ export default function Footer() {
               </h2>
             </div>
             <p className="footer-desc">
-              We love to bring to life as a developer and I aim the today do
-              this using music whatever front end tools necessary.
+              {t("footer.deepDiveDescription")}
             </p>
             <div className="footer-social">
               {/* Facebook */}
@@ -154,7 +151,7 @@ export default function Footer() {
 
           {/* Column 2: Top Categories */}
           <div className="footer-categories" style={{ flex: "1 1 200px" }}>
-            <h5 className="footer-heading">Top Categories</h5>
+            <h5 className="footer-heading">{t("footer.topCategories")}</h5>
             <div className="footer-divider" />
             <ul className="footer-category-list">
               {categories.map((cat) => (
@@ -170,7 +167,7 @@ export default function Footer() {
 
           {/* Column 3: Recent Posts */}
           <div className="footer-recent" style={{ flex: "1 1 300px" }}>
-            <h5 className="footer-heading">Recent Post</h5>
+            <h5 className="footer-heading">{t("footer.recentPost")}</h5>
             <div className="footer-divider" />
             <div className="footer-recent-list">
               {recentPosts.map((post, i) => (
@@ -228,7 +225,7 @@ export default function Footer() {
 
           {/* Column 4: Tags */}
           <div className="footer-tags" style={{ flex: "1 1 350px" }}>
-            <h5 className="footer-heading">Tags</h5>
+            <h5 className="footer-heading">{t("footer.tags")}</h5>
             <div className="footer-divider" />
             <div className="footer-tags-container">
               <div className="footer-tags-list">
@@ -248,18 +245,18 @@ export default function Footer() {
         <div className="nerio-container">
           <div className="footer-copyright-inner">
             <p className="footer-copyright-text">
-              &copy; 2026 Travel News. Powered by{" "}
+              &copy; {t("footer.copyright")}{" "}
               <a href="https://rstheme.com/">RSTheme</a>
             </p>
             <div className="footer-copyright-links">
               <a href="#" className="footer-bottom-btn">
-                <span className="button-text" data-text="Privacy policy">
-                  Privacy policy
+                <span className="button-text" data-text={t("footer.privacyPolicyLink")}>
+                  {t("footer.privacyPolicyLink")}
                 </span>
               </a>
               <a href="#" className="footer-bottom-btn">
-                <span className="button-text" data-text="Terms & Agreements">
-                  Terms &amp; Agreements
+                <span className="button-text" data-text={t("footer.termsAgreements")}>
+                  {t("footer.termsAgreements")}
                 </span>
               </a>
             </div>

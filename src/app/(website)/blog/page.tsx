@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import CategoryTemplate from "@/components/CategoryTemplate";
 import { fetchArticles, fetchCategories } from "@/lib/api";
+import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
+import messages from "@/messages/en.json";
 
 export const metadata: Metadata = {
     title: "Blog",
@@ -23,13 +25,16 @@ export default async function BlogPage({ searchParams }: Props) {
         fetchCategories(),
     ]);
 
-    // Handle both old and new API response formats
     const articles = Array.isArray(blogData) ? blogData : blogData.articles;
     const pagination = Array.isArray(blogData) ? undefined : blogData.pagination;
 
+    const heading = DEPLOYMENT_LOCALE === "es" ? "Todos los Artículos" 
+        : DEPLOYMENT_LOCALE === "ar" ? "جميع المقالات"
+        : "All Articles";
+
     return (
         <CategoryTemplate
-            heading="All Articles"
+            heading={heading}
             articles={articles}
             categories={categories}
             allArticles={articles}

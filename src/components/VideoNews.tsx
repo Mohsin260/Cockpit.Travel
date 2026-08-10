@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import { useTranslations } from "@/hooks/useTranslations";
 
 interface Article {
   slug: string;
@@ -48,6 +49,7 @@ function CategoryPill({ label, color }: { label: string; color: string }) {
 }
 
 export default function VideoNews({ articles }: VideoNewsProps) {
+  const t = useTranslations();
   if (articles.length === 0) return null;
 
   const featured = articles[0];
@@ -59,9 +61,9 @@ export default function VideoNews({ articles }: VideoNewsProps) {
     <section className="video-news-section py-[60px] bg-white">
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[28px] font-bold text-[var(--titleColor)]">Travel Intelligence</h2>
+          <h2 className="text-[28px] font-bold text-[var(--titleColor)]">{t("sections.travelIntelligence")}</h2>
           <Link href="/category/travel-intelligence" className="group inline-flex items-center gap-2 text-[var(--titleColor)] font-semibold text-base no-underline relative">
-            <span>View Channel</span>
+            <span>{t("sections.viewChannel")}</span>
             <span className="inline-flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 12" className="w-[18px] h-3 fill-current">
                 <path fillRule="evenodd" clipRule="evenodd" d="M16.2079 5.0991C14.0115 5.0991 12.0097 3.0991 12.0097 0.900901V0H10.2079V0.900901C10.2079 2.4991 10.9088 3.9982 12.0088 5.0991H0.892578V6.9009H12.0088C10.9088 8.0018 10.2079 9.5009 10.2079 11.0991V12H12.0097V11.0991C12.0097 8.9018 14.0115 6.9009 16.2079 6.9009H17.1088V5.0991H16.2079Z" />
