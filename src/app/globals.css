@@ -41,6 +41,12 @@
   --ring: #0073FF;
   --radius: 0.5rem;
   --g-color: #0073FF;
+
+  /* Native ad thumb sizing — parent containers override these */
+  --ad-thumb-w: auto;
+  --ad-thumb-h: auto;
+  --ad-thumb-radius: 8px;
+  --ad-thumb-aspect: auto;
 }
 
 .dark {
@@ -3309,6 +3315,100 @@ ul {
     flex-direction: column;
     text-align: center;
   }
+}
+
+/* ═══════════════════════════════════════════
+   NATIVE AD THUMB — CSS Custom Properties
+   Parent containers set these variables to sync
+   native ad images with surrounding article cards.
+   ═══════════════════════════════════════════ */
+
+/* Hero Featured Cards — matches .hero-featured-card .fpg-post-thumb */
+.hero-featured-cards {
+  --ad-thumb-w: 80px;
+  --ad-thumb-h: 70px;
+  --ad-thumb-radius: 8px;
+}
+
+/* Hero Recent Grid — matches .hero-recent-grid .fpg-card-style .fpg-post-thumb */
+.hero-recent-grid {
+  --ad-thumb-w: 114px;
+  --ad-thumb-h: 88px;
+  --ad-thumb-radius: 8px;
+}
+
+/* Hero responsive: 768px–1366px */
+@media (min-width: 768px) and (max-width: 1366px) {
+  .hero-featured-cards {
+    --ad-thumb-w: 85px;
+    --ad-thumb-h: 72px;
+  }
+  .hero-recent-grid {
+    --ad-thumb-w: 85px;
+    --ad-thumb-h: 72px;
+  }
+}
+
+/* Hero responsive: ≤767px */
+@media (max-width: 767px) {
+  .hero-recent-grid {
+    --ad-thumb-w: 70px;
+    --ad-thumb-h: 60px;
+  }
+}
+
+/* BreakingNews side posts — matches w-[100px] h-[85px] */
+.news-side-posts {
+  --ad-thumb-w: 100px;
+  --ad-thumb-h: 85px;
+  --ad-thumb-radius: 8px;
+}
+
+/* BreakingNews carousel — matches aspect-[16/10] */
+.news-carousel-wrap {
+  --ad-thumb-aspect: 16/10;
+  --ad-thumb-radius: 8px;
+}
+
+/* VideoNews left/right columns — matches w-[112px] h-[112px] */
+.travel-videos-left,
+.travel-videos-right {
+  --ad-thumb-w: 112px;
+  --ad-thumb-h: 112px;
+  --ad-thumb-radius: 8px;
+}
+
+/* TopOfWeek main grid — matches w-[200px] h-[130px] */
+.top-destinations-grid {
+  --ad-thumb-w: 200px;
+  --ad-thumb-h: 130px;
+  --ad-thumb-radius: 10px;
+}
+
+/* TopOfWeek sidebar tabs — matches w-[65px] h-[65px] */
+.sidebar-tabs-panel {
+  --ad-thumb-w: 65px;
+  --ad-thumb-h: 65px;
+  --ad-thumb-radius: 8px;
+}
+
+/* TopStories small cards — matches w-[180px] h-[130px] */
+.top-stories-col {
+  --ad-thumb-w: 180px;
+  --ad-thumb-h: 130px;
+  --ad-thumb-radius: 8px;
+}
+
+/* ArticleBody inline — matches clamp(150px, 25vw, 200px) */
+.rstb-post-content {
+  --ad-thumb-h: clamp(150px, 25vw, 200px);
+  --ad-thumb-radius: 6px;
+}
+
+/* RelatedPosts carousel — matches h-[200px] */
+.fpg-post-slider {
+  --ad-thumb-h: 200px;
+  --ad-thumb-radius: 10px;
 }
 
 /* ═══════════════════════════════════════════

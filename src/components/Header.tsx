@@ -542,7 +542,12 @@ export default function Header() {
                       <div className="offcanvas-content" style={{ padding: "80px 50px 50px" }}>
                         <div className="offcanvas-logo">
                           <Link href="/">
-                            <Image src="/assets/images/logo.png" alt="Cockpit Travel" width={180} height={35} style={{ height: 35, width: "auto" }} />
+                            {/*<Image src="/assets/images/logo.png" alt="Cockpit Travel" width={180} height={35} style={{ height: 35, width: "auto" }} />*/}
+                            <h2 className="text-[1.5rem] text-white font-bold ml-0">
+                              <span className="text-[#0073FF]">Cockpit</span>
+                              <span className="text-white">.</span>
+                              <span className="text-white" style={{ marginLeft: '-0.20rem' }}>Travel</span>
+                            </h2>
                           </Link>
                         </div>
                         <p className="offcanvas-description">

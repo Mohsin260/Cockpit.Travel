@@ -387,7 +387,6 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
 
     if (!nc.title && !nc.image) return null;
 
-    const imgRounded = style.imageRounded ? `rounded-[${(style as any).imageRoundedValue || "8px"}]` : "";
     const cardRounded = (style as any).cardRoundedValue ? `rounded-[${(style as any).cardRoundedValue}]` : "";
 
     // ── "carousel" style: 80x60 table layout (matches FeaturedCarousel) ──
@@ -402,17 +401,17 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div style={{ display: "table-cell", width: "80px", maxWidth: "100px", verticalAlign: "top", position: "relative" }}>
+                <div style={{ display: "table-cell", width: "var(--ad-thumb-w, 80px)", maxWidth: "100px", verticalAlign: "top", position: "relative" }}>
                     <div className="block relative overflow-hidden">
                         {nc.image ? (
                             <img
                                 src={nc.image}
                                 alt={nc.title || "Sponsored content"}
-                                style={{ width: "80px", height: "60px", objectFit: "cover", display: "block" }}
+                                style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 60px)", objectFit: "cover", display: "block" }}
                                 className="transition-transform duration-300 hover:opacity-80"
                             />
                         ) : (
-                            <div style={{ width: "80px", height: "60px", backgroundColor: "#333" }} />
+                            <div style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 60px)", backgroundColor: "#333" }} />
                         )}
                     </div>
                 </div>
@@ -507,7 +506,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="shrink-0 relative overflow-hidden" style={{ width: "80px", height: "60px" }}>
+                <div className="shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 60px)", borderRadius: "var(--ad-thumb-radius, 0)" }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover" />
                     ) : (
@@ -545,7 +544,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             >
                 {nc.image && (
                     <div className="block mb-3" style={sfImgWidth ? { width: sfImgWidth } : undefined}>
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className={`object-cover ${sfImgWidth ? "" : "w-full"}`} style={{ height: style.imageHeight, width: sfImgWidth || "100%" }} />
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className={`object-cover ${sfImgWidth ? "" : "w-full"}`} style={{ height: "var(--ad-thumb-h, 180px)", width: sfImgWidth || "100%" }} />
                     </div>
                 )}
                 <h5 className="font-bold leading-snug mb-1" style={{ fontSize: style.titleSize, lineHeight: style.titleLineHeight, color: "var(--heading-color, #fff)" }}>
@@ -666,7 +665,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="block flex-shrink-0 w-[200px] h-[130px] rounded-[10px] overflow-hidden">
+                <div className="block flex-shrink-0 overflow-hidden" style={{ width: "var(--ad-thumb-w, 200px)", height: "var(--ad-thumb-h, 130px)", borderRadius: "var(--ad-thumb-radius, 10px)" }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
@@ -709,7 +708,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="flex-shrink-0 relative overflow-hidden rounded-[8px]" style={{ width: "80px", height: "70px" }}>
+                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 70px)", borderRadius: "var(--ad-thumb-radius, 8px)" }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
@@ -741,7 +740,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     if (cardStyle === "latest-articles") {
         return (
             <>
-                <div className="flex-shrink-0 relative overflow-hidden rounded-lg" style={{ width: "100px", height: "85px" }}>
+                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, 100px)", height: "var(--ad-thumb-h, 85px)", borderRadius: "var(--ad-thumb-radius, 8px)" }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
                     ) : (
@@ -784,7 +783,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className={`flex-shrink-0 relative overflow-hidden ${imgRounded}`} style={{ width: imgWidth, height: style.imageHeight }}>
+                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, " + (imgWidth || "auto") + ")", height: "var(--ad-thumb-h, " + (style.imageHeight || "auto") + ")", borderRadius: "var(--ad-thumb-radius, " + ((style as any).imageRoundedValue || "8px") + ")" }}>
                     {nc.image ? (
                         <img
                             src={nc.image}
@@ -841,7 +840,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 aria-label={`Sponsored: ${nc.title}`}
             >
                 {nc.image && (
-                    <div className="block relative overflow-hidden rounded-[8px] aspect-[16/10] flex-shrink-0">
+                    <div className="block relative overflow-hidden flex-shrink-0" style={{ aspectRatio: "var(--ad-thumb-aspect, 16/10)", borderRadius: "var(--ad-thumb-radius, 8px)" }}>
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
                     </div>
                 )}
@@ -883,7 +882,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 aria-label={`Sponsored: ${nc.title}`}
             >
                 {nc.image && (
-                    <div className="block w-full h-[200px] rounded-[10px] overflow-hidden flex-shrink-0">
+                    <div className="block w-full overflow-hidden flex-shrink-0" style={{ height: "var(--ad-thumb-h, 200px)", borderRadius: "var(--ad-thumb-radius, 10px)" }}>
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     </div>
                 )}
@@ -928,7 +927,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             aria-label={`Sponsored: ${nc.title}`}
         >
             {nc.image && (
-                <div className={`relative overflow-hidden ${imgRounded} mb-2`} style={imgAspect ? { aspectRatio: imgAspect } : undefined}>
+                <div className="relative overflow-hidden mb-2" style={{ aspectRatio: imgAspect ? "var(--ad-thumb-aspect, " + imgAspect + ")" : undefined, borderRadius: "var(--ad-thumb-radius, " + ((style as any).imageRoundedValue || "8px") + ")" }}>
                     <img
                         src={nc.image}
                         alt={nc.title || "Sponsored content"}

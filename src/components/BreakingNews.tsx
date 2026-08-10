@@ -112,7 +112,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
             </Link>
           </div>
 
-          <div className="w-[380px] flex-shrink-0 flex flex-col max-[1024px]:w-full">
+          <div className="news-side-posts w-[380px] flex-shrink-0 flex flex-col max-[1024px]:w-full">
             {sidePosts.map((post, i) => (
               <div
                 key={i}
@@ -149,7 +149,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
           </div>
         </div>
 
-        <div className="mt-8">
+        <div className="news-carousel-wrap mt-8">
           <Swiper
             modules={[Navigation, Autoplay]}
             navigation

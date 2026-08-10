@@ -82,7 +82,7 @@ export default function TopStories({ articles }: TopStoriesProps) {
             </div>
           </Link>
 
-          <div className="flex flex-col gap-4">
+          <div className="top-stories-col flex flex-col gap-4">
             {smallCards.map((post, i) => (
               <div key={i} className="flex gap-4 bg-white rounded-xl border border-[var(--borderColor,#e5e7eb)] overflow-hidden p-4 transition-all hover:shadow-md">
                 <Link href={getHref(post)} className="block flex-shrink-0 w-[180px] h-[130px] rounded-lg overflow-hidden">

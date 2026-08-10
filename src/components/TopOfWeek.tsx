@@ -156,7 +156,7 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-[30px]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+          <div className="top-destinations-grid grid grid-cols-1 md:grid-cols-2 gap-[24px]">
             {articles.slice(0, 10).map((post, i) => (
               <>
                 <ArticleCard key={i} post={post} />
@@ -185,7 +185,7 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
                   </button>
                 ))}
               </div>
-              <div>
+              <div className="sidebar-tabs-panel">
                 {tabData[activeTab].map((post, i) => (
                   <TabItem key={i} post={post} />
                 ))}

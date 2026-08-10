@@ -74,7 +74,7 @@ export default function VideoNews({ articles }: VideoNewsProps) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_1fr] gap-6">
-          <div className="flex flex-col gap-4">
+          <div className="travel-videos-left flex flex-col gap-4">
             {leftCards.map((post, i) => (
               <div key={i} className="flex items-center gap-[15px]">
                 <Link href={getHref(post)} className="block flex-shrink-0 w-[112px] min-w-[112px] h-[112px] rounded-lg overflow-hidden relative group">
@@ -116,7 +116,7 @@ export default function VideoNews({ articles }: VideoNewsProps) {
             </div>
           </Link>
 
-          <div className="flex flex-col gap-4">
+          <div className="travel-videos-right flex flex-col gap-4">
             {rightCards.map((post, i) => (
               <div key={i} className="flex items-center gap-[15px]">
                 <Link href={getHref(post)} className="block flex-shrink-0 w-[112px] min-w-[112px] h-[112px] rounded-lg overflow-hidden relative group">
