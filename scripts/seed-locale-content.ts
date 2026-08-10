@@ -727,6 +727,59 @@ const esCategories = [
   }
 ];
 
+// Fallback images per category for articles that don't have one
+const fallbackImages: Record<string, string[]> = {
+  hotels: [
+    "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&h=500&fit=crop",
+  ],
+  flights: [
+    "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&h=500&fit=crop",
+  ],
+  destinations: [
+    "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1548013146-72479768bada?w=800&h=500&fit=crop",
+  ],
+  "travel-intelligence": [
+    "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop",
+  ],
+  business: [
+    "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1553028826-f4804a6dba3b?w=800&h=500&fit=crop",
+  ],
+  heritage: [
+    "https://images.unsplash.com/photo-1539635278303-d4002c07eae3?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=800&h=500&fit=crop",
+  ],
+  travel: [
+    "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=500&fit=crop",
+  ],
+  technology: [
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&h=500&fit=crop",
+    "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&h=500&fit=crop",
+  ],
+};
+
+const FORCE_UPDATE = process.argv.includes("--force");
+const imgCounters: Record<string, number> = {};
+function nextImage(category: string): string {
+  const pool = fallbackImages[category] || fallbackImages.travel || fallbackImages.hotels;
+  const idx = imgCounters[category] ?? 0;
+  imgCounters[category] = (idx + 1) % pool.length;
+  return pool[idx];
+}
+
 async function run() {
   console.log("Connecting to MongoDB...");
   await mongoose.connect(MONGO_URI);
@@ -735,9 +788,19 @@ async function run() {
 
   for (const article of arArticles) {
     const exists = await db.collection("articles").findOne({ slug: article.slug });
+    const image = article.image || nextImage(article.category);
+    const doc = {
+      ...article,
+      image,
+      articleMedia: article.articleMedia || { heroCoverMedia: { url: image } },
+      updatedAt: new Date(),
+    };
     if (!exists) {
-      await db.collection("articles").insertOne({ ...article, createdAt: new Date(), updatedAt: new Date() });
+      await db.collection("articles").insertOne({ ...doc, createdAt: new Date() });
       console.log(`  [AR] Created: ${article.title}`);
+    } else if (FORCE_UPDATE) {
+      await db.collection("articles").updateOne({ slug: article.slug }, { $set: doc });
+      console.log(`  [AR] Updated: ${article.slug}`);
     } else {
       console.log(`  [AR] Skipped (exists): ${article.slug}`);
     }
@@ -745,9 +808,19 @@ async function run() {
 
   for (const article of esArticles) {
     const exists = await db.collection("articles").findOne({ slug: article.slug });
+    const image = article.image || nextImage(article.category);
+    const doc = {
+      ...article,
+      image,
+      articleMedia: article.articleMedia || { heroCoverMedia: { url: image } },
+      updatedAt: new Date(),
+    };
     if (!exists) {
-      await db.collection("articles").insertOne({ ...article, createdAt: new Date(), updatedAt: new Date() });
+      await db.collection("articles").insertOne({ ...doc, createdAt: new Date() });
       console.log(`  [ES] Created: ${article.title}`);
+    } else if (FORCE_UPDATE) {
+      await db.collection("articles").updateOne({ slug: article.slug }, { $set: doc });
+      console.log(`  [ES] Updated: ${article.slug}`);
     } else {
       console.log(`  [ES] Skipped (exists): ${article.slug}`);
     }

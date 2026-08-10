@@ -15,11 +15,46 @@ const tagsByLocale: Record<string, string[]> = {
   ar: ["الفنادق", "الرحلات", "الوجهات", "السفر", "معلومات السفر", "الميزانية", "الفخامة", "المغامرة", "الثقافة", "الطعام"],
 };
 
+// Maps each locale's categories to homepage section names
+const categoryToSection: Record<string, Record<string, string>> = {
+  en: {
+    hotels: "hotels",
+    flights: "flights",
+    destinations: "destinations",
+    "travel-intelligence": "travel-intelligence",
+  },
+  es: {
+    business: "hotels",
+    travel: "flights",
+    destinations: "destinations",
+    heritage: "destinations",
+    technology: "travel-intelligence",
+    health: "hotels",
+    sports: "flights",
+    education: "travel-intelligence",
+  },
+  ar: {
+    business: "hotels",
+    travel: "flights",
+    destinations: "destinations",
+    heritage: "destinations",
+    technology: "travel-intelligence",
+    health: "hotels",
+    sports: "flights",
+    education: "travel-intelligence",
+  },
+};
+
+function getSection(category: string): string {
+  const map = categoryToSection[DEPLOYMENT_LOCALE] || categoryToSection.en;
+  return map[category] || category;
+}
+
 export default function HomeTemplate({ articles, categories }: { articles: any[]; categories: any[]; [key: string]: any }) {
-  const hotelArticles = articles.filter((a: any) => a.category === "hotels");
-  const flightArticles = articles.filter((a: any) => a.category === "flights");
-  const destinationArticles = articles.filter((a: any) => a.category === "destinations");
-  const intelligenceArticles = articles.filter((a: any) => a.category === "travel-intelligence");
+  const hotelArticles = articles.filter((a: any) => getSection(a.category) === "hotels");
+  const flightArticles = articles.filter((a: any) => getSection(a.category) === "flights");
+  const destinationArticles = articles.filter((a: any) => getSection(a.category) === "destinations");
+  const intelligenceArticles = articles.filter((a: any) => getSection(a.category) === "travel-intelligence");
 
   const featured = articles.find((a: any) => a.featured) || articles[0];
   const featuredCards = articles.filter((a: any) => a.slug !== featured?.slug).slice(0, 5);
