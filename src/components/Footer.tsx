@@ -67,7 +67,7 @@ export default function Footer() {
       <div className="nerio-container">
         <div className="footer-main">
           {/* Column 1: Brand */}
-          <div className="footer-brand" style={{ flex: "1 1 280px" }}>
+          <div className="footer-brand">
             <div className="footer-logo">
               {/* <Image
                 src="/assets/images/footer/logo.png"
@@ -150,7 +150,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Top Categories */}
-          <div className="footer-categories" style={{ flex: "1 1 200px" }}>
+          <div className="footer-categories">
             <h5 className="footer-heading">{t("footer.topCategories")}</h5>
             <div className="footer-divider" />
             <ul className="footer-category-list">
@@ -166,7 +166,7 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Recent Posts */}
-          <div className="footer-recent" style={{ flex: "1 1 300px" }}>
+          <div className="footer-recent">
             <h5 className="footer-heading">{t("footer.recentPost")}</h5>
             <div className="footer-divider" />
             <div className="footer-recent-list">
@@ -224,7 +224,7 @@ export default function Footer() {
           </div>
 
           {/* Column 4: Tags */}
-          <div className="footer-tags" style={{ flex: "1 1 350px" }}>
+          <div className="footer-tags">
             <h5 className="footer-heading">{t("footer.tags")}</h5>
             <div className="footer-divider" />
             <div className="footer-tags-container">

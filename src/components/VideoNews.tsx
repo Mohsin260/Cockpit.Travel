@@ -58,11 +58,11 @@ export default function VideoNews({ articles }: VideoNewsProps) {
   const color = categoryColors[featured.category] || "#f27100";
 
   return (
-    <section className="video-news-section py-[60px] bg-white">
+    <section className="video-news-section py-[70px] bg-[#171A1E]">
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[28px] font-bold text-[var(--titleColor)]">{t("sections.travelIntelligence")}</h2>
-          <Link href="/category/travel-intelligence" className="group inline-flex items-center gap-2 text-[var(--titleColor)] font-semibold text-base no-underline relative">
+          <h2 className="text-[28px] font-bold text-white">{t("sections.travelIntelligence")}</h2>
+          <Link href="/category/travel-intelligence" className="group inline-flex items-center gap-2 text-white font-semibold text-base no-underline relative">
             <span>{t("sections.viewChannel")}</span>
             <span className="inline-flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 12" className="w-[18px] h-3 fill-current">
@@ -79,18 +79,18 @@ export default function VideoNews({ articles }: VideoNewsProps) {
               <div key={i} className="flex items-center gap-[15px]">
                 <Link href={getHref(post)} className="block flex-shrink-0 w-[112px] min-w-[112px] h-[112px] rounded-lg overflow-hidden relative group">
                   <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <PlayIcon size={24} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="ti-play-wrap"><div className="ti-play-pulse" /><div className="ti-play-btn"><PlayIcon size={17} /></div></div>
                   </div>
                 </Link>
                 <div className="flex-1 min-w-0">
                   <CategoryPill label={post.categoryLabel} color={color} />
-                  <h6 className="mt-1 text-[14px] font-semibold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
-                    <Link href={getHref(post)} className="hover:text-[var(--primaryColor)] transition-colors">{post.title}</Link>
+                  <h6 className="mt-1 text-[14px] font-semibold text-white leading-[1.4] line-clamp-2">
+                    <Link href={getHref(post)} className="text-white hover:text-[var(--primaryColor)] transition-colors">{post.title}</Link>
                   </h6>
-                  <ul className="flex items-center gap-2 mt-1 text-[11px] text-[var(--bodyColor)]">
+                  <ul className="flex items-center gap-2 mt-1 text-[11px] text-white/80">
                     <li>{post.authorName}</li>
-                    <li>{post.views} Views</li>
+                    <li className="flex items-center gap-1"><svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>{post.views} Views</li>
                   </ul>
                 </div>
               </div>
@@ -106,13 +106,11 @@ export default function VideoNews({ articles }: VideoNewsProps) {
               <h3 className="mt-3 text-xl md:text-[22px] font-semibold text-white leading-snug">{featured.title}</h3>
               <ul className="flex items-center gap-3 mt-3 text-[13px] text-white/70">
                 <li>{featured.authorName}</li>
-                <li>{featured.views} Views</li>
+                <li className="flex items-center gap-1"><svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>{featured.views} Views</li>
               </ul>
             </div>
-            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-              <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
-                <PlayIcon size={28} />
-              </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="ti-play-wrap"><div className="ti-play-pulse ti-play-pulse--lg" /><div className="ti-play-btn ti-play-btn--lg"><PlayIcon size={28} /></div></div>
             </div>
           </Link>
 
@@ -121,18 +119,18 @@ export default function VideoNews({ articles }: VideoNewsProps) {
               <div key={i} className="flex items-center gap-[15px]">
                 <Link href={getHref(post)} className="block flex-shrink-0 w-[112px] min-w-[112px] h-[112px] rounded-lg overflow-hidden relative group">
                   <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                    <PlayIcon size={24} />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="ti-play-wrap"><div className="ti-play-pulse" /><div className="ti-play-btn"><PlayIcon size={17} /></div></div>
                   </div>
                 </Link>
                 <div className="flex-1 min-w-0">
                   <CategoryPill label={post.categoryLabel} color={color} />
-                  <h6 className="mt-1 text-[14px] font-semibold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
-                    <Link href={getHref(post)} className="hover:text-[var(--primaryColor)] transition-colors">{post.title}</Link>
+                  <h6 className="mt-1 text-[14px] font-semibold text-white leading-[1.4] line-clamp-2">
+                    <Link href={getHref(post)} className="text-white hover:text-[var(--primaryColor)] transition-colors">{post.title}</Link>
                   </h6>
-                  <ul className="flex items-center gap-2 mt-1 text-[11px] text-[var(--bodyColor)]">
+                  <ul className="flex items-center gap-2 mt-1 text-[11px] text-white/80">
                     <li>{post.authorName}</li>
-                    <li>{post.views} Views</li>
+                    <li className="flex items-center gap-1"><svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>{post.views} Views</li>
                   </ul>
                 </div>
               </div>

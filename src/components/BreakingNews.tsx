@@ -79,7 +79,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
         </div>
 
         <div className="flex gap-6 max-[1024px]:flex-col max-[1024px]:gap-5">
-          <div className="flex-1 min-w-0 relative rounded-xl overflow-hidden group">
+          <div className="flex-1 min-w-0 relative rounded-xl overflow-hidden group max-[1024px]:flex-none max-[1024px]:h-[350px]">
             <Link href={getHref(featured)} className="block relative h-full">
               <div className="absolute inset-0 overflow-hidden">
                 <img
@@ -100,7 +100,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
                     <span>By <span className="hover:text-[var(--primaryColor)] transition-colors cursor-pointer">{featured.authorName}</span></span>
                   </li>
                   <li className="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current opacity-60"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                     <span>{featured.views} Views</span>
                   </li>
                   <li className="flex items-center gap-1">
@@ -138,7 +138,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
                       <span>By <span className="text-[var(--bodyColor)] hover:text-[var(--primaryColor)] transition-colors">{post.authorName}</span></span>
                     </li>
                     <li className="flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                      <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                       <span>{post.views} Views</span>
                     </li>
                   </ul>
@@ -188,7 +188,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
                         </Link>
                       </li>
                       <li className="flex items-center gap-1.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                         <span>{post.views} Views</span>
                       </li>
                       <li className="flex items-center gap-1.5">

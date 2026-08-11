@@ -1270,7 +1270,7 @@ ul {
 /* ========================
    RESPONSIVE STYLES
 ======================== */
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1030px) {
   .rstb-nav-menu.nav-breakpoint-lg .primary-menu {
     display: none;
   }
@@ -1918,6 +1918,29 @@ ul {
   }
 }
 
+/* ≤1030px — Stack hero vertically */
+@media (max-width: 1030px) {
+  .hero-inner {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .hero-featured {
+    width: 100%;
+    height: auto;
+    padding: 80px 20px 30px;
+  }
+
+  .hero-featured-cards {
+    margin-top: 20px;
+  }
+
+  .hero-recent {
+    width: 100%;
+    padding: 30px 20px;
+  }
+}
+
 /* ≤767px */
 @media (max-width: 767px) {
   .hero-inner {
@@ -1935,15 +1958,11 @@ ul {
     font-size: 28px;
   }
 
-  .hero-featured-cards {
-    flex-direction: column;
-    gap: 12px;
-  }
-
   .hero-recent {
-    width: 100%;
-    padding: 20px 15px;
+    width: calc(100% + 30px);
+    margin-left: -15px;
     margin-top: 20px;
+    padding: 20px 15px;
   }
 
   .hero-view-all-btn {
@@ -2112,6 +2131,61 @@ ul {
     transform: translateX(-50%) translateY(-50%) scale(1.8);
     opacity: 0;
   }
+}
+
+@keyframes ti-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* --- Travel Intelligence play button --- */
+.ti-play-wrap {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ti-play-btn {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  background: #e80000;
+  color: #ffffff;
+  z-index: 2;
+}
+
+.ti-play-btn--lg {
+  width: 70px;
+  height: 70px;
+}
+
+/* Pulse ring — always visible, centered on button */
+.ti-play-pulse {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e80000;
+  animation: ti-pulse 1500ms ease-out infinite;
+  pointer-events: none;
+}
+
+.ti-play-pulse--lg {
+  width: 70px;
+  height: 70px;
 }
 
 /* ========================
@@ -2350,9 +2424,10 @@ ul {
 /* Main footer content area */
 .footer-main {
   padding: 90px 10px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1.5fr 2fr;
+  gap: 0 30px;
+  align-items: start;
 }
 
 /* --- Column 1: Brand --- */
@@ -2365,6 +2440,12 @@ ul {
 .footer-brand .footer-logo img {
   height: 30px;
   width: auto;
+}
+
+.footer-brand .footer-logo h2 {
+  font-size: 28px;
+  margin: 0;
+  line-height: 1.2;
 }
 
 .footer-brand .footer-desc {
@@ -2411,7 +2492,7 @@ ul {
 .footer-app-buttons {
   display: flex;
   gap: 10px;
-  margin-top: 80px;
+  margin-top: 30px;
   flex-wrap: nowrap;
 }
 
@@ -2461,7 +2542,7 @@ ul {
 
 /* --- Column 2: Top Categories --- */
 .footer-categories {
-  padding-top: 10px;
+  padding-top: 0;
   padding-bottom: 10px;
   padding-left: 30px;
   padding-right: 10px;
@@ -2490,7 +2571,7 @@ ul {
 
 .footer-category-list a:hover {
   color: var(--primaryColor);
-  padding-left: 10px;
+  transform: translateX(10px);
 }
 
 .footer-category-list a svg {
@@ -2505,7 +2586,7 @@ ul {
 
 /* --- Column 3: Recent Posts --- */
 .footer-recent {
-  padding-top: 10px;
+  padding-top: 0;
   padding-bottom: 10px;
 }
 
@@ -2618,7 +2699,7 @@ ul {
 
 /* --- Column 4: Tags --- */
 .footer-tags {
-  padding-top: 10px;
+  padding-top: 0;
   padding-bottom: 10px;
   align-self: flex-start;
 }
@@ -2754,23 +2835,24 @@ ul {
 @media (max-width: 1024px) {
   .footer-main {
     padding: 60px 10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
   }
 
   .footer-brand {
-    width: 65%;
+    min-width: 0;
   }
 
   .footer-categories {
-    width: 35%;
     padding-left: 10px;
   }
 
   .footer-recent {
-    width: 55%;
+    min-width: 0;
   }
 
   .footer-tags {
-    width: 45%;
+    min-width: 0;
   }
 
   .footer-app-buttons {
@@ -2781,6 +2863,7 @@ ul {
 @media (max-width: 767px) {
   .footer-main {
     padding: 60px 10px;
+    grid-template-columns: 1fr;
     gap: 30px;
   }
 
@@ -2788,7 +2871,7 @@ ul {
   .footer-categories,
   .footer-recent,
   .footer-tags {
-    width: 100%;
+    min-width: 0;
     padding-left: 0;
     padding-right: 0;
   }
@@ -3392,11 +3475,11 @@ ul {
   --ad-thumb-radius: 8px;
 }
 
-/* TopStories small cards — matches w-[180px] h-[130px] */
+/* TopStories sponsored card — matches ArticleCard 280x200 */
 .top-stories-col {
-  --ad-thumb-w: 180px;
-  --ad-thumb-h: 130px;
-  --ad-thumb-radius: 8px;
+  --ad-thumb-w: 280px;
+  --ad-thumb-h: 200px;
+  --ad-thumb-radius: 10px;
 }
 
 /* ArticleBody inline — matches clamp(150px, 25vw, 200px) */
@@ -3530,3 +3613,18 @@ ul {
 [dir="rtl"] .is-btn::after {
   transform: scaleX(-1);
 }
+
+/* Weather sun rays orbit animation */
+@keyframes weatherSunRays {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.weather-sun-rays {
+  transform-origin: 32px 32px;
+  animation: weatherSunRays 12s linear infinite;
+}
+
+/* ========================
+   BREAKING NEWS CAROUSEL — Mobile (≤767px)
+   ======================== */

@@ -65,7 +65,7 @@ export default function TopStories({ articles }: TopStoriesProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <Link href={getHref(largeCard)} className="block relative rounded-xl overflow-hidden group min-h-[400px]">
             <img src={largeCard.image} alt={largeCard.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -75,35 +75,39 @@ export default function TopStories({ articles }: TopStoriesProps) {
               </span>
               <h3 className="mt-3 text-xl md:text-[22px] font-semibold text-white leading-snug">{largeCard.title}</h3>
               <ul className="flex items-center gap-3 mt-3 text-[13px] text-white/70">
-                <li>{largeCard.authorName}</li>
-                <li>{largeCard.views} Views</li>
-                <li>{formatDate(largeCard.date)}</li>
+                <li className="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>{largeCard.authorName}</li>
+                <li className="flex items-center gap-1"><svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>{largeCard.views} Views</li>
+                <li className="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>{formatDate(largeCard.date)}</li>
               </ul>
             </div>
           </Link>
 
-          <div className="top-stories-col flex flex-col gap-4">
-            {smallCards.map((post, i) => (
-              <div key={i} className="flex gap-4 bg-white rounded-xl border border-[var(--borderColor,#e5e7eb)] overflow-hidden p-4 transition-all hover:shadow-md">
-                <Link href={getHref(post)} className="block flex-shrink-0 w-[180px] h-[130px] rounded-lg overflow-hidden">
-                  <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
-                </Link>
-                <div className="flex-1 min-w-0 flex flex-col justify-center">
+          {smallCards.map((post, i) => (
+            <div key={i} className="fpg-card-style flex flex-col bg-white rounded-[10px] border border-[var(--borderColor,#e5e7eb)] overflow-hidden p-[12px_12px_25px] transition-all hover:shadow-md">
+              <Link href={getHref(post)} className="block w-full h-[315px] rounded-[10px] overflow-hidden">
+                <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+              </Link>
+              <div className="flex flex-col px-[3px]">
+                <div className="mt-[9px] mb-[7px]">
                   <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white w-fit" style={{ backgroundColor: categoryColors[post.category] || color }}>
                     {post.categoryLabel}
                   </span>
-                  <h5 className="mt-2 text-[16px] font-bold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
-                    <Link href={getHref(post)} className="hover:text-[var(--primaryColor)] transition-colors">{post.title}</Link>
-                  </h5>
-                  <ul className="flex items-center gap-3 mt-2 text-[12px] text-[var(--bodyColor)]">
-                    <li>{post.authorName}</li>
-                    <li>{post.views} Views</li>
-                  </ul>
                 </div>
+                <h4 className="text-[16px] font-semibold text-[var(--titleColor)] leading-[1.4] line-clamp-2 mb-[7px] hover:text-[var(--primaryColor)] transition-colors cursor-pointer">
+                  <Link href={getHref(post)}>{post.title}</Link>
+                </h4>
+                <ul className="flex items-center gap-[0_8px] text-[14px] text-[var(--bodyColor)]">
+                  <li><span className="flex items-center gap-2">By <span className="hover:text-[var(--primaryColor)] transition-colors cursor-pointer">{post.authorName}</span></span></li>
+                  <li><span className="flex items-center gap-2"><svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>{post.views} Views</span></li>
+                  <li><span className="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>{formatDate(post.date)}</span></li>
+                </ul>
               </div>
-            ))}
-            <InFeedNativeAd position="in-feed-9" cardStyle="top-flights" className="flex gap-4 bg-white rounded-xl border border-[var(--borderColor,#e5e7eb)] overflow-hidden p-4" />
-          </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8">
+          <InFeedNativeAd position="in-feed-9" cardStyle="top-flights" />
         </div>
       </div>
     </section>

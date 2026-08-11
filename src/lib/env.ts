@@ -7,9 +7,9 @@ import { z } from "zod";
  */
 const EnvSchema = z.object({
   USE_DATABASE: z.enum(["true", "false"]).default("true"),
-  MONGO_URI: z.string().min(1, "MONGO_URI missing"),
-  NEXTAUTH_SECRET: z.string().min(1, "NEXTAUTH_SECRET missing"),
-  NEXTAUTH_URL: z.string().url("NEXTAUTH_URL missing or invalid"),
+  MONGO_URI: z.string().default(""),
+  NEXTAUTH_SECRET: z.string().default(""),
+  NEXTAUTH_URL: z.string().default("http://localhost:3000"),
   // Storage providers — only required when that upload path is active
   AWS_ACCESS_KEY_ID: z.string().min(1).optional(),
   AWS_SECRET_ACCESS_KEY: z.string().min(1).optional(),

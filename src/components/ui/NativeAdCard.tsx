@@ -229,50 +229,50 @@ const CARD_STYLES = {
         showDate: false,
         showReadTime: false,
     },
-    /** Top Destinations: 2-col grid card (matches TopOfWeek ArticleCard 200x130) */
+    /** Top Destinations: horizontal card (matches TopOfWeek ArticleCard 250x160) */
     "top-destinations": {
-        imageHeight: "130px",
-        imageWidth: "200px",
-        imageMb: "mb-2",
+        imageHeight: "160px",
+        imageWidth: "250px",
+        imageMb: "mb-0",
         imageRounded: true,
         imageRoundedValue: "10px",
-        titleSize: "16px",
-        titleLineHeight: "22px",
+        titleSize: "19px",
+        titleLineHeight: "26px",
         showCategory: true,
         showExcerpt: false,
         showAuthor: true,
         showDate: true,
         showReadTime: false,
     },
-    /** Sidebar Tabs: horizontal card with small thumbnail (matches TopOfWeek TabItem 65x65) */
+    /** Sidebar Tabs: horizontal card with small thumbnail (matches TopOfWeek TabItem 85x85) */
     "sidebar-tabs": {
-        imageHeight: "65px",
-        imageWidth: "65px",
+        imageHeight: "85px",
+        imageWidth: "85px",
         imageMb: "mb-0",
         imageRounded: true,
-        imageRoundedValue: "8px",
-        titleSize: "13px",
-        titleLineHeight: "18px",
+        imageRoundedValue: "9999px",
+        titleSize: "16px",
+        titleLineHeight: "22px",
         showCategory: false,
         showExcerpt: false,
         showAuthor: true,
         showDate: false,
         showReadTime: false,
     },
-    /** Top Flights: horizontal card (matches TopStories smallCards 180x130) */
+    /** Top Flights: horizontal card (matches TopStories ArticleCard 280x200) */
     "top-flights": {
-        imageHeight: "130px",
-        imageWidth: "180px",
+        imageHeight: "200px",
+        imageWidth: "280px",
         imageMb: "mb-0",
         imageRounded: true,
-        imageRoundedValue: "8px",
-        cardRoundedValue: "12px",
-        titleSize: "16px",
-        titleLineHeight: "22px",
+        imageRoundedValue: "10px",
+        cardRoundedValue: "10px",
+        titleSize: "19px",
+        titleLineHeight: "26px",
         showCategory: true,
         showExcerpt: false,
         showAuthor: true,
-        showDate: false,
+        showDate: true,
         showReadTime: false,
     },
     /** Article Inline: full-width inline card between paragraphs */
@@ -654,42 +654,90 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     const imgWidth = (style as any).imageWidth;
     const imgAspect = (style as any).imageAspect;
 
-    // ── "top-destinations" style: matches TopOfWeek ArticleCard (200×130 thumb + pill + title + meta icons) ──
+    // ── "top-destinations" style: matches TopOfWeek ArticleCard (250×160 thumb + pill + title + meta icons) ──
     if (cardStyle === "top-destinations") {
         return (
             <div
                 ref={containerRef}
-                className="group flex gap-[20px] pb-[20px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0 cursor-pointer"
+                className="group flex gap-[25px] py-[15px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 cursor-pointer"
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="block flex-shrink-0 overflow-hidden" style={{ width: "var(--ad-thumb-w, 200px)", height: "var(--ad-thumb-h, 130px)", borderRadius: "var(--ad-thumb-radius, 10px)" }}>
+                <div className="block flex-shrink-0 overflow-hidden rounded-[10px]" style={{ width: "280px", height: "200px" }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
                     )}
                 </div>
-                <div className="flex-1 min-w-0 flex flex-col justify-center">
-                    {nc.category && (
-                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
-                            {nc.category}
-                        </span>
-                    )}
-                    <h5 className="mt-[8px] text-[16px] font-bold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
-                        {nc.title}
-                    </h5>
-                    <ul className="flex items-center gap-[12px] mt-[8px] text-[12px] text-[var(--bodyColor)]">
+                <div className="flex-1 min-w-0 flex flex-col justify-between py-[8px] gap-[10px]">
+                    <div>
+                        {nc.category && (
+                            <span className="inline-flex items-center px-[10px] py-[2px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
+                                {nc.category}
+                            </span>
+                        )}
+                        <h5 className="mt-[10px] text-[19px] font-bold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
+                            {nc.title}
+                        </h5>
+                    </div>
+                    <ul className="flex items-center gap-[14px] text-[13px] text-[var(--bodyColor)]">
                         {(nc.author || nc.sponsorName) && (
-                            <li className="flex items-center gap-[4px]">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                            <li className="flex items-center gap-[5px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                                 <span>{nc.author || nc.sponsorName}</span>
                             </li>
                         )}
-                        <li className="flex items-center gap-[4px]">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                        <li className="flex items-center gap-[5px]">
+                            <svg className="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+                            <span>Sponsored</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+
+    // ── "top-flights" style: matches TopStories ArticleCard (280×160 thumb + pill + title + meta) ──
+    if (cardStyle === "top-flights") {
+        return (
+            <div
+                ref={containerRef}
+                className={`group flex gap-[25px] p-[10px] bg-white rounded-[10px] border border-[var(--borderColor,#e5e7eb)] overflow-hidden cursor-pointer ${className || ""}`}
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`Sponsored: ${nc.title}`}
+            >
+                <div className="block flex-shrink-0 overflow-hidden rounded-[10px]" style={{ width: "280px", height: "160px" }}>
+                    {nc.image ? (
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
+                    )}
+                </div>
+                <div className="flex-1 min-w-0 flex flex-col justify-center py-[2px] gap-[2px]">
+                    <div>
+                        {nc.category && (
+                            <span className="inline-flex items-center px-[10px] py-[2px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
+                                {nc.category}
+                            </span>
+                        )}
+                        <h5 className="mt-[6px] text-[17px] text-[var(--titleColor)] leading-[1.4] line-clamp-2">
+                            {nc.title}
+                        </h5>
+                    </div>
+                    <ul className="flex items-center gap-[14px] text-[13px] text-[var(--bodyColor)]">
+                        {(nc.author || nc.sponsorName) && (
+                            <li className="flex items-center gap-[5px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                <span>{nc.author || nc.sponsorName}</span>
+                            </li>
+                        )}
+                        <li className="flex items-center gap-[5px]">
+                            <svg className="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                             <span>Sponsored</span>
                         </li>
                     </ul>
@@ -772,6 +820,53 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         );
     }
 
+    // ── Sidebar Tabs: matches TopOfWeek TabItem (circular image + text meta) ──
+    if (cardStyle === "sidebar-tabs") {
+        return (
+            <div
+                ref={containerRef}
+                className="flex items-center gap-[16px] py-[15px] group cursor-pointer"
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`Sponsored: ${nc.title}`}
+            >
+                <div className="w-[85px] h-[85px] rounded-full overflow-hidden flex-shrink-0">
+                    {nc.image ? (
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
+                    )}
+                </div>
+                <div className="flex-1 min-w-0">
+                    <h6 className="text-[16px] font-normal text-[var(--titleColor)] leading-[1.35] line-clamp-2 group-hover:text-[var(--primaryColor)] transition-colors">
+                        {nc.title}
+                    </h6>
+                    <ul className="flex items-center gap-[12px] mt-[10px] text-[13px] text-[var(--bodyColor)]">
+                        {(nc.author || nc.sponsorName) && style.showAuthor && (
+                            <li>
+                                <span className="flex items-center flex-wrap gap-[8px]">
+                                    <span>By {nc.author || nc.sponsorName}</span>
+                                </span>
+                            </li>
+                        )}
+                        <li className="flex items-center gap-[4px]">
+                            <span className="w-[3px] h-[3px] rounded-full bg-[var(--bodyColor)]/60"></span>
+                        </li>
+                        <li>
+                            <span className="flex items-center gap-[5px]">
+                                <svg className="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                                </svg>
+                                Sponsored
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+
     // ── Horizontal card: fixed-width thumbnail + text (used by most card styles) ──
     if (imgWidth) {
         return (
@@ -793,6 +888,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
                     )}
+                    {cardStyle === "travel-intel" && (
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="ti-play-wrap"><div className="ti-play-pulse" /><div className="ti-play-btn"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={17} height={17} fill="currentColor"><path d="M8 5v14l11-7z" /></svg></div></div>
+                        </div>
+                    )}
                 </div>
                 <div className="flex-1 min-w-0">
                     {nc.category && style.showCategory && (
@@ -805,7 +905,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         style={{
                             fontSize: style.titleSize,
                             lineHeight: style.titleLineHeight,
-                            color: ["hero-featured", "hero-recent", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured"].includes(cardStyle)
+                            color: ["hero-featured", "hero-recent", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured", "travel-intel"].includes(cardStyle)
                                 ? "#fff"
                                 : "var(--titleColor, #1a1a2e)",
                         }}
@@ -814,7 +914,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                     </h5>
                     <div className="flex items-center gap-2" style={{
                         fontSize: "11px",
-                        color: ["hero-featured", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured"].includes(cardStyle)
+                        color: ["hero-featured", "hero-side", "sidebar-list", "most-viewed", "carousel", "review-list", "sidebar-featured", "travel-intel"].includes(cardStyle)
                             ? "rgba(255,255,255,0.6)"
                             : "var(--bodyColor, #616C74)"
                     }}>
@@ -861,7 +961,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                             </li>
                         )}
                         <li className="flex items-center gap-1.5">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
                             <span>Sponsored</span>
                         </li>
                     </ul>

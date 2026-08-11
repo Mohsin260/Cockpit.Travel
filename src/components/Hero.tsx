@@ -86,7 +86,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
               </li>
               <li>
                 <span className="fpg-meta">
-                  <i className="ri-pulse-fill" /> {featured.views} Views
+                  <svg className="w-[14px] h-[14px] inline-block align-[-3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg> {featured.views} Views
                 </span>
               </li>
               <li>
@@ -110,7 +110,8 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
               slidesPerGroup={1}
               breakpoints={{
                 0: { slidesPerView: 1 },
-                768: { slidesPerView: 3 },
+                895: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
               }}
             >
               {featuredCards.map((post, i) => (
@@ -158,7 +159,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
                         </li>
                         <li>
                           <span className="fpg-meta">
-                            <i className="ri-pulse-fill" /> {post.views} Views
+                            <svg className="w-[14px] h-[14px] inline-block align-[-3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg> {post.views} Views
                           </span>
                         </li>
                       </ul>
@@ -230,7 +231,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
                     </li>
                     <li>
                       <span className="fpg-meta">
-                        <i className="ri-pulse-fill" /> {post.views} Views
+                        <svg className="w-[14px] h-[14px] inline-block align-[-3px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg> {post.views} Views
                       </span>
                     </li>
                   </ul>
