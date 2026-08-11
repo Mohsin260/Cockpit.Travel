@@ -601,4 +601,28 @@ export const POSITION_SIZE_CONFIG: Record<
     label: "RelatedPosts carousel — Native card matching related slides (200px image + badge + title)",
     recommendedPresets: ["Native Feed Ad", "Medium Rectangle", "Large Rectangle"],
   },
+
+  // ── Sidebar In-Feed Native ────────────────────────────────
+  "sidebar-in-feed": {
+    desktop: { width: 340, height: 100 },
+    tablet: { width: 300, height: 95 },
+    mobile: { width: 300, height: 95 },
+    containerDesktop: { width: 360, height: 120 },
+    containerTablet: { width: 320, height: 115 },
+    containerMobile: { width: 320, height: 115 },
+    label: "Article sidebar between widgets — Native feed ad",
+    recommendedPresets: ["Native Feed Ad", "Medium Rectangle"],
+  },
+
+  // ── Header Offcanvas ──────────────────────────────────────
+  "header-offcanvas": {
+    desktop: { width: 300, height: 250 },
+    tablet: { width: 300, height: 250 },
+    mobile: { width: 300, height: 250 },
+    containerDesktop: { width: 320, height: 270 },
+    containerTablet: { width: 320, height: 270 },
+    containerMobile: { width: 320, height: 270 },
+    label: "Hamburger overlay menu below gallery — Banner/native ad",
+    recommendedPresets: ["Medium Rectangle", "Native Feed Ad"],
+  },
 };

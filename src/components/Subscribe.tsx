@@ -6,7 +6,7 @@ export default function Subscribe() {
   const t = useTranslations();
 
   return (
-    <section className="pb-[80px] bg-white">
+    <section className="pb-[100px] bg-white dark:bg-[#0a0a0a]">
       <div className="nerio-container">
         <div
           className="relative overflow-hidden rounded-[12px] min-h-[200px]"

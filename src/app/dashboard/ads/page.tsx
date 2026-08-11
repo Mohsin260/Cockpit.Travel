@@ -116,6 +116,7 @@ const PAGE_CONFIG: {
       { id: "in-content-2", name: `In-Content: After Para 4 (${POSITION_SIZE_CONFIG["in-content-2"]?.label || "336×280"})`, description: "ArticleBody → native after 4th paragraph" },
       { id: "in-feed-related", name: `Related Posts Carousel (${POSITION_SIZE_CONFIG["in-feed-related"]?.label || "300×250"})`, description: "RelatedPosts → native slide matching related cards" },
       { id: "sidebar-sticky", name: `Sidebar Sticky (${POSITION_SIZE_CONFIG["sidebar-sticky"]?.label || "300×600"})`, description: "Sidebar → below TabWidget — native matching sidebar cards" },
+      { id: "sidebar-in-feed", name: `Sidebar In-Feed (${POSITION_SIZE_CONFIG["sidebar-in-feed"]?.label || "300×100"})`, description: "Sidebar → between widgets — native feed ad" },
       { id: "follow-native", name: `Follow Widget (${POSITION_SIZE_CONFIG["follow-native"]?.label || "300×250"})`, description: "FollowWidget → 4th slot — native matching social cards" },
     ],
   },
@@ -135,6 +136,7 @@ const PAGE_CONFIG: {
     description: "Ad placements on static pages (About, Privacy, etc.)",
     positions: [
       { id: "sticky-footer", name: `Sticky Footer Ad (${POSITION_SIZE_CONFIG["sticky-footer"]?.label || "728×90"})`, description: "Persistent at bottom" },
+      { id: "header-offcanvas", name: `Header Offcanvas (${POSITION_SIZE_CONFIG["header-offcanvas"]?.label || "300×250"})`, description: "Hamburger overlay menu below gallery" },
     ],
   },
 ];

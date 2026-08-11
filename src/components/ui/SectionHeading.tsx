@@ -1,12 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import SectionAudioButton from "./SectionAudioButton";
 
 interface Props {
     label: string;
     href?: string;
     seeAllLabel?: string;
     color?: string;
-    invert?: boolean; // white text for dark backgrounds
+    invert?: boolean;
     icon?: React.ReactNode;
+    listenText?: string;
 }
 
 export default function SectionHeading({
@@ -16,6 +20,7 @@ export default function SectionHeading({
     color,
     invert = false,
     icon,
+    listenText,
 }: Props) {
     const accentColor = color ?? "var(--g-color)";
     const textColor = invert ? "#fff" : "var(--heading-color)";
@@ -38,6 +43,7 @@ export default function SectionHeading({
                     {label}
                 </span>
                 {icon}
+                {listenText && <SectionAudioButton text={listenText} />}
             </div>
             {href && (
                 <Link

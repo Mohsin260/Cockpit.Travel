@@ -6,7 +6,7 @@ import { toApiError } from "@/lib/api/errors";
 import { requirePermission } from "@/lib/auth/server";
 import { buildVastUrl, hasUnresolvedMacros, contextFromRequest } from "@/lib/ads/buildVastUrl";
 import { POSITION_SIZE_CONFIG } from "@/lib/constants/adSizes";
-import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
+import { DEPLOYMENT_LOCALE, DEFAULT_LOCALE } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
 
@@ -19,8 +19,10 @@ export async function GET(req: Request) {
     const activeOnly = searchParams.get("activeOnly") === "true";
 
     const query: any = {};
-    // Scope all ad queries to the current deployment locale
-    query.locale = DEPLOYMENT_LOCALE;
+    // Scope all ad queries to the current deployment locale with fallback to default
+    query.locale = DEPLOYMENT_LOCALE === DEFAULT_LOCALE
+      ? DEPLOYMENT_LOCALE
+      : { $in: [DEPLOYMENT_LOCALE, DEFAULT_LOCALE] };
     if (pageType) query.pageType = pageType;
     // When a specific position is requested, filter server-side so only the
     // exact matching ad is returned — no cross-position bleed possible.

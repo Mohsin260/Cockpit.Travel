@@ -6,6 +6,7 @@ import "swiper/swiper-bundle.css";
 
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import SectionAudioButton from "@/components/ui/SectionAudioButton";
 import { useTranslations } from "@/hooks/useTranslations";
 import { formatDate as formatDateLocale } from "@/lib/dateFormat";
 
@@ -63,10 +64,16 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
   const color = categoryColors[featured.category] || "#e033e0";
 
   return (
-    <section className="breaking-section py-[60px] bg-white">
+    <section className="breaking-section py-[80px] bg-white dark:bg-[#0a0a0a]">
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-[28px] font-bold text-[var(--titleColor)]">{t("sections.hotels")}</h2>
+          <div className="flex items-center gap-2">
+            <h2 className="text-[32px] font-bold text-[var(--titleColor)]">{t("sections.hotels")}</h2>
+            <SectionAudioButton
+              text={t("sections.hotels")}
+              articles={articles.map(a => ({ title: a.title, authorName: a.authorName }))}
+            />
+          </div>
           <Link href="/category/hotels" className="group inline-flex items-center gap-2 text-[var(--titleColor)] font-semibold text-base no-underline relative">
             <span>{t("common.viewAll")}</span>
             <span className="inline-flex items-center">

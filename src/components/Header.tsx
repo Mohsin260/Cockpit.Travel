@@ -4,12 +4,16 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "@/hooks/useTranslations";
+import ThemeToggle from "@/components/ui/ThemeToggle";
+import ListenButton from "@/components/ui/ListenButton";
+import AdSlot from "@/components/ui/AdSlot";
 
 interface NavChild {
   label: string;
   href: string;
   hasSubMenu?: boolean;
   children?: NavChild[];
+  image?: string;
 }
 
 interface NavItem {
@@ -45,22 +49,22 @@ export default function Header() {
       label: t("nav.features"),
       hasMegaMenu: true,
       children: [
-        { label: t("ticker.news1"), href: "#" },
-        { label: t("ticker.news2"), href: "#" },
-        { label: t("ticker.news3"), href: "#" },
-        { label: t("ticker.news4"), href: "#" },
-        { label: t("ticker.news5"), href: "#" },
-        { label: t("ticker.news6"), href: "#" },
+        { label: t("ticker.news1"), href: "#", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=300&h=200&fit=crop" },
+        { label: t("ticker.news2"), href: "#", image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=300&h=200&fit=crop" },
+        { label: t("ticker.news3"), href: "#", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&h=200&fit=crop" },
+        { label: t("ticker.news4"), href: "#", image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=300&h=200&fit=crop" },
+        { label: t("ticker.news5"), href: "#", image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=300&h=200&fit=crop" },
+        { label: t("ticker.news6"), href: "#", image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=300&h=200&fit=crop" },
       ],
     },
     {
       label: t("nav.flights"),
       hasMegaMenu: true,
       children: [
-        { label: t("ticker.news1"), href: "#" },
-        { label: t("ticker.news2"), href: "#" },
-        { label: t("ticker.news3"), href: "#" },
-        { label: t("ticker.news4"), href: "#" },
+        { label: t("ticker.news1"), href: "#", image: "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=300&h=200&fit=crop" },
+        { label: t("ticker.news2"), href: "#", image: "https://images.unsplash.com/photo-1540339832862-474599807836?w=300&h=200&fit=crop" },
+        { label: t("ticker.news3"), href: "#", image: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=300&h=200&fit=crop" },
+        { label: t("ticker.news4"), href: "#", image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&h=200&fit=crop" },
       ],
     },
     {
@@ -370,7 +374,12 @@ export default function Header() {
                               <div className="mega-menu-item-title">{item.label}</div>
                               {item.children.slice(0, 3).map((child) => (
                                 <Link key={child.label} href={child.href} className="mega-menu-item-link">
-                                  {child.label}
+                                  {child.image && (
+                                    <div className="mega-menu-item-thumb">
+                                      <img src={child.image} alt={child.label} loading="lazy" />
+                                    </div>
+                                  )}
+                                  <span>{child.label}</span>
                                 </Link>
                               ))}
                             </div>
@@ -378,7 +387,12 @@ export default function Header() {
                               <div className="mega-menu-item-title">{t("nav.latest")}</div>
                               {item.children.slice(3).map((child) => (
                                 <Link key={child.label} href={child.href} className="mega-menu-item-link">
-                                  {child.label}
+                                  {child.image && (
+                                    <div className="mega-menu-item-thumb">
+                                      <img src={child.image} alt={child.label} loading="lazy" />
+                                    </div>
+                                  )}
+                                  <span>{child.label}</span>
                                 </Link>
                               ))}
                             </div>
@@ -386,7 +400,12 @@ export default function Header() {
                               <div className="mega-menu-item-title">{t("nav.popular")}</div>
                               {item.children.slice(0, 2).map((child) => (
                                 <Link key={child.label} href={child.href} className="mega-menu-item-link">
-                                  {child.label}
+                                  {child.image && (
+                                    <div className="mega-menu-item-thumb">
+                                      <img src={child.image} alt={child.label} loading="lazy" />
+                                    </div>
+                                  )}
+                                  <span>{child.label}</span>
                                 </Link>
                               ))}
                             </div>
@@ -463,6 +482,9 @@ export default function Header() {
                         <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z" />
                       </svg>
                     </button>
+                    <div className="flex items-center gap-2">
+                      <ListenButton size="sm" />
+                    </div>
                     <div className="mobile-panel-logo">
                       {/* <Image src="/assets/images/logo.png" alt="logo" width={150} height={35} style={{ height: 35, width: "auto" }} /> */}
                       <h2 className="text-xxl text-white font-bold ml-0">
@@ -517,6 +539,9 @@ export default function Header() {
                   </div>
                 </div>
 
+                <ThemeToggle className="hidden lg:inline-flex" />
+                <ListenButton size="sm" className="hidden lg:inline-flex" />
+
                 {/* Offcanvas Toggle (tablet+) */}
                 <div className="rstb-offcanvas-wrap hidden lg:block">
                   <div className="offcanvas-toggle-wrap">
@@ -539,6 +564,9 @@ export default function Header() {
                           <path d="M487 512a24.93 24.93 0 0 1-17.68-7.32l-462-462A25 25 0 0 1 42.68 7.32l462 462A25 25 0 0 1 487 512z" />
                         </svg>
                       </button>
+                      <div className="flex items-center gap-2">
+                        <ListenButton size="sm" />
+                      </div>
                       <div className="offcanvas-content" style={{ padding: "80px 50px 50px" }}>
                         <div className="offcanvas-logo">
                           <Link href="/">
@@ -560,6 +588,9 @@ export default function Header() {
                           <a href="/category/travel-intelligence"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=150&h=150&fit=crop" alt="Road Trip" width={150} height={150} /></a>
                           <a href="/category/flights"><img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=150&h=150&fit=crop" alt="Ancient Temple" width={150} height={150} /></a>
                           <a href="/category/hotels"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=150&h=150&fit=crop" alt="Travel Backpack" width={150} height={150} /></a>
+                        </div>
+                        <div className="offcanvas-ad-slot mb-[30px]">
+                          <AdSlot pageType="website" position="header-offcanvas" />
                         </div>
                         <div className="offcanvas-contact">
                           <h4>{t("header.quickContact")}</h4>
@@ -720,19 +751,40 @@ export default function Header() {
                               <div className="mega-menu-item">
                                 <div className="mega-menu-item-title">{item.label}</div>
                                 {item.children.slice(0, 3).map((child) => (
-                                  <Link key={child.label} href={child.href} className="mega-menu-item-link">{child.label}</Link>
+                                  <Link key={child.label} href={child.href} className="mega-menu-item-link">
+                                    {child.image && (
+                                      <div className="mega-menu-item-thumb">
+                                        <img src={child.image} alt={child.label} loading="lazy" />
+                                      </div>
+                                    )}
+                                    <span>{child.label}</span>
+                                  </Link>
                                 ))}
                               </div>
                               <div className="mega-menu-item">
                                 <div className="mega-menu-item-title">{t("nav.latest")}</div>
                                 {item.children.slice(3).map((child) => (
-                                  <Link key={child.label} href={child.href} className="mega-menu-item-link">{child.label}</Link>
+                                  <Link key={child.label} href={child.href} className="mega-menu-item-link">
+                                    {child.image && (
+                                      <div className="mega-menu-item-thumb">
+                                        <img src={child.image} alt={child.label} loading="lazy" />
+                                      </div>
+                                    )}
+                                    <span>{child.label}</span>
+                                  </Link>
                                 ))}
                               </div>
                               <div className="mega-menu-item">
                                 <div className="mega-menu-item-title">{t("nav.popular")}</div>
                                 {item.children.slice(0, 2).map((child) => (
-                                  <Link key={child.label} href={child.href} className="mega-menu-item-link">{child.label}</Link>
+                                  <Link key={child.label} href={child.href} className="mega-menu-item-link">
+                                    {child.image && (
+                                      <div className="mega-menu-item-thumb">
+                                        <img src={child.image} alt={child.label} loading="lazy" />
+                                      </div>
+                                    )}
+                                    <span>{child.label}</span>
+                                  </Link>
                                 ))}
                               </div>
                             </div>
@@ -800,6 +852,8 @@ export default function Header() {
                 </nav>
 
                 <div className="flex items-center gap-3 header-actions-desktop">
+                  <ListenButton size="sm" className="hidden lg:inline-flex" />
+
                   <Link href="/login" className="rs-button user-btn">
                     <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
                       <path d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z" />
@@ -837,6 +891,9 @@ export default function Header() {
                             <path d="M487 512a24.93 24.93 0 0 1-17.68-7.32l-462-462A25 25 0 0 1 42.68 7.32l462 462A25 25 0 0 1 487 512z" />
                           </svg>
                         </button>
+                        <div className="flex items-center gap-2">
+                          <ListenButton size="sm" />
+                        </div>
                         <div className="offcanvas-content" style={{ padding: "80px 50px 50px" }}>
                           <div className="offcanvas-logo">
                             <Link href="/">
@@ -858,6 +915,9 @@ export default function Header() {
                             <a href="/category/travel-intelligence"><img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=150&h=150&fit=crop" alt="Road Trip" width={150} height={150} /></a>
                             <a href="/category/flights"><img src="https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=150&h=150&fit=crop" alt="Ancient Temple" width={150} height={150} /></a>
                             <a href="/category/hotels"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=150&h=150&fit=crop" alt="Travel Backpack" width={150} height={150} /></a>
+                          </div>
+                          <div className="offcanvas-ad-slot mb-[30px]">
+                            <AdSlot pageType="website" position="header-offcanvas" />
                           </div>
                           <div className="offcanvas-contact">
                             <h4>{t("header.quickContact")}</h4>

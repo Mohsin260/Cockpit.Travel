@@ -15,6 +15,8 @@ import FollowWidget from "@/components/article/FollowWidget";
 import TagsWidget from "@/components/article/TagsWidget";
 import SearchWidget from "@/components/article/SearchWidget";
 import AdSlot from "@/components/ui/AdSlot";
+import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import SectionAudioButton from "@/components/ui/SectionAudioButton";
 import { useTranslations } from "@/hooks/useTranslations";
 
 interface ArticleTemplateProps {
@@ -36,6 +38,11 @@ export default function ArticleTemplate({ article, related, categories, trending
     image: c.image || "",
   }));
 
+  const plainTextContent = (article.bodyContent || article.content || "")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
   return (
     <div className="nerio-container has-sidebar py-[80px]">
       <AdSlot pageType="article" position="top-leaderboard" articleSlug={article.slug} />
@@ -49,6 +56,10 @@ export default function ArticleTemplate({ article, related, categories, trending
             category={{ label: article.categoryLabel || article.category, color: article.categoryColor || "#004df2" }}
             comments={String(article.comments?.length || 0)}
           />
+          <div className="flex items-center gap-3 mb-4">
+            <SectionAudioButton text={plainTextContent} className="article-listen-btn" />
+            <span className="text-sm text-[var(--bodyColor)]">Listen to this article</span>
+          </div>
           <AdSlot pageType="article" position="atf-rectangle" articleSlug={article.slug} />
           <ArticleBody content={article.bodyContent || article.content} />
           <TagsAndShare tags={article.tags || []} />
@@ -69,6 +80,7 @@ export default function ArticleTemplate({ article, related, categories, trending
             trendyArticles={trending || []}
           />
           <CategoriesWidget categories={sidebarCategories} />
+          <InFeedNativeAd position="sidebar-in-feed" cardStyle="sidebar-ad" />
           <FollowWidget socialCards={[
             { name: "Facebook", followers: t("sidebar.followUs"), color: "#0073FF", icon: "facebook" },
             { name: "Twitter", followers: t("sidebar.followUs"), color: "#121213", icon: "twitter" },

@@ -3,6 +3,7 @@ import { Inter_Tight, Noto_Sans_Arabic } from "next/font/google";
 import "./globals.css";
 import StickySidebar from "@/components/StickySidebar";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { DEPLOYMENT_LOCALE, LOCALE_HTML_LANG, isRtl } from "@/lib/i18n";
 
 const interTight = Inter_Tight({
@@ -40,15 +41,17 @@ export default function RootLayout({
   const fontVariable = DEPLOYMENT_LOCALE === "ar" ? notoSansArabic.variable : interTight.variable;
 
   return (
-    <html lang={htmlLang} dir={htmlDir} className={fontVariable}>
+    <html lang={htmlLang} dir={htmlDir} className={fontVariable} suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" />
       </head>
       <body className="min-h-screen flex flex-col font-body antialiased">
-        <QueryProvider>
-          {children}
-        </QueryProvider>
-        <StickySidebar />
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false} disableTransitionOnChange>
+          <QueryProvider>
+            {children}
+          </QueryProvider>
+          <StickySidebar />
+        </ThemeProvider>
       </body>
     </html>
   );

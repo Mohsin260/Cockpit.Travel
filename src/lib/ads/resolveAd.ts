@@ -12,7 +12,23 @@
 import { connectDB } from "@/lib/db";
 import { AdSnippet } from "@/lib/models/AdSnippet";
 import { Article } from "@/lib/models/Article";
-import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
+import { DEPLOYMENT_LOCALE, DEFAULT_LOCALE } from "@/lib/i18n";
+
+/**
+ * Build a locale-aware query filter.
+ * Tries the current deployment locale first, then falls back to the default
+ * locale ("en") so that ads configured only in English still appear on
+ * Spanish / Arabic deployments.
+ */
+function localeFilter(extra: Record<string, any> = {}) {
+  if (DEPLOYMENT_LOCALE === DEFAULT_LOCALE) {
+    return { ...extra, locale: DEPLOYMENT_LOCALE };
+  }
+  return {
+    ...extra,
+    locale: { $in: [DEPLOYMENT_LOCALE, DEFAULT_LOCALE] },
+  };
+}
 
 export interface ResolvedAd {
   _id: string;
@@ -60,11 +76,9 @@ export async function resolveArticleAd(
       );
       
       if (override?.adSnippetId) {
-        const ad = await AdSnippet.findOne({
-          _id: override.adSnippetId,
-          enabled: true,
-          locale: DEPLOYMENT_LOCALE,
-        }).lean();
+        const ad = await AdSnippet.findOne(
+          localeFilter({ _id: override.adSnippetId, enabled: true })
+        ).lean();
         
         if (ad) return ad as unknown as ResolvedAd;
         // Override exists but ad is disabled or missing — fall through to global
@@ -76,13 +90,14 @@ export async function resolveArticleAd(
 
   // 2. Fallback to global article ad
   try {
-    const globalAd = await AdSnippet.findOne({
-      pageType: "article",
-      position,
-      enabled: true,
-      isArticleOverride: { $ne: true },
-      locale: DEPLOYMENT_LOCALE,
-    }).lean();
+    const globalAd = await AdSnippet.findOne(
+      localeFilter({
+        pageType: "article",
+        position,
+        enabled: true,
+        isArticleOverride: { $ne: true },
+      })
+    ).lean();
     
     if (globalAd) return globalAd as unknown as ResolvedAd;
   } catch (err) {
@@ -104,12 +119,9 @@ export async function resolveGlobalAd(
   await connectDB();
 
   try {
-    const ad = await AdSnippet.findOne({
-      pageType,
-      position,
-      enabled: true,
-      locale: DEPLOYMENT_LOCALE,
-    }).lean();
+    const ad = await AdSnippet.findOne(
+      localeFilter({ pageType, position, enabled: true })
+    ).lean();
     
     if (ad) return ad as unknown as ResolvedAd;
   } catch (err) {

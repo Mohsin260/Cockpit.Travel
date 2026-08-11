@@ -32,8 +32,12 @@ export const AdPositions = [
   "in-content-1",
   "in-content-2",
   "sidebar-sticky",
+  "sidebar-in-feed",
   "follow-native",
   "in-feed-related",
+
+  // ── Header / Overlay ────────────────────────────────────
+  "header-offcanvas",
 ] as const;
 export type AdPosition = (typeof AdPositions)[number];
 

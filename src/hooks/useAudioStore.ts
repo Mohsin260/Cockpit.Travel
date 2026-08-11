@@ -2,27 +2,28 @@
 
 import { create } from "zustand";
 
-/**
- * Global Zustand store for the Text-to-Speech (TTS) audio player.
- * Shared between the AudioPlayer UI and the useSpeechEngine hook
- * so both always reflect the same playback state.
- */
 interface AudioStore {
-  audioContent: string;       // Text content currently queued for speech
+  audioContent: string;
+  sourceId: string | null;
   voiceType: 'male' | 'female';
   isPlaying: boolean;
-  setAudioContent: (content: string) => void;
+  selectedVoiceName: string | null;
+  setAudioContent: (content: string, sourceId?: string | null) => void;
   setVoiceType: (type: 'male' | 'female') => void;
   setIsPlaying: (playing: boolean) => void;
-  clearAudioContent: () => void; // Stops and resets speech state
+  setSelectedVoiceName: (name: string | null) => void;
+  clearAudioContent: () => void;
 }
 
 export const useAudioStore = create<AudioStore>((set) => ({
   audioContent: "",
+  sourceId: null,
   voiceType: "female",
   isPlaying: false,
-  setAudioContent: (content) => set({ audioContent: content }),
+  selectedVoiceName: null,
+  setAudioContent: (content, sourceId = null) => set({ audioContent: content, sourceId }),
   setVoiceType: (type) => set({ voiceType: type }),
   setIsPlaying: (playing) => set({ isPlaying: playing }),
-  clearAudioContent: () => set({ audioContent: "", isPlaying: false }),
+  setSelectedVoiceName: (name) => set({ selectedVoiceName: name }),
+  clearAudioContent: () => set({ audioContent: "", sourceId: null, isPlaying: false, selectedVoiceName: null }),
 }));

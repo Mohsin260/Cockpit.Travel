@@ -39,16 +39,20 @@ function getVoiceLangPrefix(locale: string): string {
  * Returns the effective utterance rate, compensating for female voices
  * which naturally speak faster than male voices.
  * 
- * User-selected:  1x   → Male: 1.0,  Female: 0.95
- * User-selected:  1.5x → Male: 1.5,  Female: 1.25
- * User-selected:  2x   → Male: 2.0,  Female: 1.65
+ * User-selected:  0.5x  → Male: 0.5,  Female: 0.5
+ * User-selected:  0.75x → Male: 0.75, Female: 0.75
+ * User-selected:  1x    → Male: 1.0,  Female: 0.95
+ * User-selected:  1.25x → Male: 1.25, Female: 1.1
+ * User-selected:  1.5x  → Male: 1.5,  Female: 1.25
+ * User-selected:  2x    → Male: 2.0,  Female: 1.65
  */
 function getEffectiveRate(userRate: number, voice: SpeechSynthesisVoice | null): number {
   if (!isFemaleVoice(voice)) return userRate;
-  // Female compensation: reduce the multiplier effect
+  if (userRate <= 0.75) return userRate;
   if (userRate <= 1) return 0.95;
+  if (userRate <= 1.25) return 1.1;
   if (userRate <= 1.5) return 1.25;
-  return 1.65; // 2x
+  return 1.65;
 }
 
 export function useSpeechEngine() {
@@ -59,29 +63,30 @@ export function useSpeechEngine() {
   const [selectedVoice, setSelectedVoice] = useState<SpeechSynthesisVoice | null>(null);
   const [hasSupport, setHasSupport] = useState(false);
 
-  // Determine the voice language prefix from deployment locale
   const voiceLangPrefix = getVoiceLangPrefix(DEPLOYMENT_LOCALE);
 
-  // Refs mirror state so playNextChunk callbacks always see the latest values
-  // without capturing stale closures from the initial render.
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
-  const chunksRef = useRef<string[]>([]);          // Text split by punctuation for speed-change responsiveness
-  const currentChunkIndexRef = useRef<number>(0);  // Tracks which chunk the engine is currently speaking
+  const chunksRef = useRef<string[]>([]);
+  const currentChunkIndexRef = useRef<number>(0);
   const isPlayingRef = useRef<boolean>(false);
   const isPausedRef = useRef<boolean>(false);
   const rateRef = useRef<number>(1);
   const selectedVoiceRef = useRef<SpeechSynthesisVoice | null>(null);
 
-  // Subscribe to voice preference (male/female) from the shared audio store
   const voicePreference = useAudioStore((state) => state.voiceType);
-  // Keep a ref so onvoiceschanged callback always reads the LATEST preference
-  // (avoids the stale-closure bug where Chrome fires the event after the initial render)
+  const selectedVoiceName = useAudioStore((state) => state.selectedVoiceName);
+  const setSelectedVoiceName = useAudioStore((state) => state.setSelectedVoiceName);
+
   const voicePreferenceRef = useRef(voicePreference);
   useEffect(() => {
     voicePreferenceRef.current = voicePreference;
   }, [voicePreference]);
 
-  // Keep voice ref in sync
+  const selectedVoiceNameRef = useRef(selectedVoiceName);
+  useEffect(() => {
+    selectedVoiceNameRef.current = selectedVoiceName;
+  }, [selectedVoiceName]);
+
   useEffect(() => {
     selectedVoiceRef.current = selectedVoice;
   }, [selectedVoice]);
@@ -92,12 +97,19 @@ export function useSpeechEngine() {
 
     const loadVoices = () => {
       const availableVoices = window.speechSynthesis.getVoices();
-      if (availableVoices.length === 0) return; // still not ready
+      if (availableVoices.length === 0) return;
 
       setVoices(availableVoices);
 
-      // Only set a default selection if the user hasn't manually picked one yet.
-      // Reading from ref to always use the latest preference without re-registering the listener.
+      // If user explicitly selected a voice by name, use that
+      if (selectedVoiceNameRef.current) {
+        const found = availableVoices.find(v => v.name === selectedVoiceNameRef.current);
+        if (found) {
+          setSelectedVoice(found);
+          return;
+        }
+      }
+
       setSelectedVoice((prev) =>
         prev ? prev : findBestVoice(availableVoices, voicePreferenceRef.current) || null
       );
@@ -326,11 +338,11 @@ export function useSpeechEngine() {
       };
   }, [stop]);
 
-  const SPEED_OPTIONS = [1, 1.5, 2] as const;
+  const SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5, 2] as const;
 
   const cycleSpeed = useCallback(() => {
     setRate((prev) => {
-      const currentIdx = SPEED_OPTIONS.indexOf(prev as 1 | 1.5 | 2);
+      const currentIdx = SPEED_OPTIONS.indexOf(prev as typeof SPEED_OPTIONS[number]);
       const nextIdx = (currentIdx + 1) % SPEED_OPTIONS.length;
       const newRate = SPEED_OPTIONS[nextIdx];
       rateRef.current = newRate;
@@ -351,6 +363,10 @@ export function useSpeechEngine() {
     selectedVoice,
     setSelectedVoice,
     rate,
+    setRate: (newRate: number) => {
+      rateRef.current = newRate;
+      setRate(newRate);
+    },
     cycleSpeed
   };
 }

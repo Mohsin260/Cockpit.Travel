@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import BreakingNews from "@/components/BreakingNews";
@@ -8,6 +11,8 @@ import Subscribe from "@/components/Subscribe";
 import Footer from "@/components/Footer";
 import AdSlot from "@/components/ui/AdSlot";
 import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
+import { useAudioStore } from "@/hooks/useAudioStore";
+import { prepareTextForSpeech } from "@/lib/utils/textPreparation";
 
 const tagsByLocale: Record<string, string[]> = {
   en: ["Hotels", "Flights", "Destinations", "Traveling", "Travel Intelligence", "Budget", "Luxury", "Adventure", "Culture", "Food"],
@@ -59,6 +64,33 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
   const featured = articles.find((a: any) => a.featured) || articles[0];
   const featuredCards = articles.filter((a: any) => a.slug !== featured?.slug).slice(0, 5);
   const recentNewsPosts = articles.slice(0, 5);
+
+  const setAudioContent = useAudioStore((s) => s.setAudioContent);
+
+  useEffect(() => {
+    if (!articles || articles.length === 0) return;
+
+    const sections: { title: string; articles: { title: string; authorName?: string }[] }[] = [
+      { title: "Hotels", articles: hotelArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+      { title: "Flights", articles: flightArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+      { title: "Destinations", articles: destinationArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+      { title: "Travel Intelligence", articles: intelligenceArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+    ];
+
+    let fullText = "";
+    sections.forEach((section) => {
+      if (section.articles.length === 0) return;
+      fullText += section.title + ". ";
+      section.articles.forEach((article, i) => {
+        fullText += `Article ${i + 1}: ${article.title}. `;
+        if (article.authorName) fullText += `By ${article.authorName}. `;
+      });
+    });
+
+    if (fullText) {
+      setAudioContent(prepareTextForSpeech(fullText));
+    }
+  }, [articles]);
 
   return (
     <div className="nerio-page-wrapper flex flex-col min-h-screen">
