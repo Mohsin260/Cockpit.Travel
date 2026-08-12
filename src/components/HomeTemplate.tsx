@@ -12,6 +12,8 @@ import Footer from "@/components/Footer";
 import AdSlot from "@/components/ui/AdSlot";
 import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
 import { useAudioStore } from "@/hooks/useAudioStore";
+import { useWeatherWidget } from "@/hooks/useWeatherWidget";
+import { useSocialLinks } from "@/hooks/useSocialLinks";
 import { prepareTextForSpeech } from "@/lib/utils/textPreparation";
 
 const tagsByLocale: Record<string, string[]> = {
@@ -66,6 +68,8 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
   const recentNewsPosts = articles.slice(0, 5);
 
   const setAudioContent = useAudioStore((s) => s.setAudioContent);
+  const { weather } = useWeatherWidget();
+  const { socialLinks } = useSocialLinks();
 
   useEffect(() => {
     if (!articles || articles.length === 0) return;
@@ -131,6 +135,8 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
           }).slice(0, 4)}
           categories={categories}
           tags={tagsByLocale[DEPLOYMENT_LOCALE] || tagsByLocale.en}
+          weather={weather ?? undefined}
+          socialLinks={socialLinks}
         />
 
         <AdSlot pageType="homepage" position="mid-leaderboard-4" />

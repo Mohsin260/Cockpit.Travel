@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, type ReactElement } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
 import SectionAudioButton from "@/components/ui/SectionAudioButton";
+import WeatherWidget from "@/components/WeatherWidget";
+import SocialFollowWidget from "@/components/SocialFollowWidget";
+import TagsWidget from "@/components/article/TagsWidget";
 import { useTranslations } from "@/hooks/useTranslations";
 import { formatDate as formatDateLocale } from "@/lib/dateFormat";
 
@@ -27,6 +30,28 @@ interface Category {
   count: number;
 }
 
+interface WeatherData {
+  city?: string;
+  country?: string;
+  temp: number;
+  high: number;
+  low: number;
+  feelsLike: number;
+  humidity: number;
+  wind: number;
+  windDirection: string;
+  conditionCode?: number;
+  conditionLabel?: string;
+  isRain?: boolean;
+}
+
+interface SocialLink {
+  name: string;
+  icon: "facebook" | "twitter" | "instagram" | "youtube" | "linkedin" | "dribbble" | "pinterest";
+  url: string;
+  followers: string;
+}
+
 interface TopOfWeekProps {
   articles: Article[];
   recentArticles: Article[];
@@ -34,6 +59,8 @@ interface TopOfWeekProps {
   trendyArticles: Article[];
   categories: Category[];
   tags: string[];
+  weather?: WeatherData;
+  socialLinks?: SocialLink[];
 }
 
 const categoryColors: Record<string, string> = {
@@ -57,11 +84,6 @@ function formatDate(dateStr: string) {
 }
 
 type TabKey = "recent" | "popular" | "trendy";
-const tabLabels: { key: TabKey; label: string }[] = [
-  { key: "recent", label: "Recent" },
-  { key: "popular", label: "Popular" },
-  { key: "trendy", label: "Trendy" },
-];
 
 function CategoryPill({ label, color }: { label: string; color: string }) {
   return (
@@ -125,7 +147,7 @@ function TabItem({ post }: { post: Article }) {
   );
 }
 
-export default function TopOfWeek({ articles, recentArticles, popularArticles, trendyArticles, categories, tags }: TopOfWeekProps) {
+export default function TopOfWeek({ articles, recentArticles, popularArticles, trendyArticles, tags, weather, socialLinks }: TopOfWeekProps) {
   const t = useTranslations();
   const [activeTab, setActiveTab] = useState<TabKey>("recent");
 
@@ -173,8 +195,9 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
             ))}
           </div>
 
-          <div className="flex flex-col gap-[30px]">
-            <div className="bg-[var(--cardBg,#f9fafb)] rounded-[12px] p-[24px]">
+          <div className="flex flex-col gap-[20px]">
+            {/* Tabs Section - Light Background */}
+            <div className="bg-[var(--cardBg,#f9fafb)] rounded-[12px] p-[20px]">
               <div className="flex gap-[20px] border-b border-[var(--borderColor,#e5e7eb)] mb-[16px]">
                 {tabLabels.map((tab) => (
                   <button
@@ -201,20 +224,14 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
               </div>
             </div>
 
-            <div className="bg-[var(--cardBg,#f9fafb)] rounded-[12px] p-[24px]">
-              <h4 className="text-[16px] font-bold text-[var(--titleColor)] mb-[16px]">{t("sidebar.tags")}</h4>
-              <div className="flex flex-wrap gap-[8px]">
-                {tags.map((tag, i) => (
-                  <Link
-                    key={i}
-                    href={`/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="px-[12px] py-[6px] bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[6px] text-[12px] font-medium text-[var(--titleColor)] hover:border-[var(--primaryColor)] hover:text-[var(--primaryColor)] transition-colors"
-                  >
-                    {tag}
-                  </Link>
-                ))}
-              </div>
-            </div>
+            {/* Weather Widget */}
+            <WeatherWidget weather={weather} />
+
+            {/* Social Follow Widget */}
+            <SocialFollowWidget socialLinks={socialLinks} />
+
+            {/* Tags Widget */}
+            <TagsWidget tags={tags} />
           </div>
         </div>
       </div>
