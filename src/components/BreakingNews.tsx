@@ -96,7 +96,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
                 </h3>
                 <ul className="flex flex-wrap items-center gap-x-3 gap-y-1 mt-3 text-[13px] text-white/70">
                   <li className="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current opacity-60"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current opacity-60"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
                     <span>By <span className="hover:text-[var(--primaryColor)] transition-colors cursor-pointer">{featured.authorName}</span></span>
                   </li>
                   <li className="flex items-center gap-1">
@@ -104,7 +104,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
                     <span>{featured.views} Views</span>
                   </li>
                   <li className="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current opacity-60"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current opacity-60"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" /></svg>
                     <span>{formatDate(featured.date)}</span>
                   </li>
                 </ul>
@@ -134,7 +134,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
                   </h6>
                   <ul className="flex items-center gap-2 text-[11px] text-[var(--bodyColor)]">
                     <li className="flex items-center gap-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
                       <span>By <span className="text-[var(--bodyColor)] hover:text-[var(--primaryColor)] transition-colors">{post.authorName}</span></span>
                     </li>
                     <li className="flex items-center gap-1">
@@ -166,7 +166,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
             {sliderPosts.map((post, i) => (
               <SwiperSlide key={i} className="h-auto">
                 <div className="group flex h-full flex-col bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[12px] overflow-hidden p-[16px] transition-all duration-300 hover:shadow-md">
-                  <Link href={getHref(post)} className="block relative overflow-hidden rounded-[8px] aspect-[16/10] flex-shrink-0">
+                  <Link href={getHref(post)} className="block relative overflow-hidden rounded-[8px] aspect-[4/3] flex-shrink-0">
                     <img
                       src={post.image}
                       alt={post.title}
@@ -176,26 +176,26 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
                   <div className="flex flex-col flex-1 pt-[16px]">
                     <PostBadge label={post.categoryLabel} color={categoryColors[post.category] || color} />
                     <h4 className="mt-[10px] text-[18px] font-bold text-[var(--titleColor)] leading-[1.35] line-clamp-2">
-                      <Link href={getHref(post)} className="text-[var(--titleColor)] transition-colors duration-200 hover:text-[var(--primaryColor)]">
+                      <Link href={getHref(post)} className="text-[var(--titleColor)] transition-colors duration-200 hover:text-blue-500! font-bold">
                         {post.title}
                       </Link>
                     </h4>
-                    <ul className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-[12px] mt-auto text-[14px] text-[var(--bodyColor)]">
-                      <li className="flex items-center gap-1">
-                        <span>By</span>
-                        <Link href="#" className="font-medium text-[var(--titleColor)] transition-colors duration-200 hover:text-[var(--primaryColor)]">
-                          {post.authorName}
-                        </Link>
-                      </li>
-                      <li className="flex items-center gap-1.5">
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
-                        <span>{post.views} Views</span>
-                      </li>
-                      <li className="flex items-center gap-1.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                    <div className="flex flex-col gap-1.5 pt-[12px] mt-auto text-[14px] text-[var(--bodyColor,#666)]">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current opacity-60"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
+                          <span>By <span className="hover:text-[var(--primaryColor)] transition-colors cursor-pointer">{post.authorName}</span></span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <svg className="w-4 h-4 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+                          <span>{post.views} Views</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current opacity-60"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" /></svg>
                         <span>{formatDate(post.date)}</span>
-                      </li>
-                    </ul>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </SwiperSlide>

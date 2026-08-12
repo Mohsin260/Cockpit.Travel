@@ -4,7 +4,6 @@ import "./globals.css";
 import StickySidebar from "@/components/StickySidebar";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { DEPLOYMENT_LOCALE, LOCALE_HTML_LANG, isRtl } from "@/lib/i18n";
-
 const interTight = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
