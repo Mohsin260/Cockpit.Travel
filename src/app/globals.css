@@ -12,7 +12,7 @@
   --whiteColor: #ffffff;
   --blackColor: #000000;
   --bodyBgColor: #ffffff;
-  --bodyColor: #ffffff;
+  --bodyColor: #616C74;
   --titleColor: #121213;
   --shadeColor: #F8F8F9;
   --borderColor: #E5E5E5;
@@ -1696,7 +1696,7 @@ ul {
 
 /* --- RIGHT COLUMN — Recent News --- */
 .hero-recent {
-  width: 310px;
+  width: 320px;
   flex-shrink: 0;
 
   padding: 30px 20px;
@@ -4030,10 +4030,6 @@ ul {
 
 .dark .ad-label {
   color: #666;
-}
-
-.dark .in-feed-native-ad {
-  background-color: #1a1a1a;
 }
 
 /* ── Audio Player (Floating TTS) ─────────────────────────────── */

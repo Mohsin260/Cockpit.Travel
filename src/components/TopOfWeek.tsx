@@ -207,7 +207,7 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
                   <Link
                     key={i}
                     href={`/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="px-[12px] py-[6px] bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[6px] text-[12px] font-medium text-[var(--bodyColor)] hover:border-[var(--primaryColor)] hover:text-[var(--primaryColor)] transition-colors"
+                    className="px-[12px] py-[6px] bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[6px] text-[12px] font-medium text-[var(--titleColor)] hover:border-[var(--primaryColor)] hover:text-[var(--primaryColor)] transition-colors"
                   >
                     {tag}
                   </Link>
