@@ -304,10 +304,11 @@
     "selectProduct": "اختر منتجاً أعلاه"
   },
   "newsletter": {
-    "title": "ابقَ على اطلاع",
+    "title": "اشترك في تحديثات الأخبار!",
     "description": "احصل على آخر المقالات والمقارنات في بريدك الإلكتروني.",
-    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني...",
     "subscribe": "اشترك",
+    "consent": "لقد قرأت وأوافق على",
     "subscribed": "تم الاشتراك!",
     "stayConnected": "ابقَ على تواصل",
     "stayInTheLoop": "ابقَ على اطلاع",

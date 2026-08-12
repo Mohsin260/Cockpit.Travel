@@ -1,91 +1,123 @@
 "use client";
 
+import Link from "next/link";
+
 import { useTranslations } from "@/hooks/useTranslations";
+
+const ArrowIcon = ({ className = "" }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 18 12"
+    className={`absolute left-0 top-0 h-[18px] w-[18px] transition-transform duration-300 group-hover:fill-[#0073FF] ${className}`}
+  >
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M16.2079 5.0991C14.0115 5.0991 12.0097 3.0991 12.0097 0.900901V0H10.2079V0.900901C10.2079 2.4991 10.9088 3.9982 12.0088 5.0991H0.892578V6.9009H12.0088C10.9088 8.0018 10.2079 9.5009 10.2079 11.0991V12H12.0097V11.0991C12.0097 8.9018 14.0115 6.9009 16.2079 6.9009H17.1088V5.0991H16.2079Z"
+    />
+  </svg>
+);
+
+function SubscribeArrows() {
+  return (
+    <span className="pointer-events-none absolute right-[14px] top-1/2 flex h-[18px] w-[18px] -translate-y-1/2 items-center justify-center overflow-hidden">
+      <ArrowIcon className="fill-white group-hover:translate-x-[150%]" />
+      <ArrowIcon className="-translate-x-[150%] fill-white group-hover:translate-x-0" />
+    </span>
+  );
+}
 
 export default function Subscribe() {
   const t = useTranslations();
 
   return (
-    <section className="pb-[40px] bg-white">
+    <section className="bg-white pb-[80px]">
       <div className="nerio-container">
         <div
-          className="relative overflow-hidden rounded-[12px] min-h-[200px]"
+          className="relative overflow-hidden rounded-[8px]"
           style={{
-            background:
-              "radial-gradient(circle at left,#2b506f 0%,#14284b 45%,#08111f 100%)",
+            backgroundColor: "#171A1E",
+            backgroundImage: "url(/assets/images/subscribe/bg.jpg)",
+            backgroundPosition: "top center",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
           }}
         >
-          <div
-            className="hidden lg:block absolute top-[35px] right-[420px] w-[90px] h-[55px] opacity-40"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle,#9fa9b5 1.5px,transparent 1.5px)",
-              backgroundSize: "12px 12px",
-            }}
-          />
+          <div className="relative z-[2] px-[10px] py-[25px] md:px-[20px] md:py-[40px] md:pr-0 lg:px-[65px]">
+            <h3 className="mb-[24px] text-white text-[20px] font-semibold leading-[1.3] tracking-[0.3px] md:text-[24px] lg:text-[28px]">
+              {t("newsletter.title")}
+            </h3>
 
-          <div className="relative z-[2] flex items-center justify-between px-[24px] md:px-[40px] py-[38px]">
-            <div className="w-full max-w-[470px] relative z-10">
-              <h3 className="text-white text-[22px] md:text-[24px] font-bold leading-none mb-[22px]">
-                {t("newsletter.title")}
-              </h3>
+            <form
+              className="relative w-full md:w-[90%]"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <div className="relative h-[52px]">
+                <input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder={t("newsletter.emailPlaceholder")}
+                  className="h-[52px] w-120 rounded-[6px] border border-[#E5E5E5] bg-white pl-[20px] pr-[150px] text-[15px] text-[#616C74] outline-none placeholder:text-[#616C74]"
+                />
+                <button
+                  type="submit"
+                  className="group absolute top-1 left-76 z-10 inline-flex items-center justify-center rounded-[6px] bg-[#0073FF] px-[50px] py-[9px] text-[16px] font-semibold text-white transition-colors duration-300 cursor-pointer hover:bg-[#005FCC] focus:outline-none focus:ring-2 focus:ring-[#005FCC] focus:ring-offset-2"
+                >
+                  {t("newsletter.subscribe")}
+                  <SubscribeArrows />
+                </button>
+              </div>
 
-              <form onSubmit={(e) => e.preventDefault()}>
-                <div className="relative flex items-center bg-white rounded-[8px] shadow-lg h-[58px] p-[4px]">
-                  <input
-                    type="email"
-                    required
-                    placeholder={t("newsletter.emailPlaceholder")}
-                    className="w-full h-full bg-transparent outline-none border-none pl-[18px] pr-[150px] text-[15px] text-[#1f2937] placeholder:text-[#9b9b9b]"
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-[4px] top-[4px] bottom-[4px] px-[26px] rounded-[6px] bg-[#0d6efd] hover:bg-[#0052cc] transition-all duration-300 inline-flex items-center justify-center gap-2 text-white font-medium text-[15px]"
+              <label className="mt-[20px] flex cursor-pointer select-none items-center gap-[8px] text-white">
+                <input
+                  type="checkbox"
+                  required
+                  className="h-[15px] w-[15px] shrink-0 rounded-[3px] border border-solid border-white/50 bg-transparent accent-[#B93C3C]"
+                />
+                <span className="text-[15px] font-normal">
+                  {t("newsletter.consent")}{" "}
+                  <Link
+                    href="/terms-of-service"
+                    className="underline transition-opacity hover:opacity-70"
                   >
-                    <span>{t("newsletter.subscribe")}</span>
-                    <span className="inline-flex items-center overflow-hidden w-[16px] h-[16px] relative">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 18 12"
-                        className="absolute w-[16px] h-[12px] fill-current"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          clipRule="evenodd"
-                          d="M16.2079 5.0991C14.0115 5.0991 12.0097 3.0991 12.0097 0.900901V0H10.2079V0.900901C10.2079 2.4991 10.9088 3.9982 12.0088 5.0991H0.892578V6.9009H12.0088C10.9088 8.0018 10.2079 9.5009 10.2079 11.0991V12H12.0097V11.0991C12.0097 8.9018 14.0115 6.9009 16.2079 6.9009H17.1088V5.0991H16.2079Z"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </div>
-
-                <label className="flex items-center gap-[8px] mt-[16px] text-white text-[14px] cursor-pointer select-none">
-                  <input
-                    type="checkbox"
-                    required
-                    className="w-[15px] h-[15px] rounded-[3px] border border-white/50 bg-transparent accent-[#0d6efd]"
-                  />
-                  <span>
-                    {t("newsletter.subscribe")}{" "}
-                    <a
-                      href="/terms-of-service"
-                      className="underline hover:opacity-70 transition-opacity"
-                    >
-                      {t("footer.termsAgreements")}
-                    </a>
-                  </span>
-                </label>
-              </form>
-            </div>
-
-            <div className="hidden md:block absolute inset-y-0 right-10 w-[60%] overflow-hidden pointer-events-none">
-              <img
-                src="/assets/images/screenshot.png"
-                alt=""
-                className="absolute right-[-15px] top-1/2 -translate-y-1/2 w-[720px] max-w-none object-contain"
-              />
-            </div>
+                    {t("footer.termsAgreements")}
+                  </Link>
+                </span>
+              </label>
+            </form>
           </div>
+
+          <img
+            src="/assets/images/subscribe/cta-thumb-01.png"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute z-[5] right-[83px] top-[18px] max-lg:top-[200px]"
+          />
+          <img
+            src="/assets/images/subscribe/newsletter-dot.png"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute z-[5] right-[460px] top-[44px] max-lg:right-[191px]"
+          />
+          <img
+            src="/assets/images/subscribe/cta-thumb-02.png"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute z-[5] right-[-37px] bottom-[-150px] max-lg:right-[19px] max-lg:bottom-[-130px]"
+          />
+          <img
+            src="/assets/images/subscribe/cta-thumb-03.png"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute z-[5] right-[99px] top-[120px] max-lg:top-[480px]"
+          />
+          <img
+            src="/assets/images/subscribe/cta-thumb-04.png"
+            alt=""
+            aria-hidden
+            className="pointer-events-none absolute z-[5] right-[-209px] top-[96px] max-lg:right-[-140px] max-lg:top-[109px] max-md:top-[224px]"
+          />
         </div>
       </div>
     </section>

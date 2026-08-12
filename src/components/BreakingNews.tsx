@@ -5,6 +5,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/swiper-bundle.css";
 
 import Link from "next/link";
+import { CARD_STYLES, getCssVars } from "@/components/ui/cardStyles";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
 import SectionAudioButton from "@/components/ui/SectionAudioButton";
 import { useTranslations } from "@/hooks/useTranslations";
@@ -86,7 +87,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
         </div>
 
         <div className="flex gap-6 max-[1024px]:flex-col max-[1024px]:gap-5">
-          <div className="flex-1 min-w-0 relative rounded-xl overflow-hidden group">
+          <div className="flex-1 min-w-0 relative rounded-xl overflow-hidden group" style={getCssVars(CARD_STYLES["article-hero"])}>
             <Link href={getHref(featured)} className="block relative h-full">
               <div className="absolute inset-0 overflow-hidden">
                 <img
@@ -119,11 +120,12 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
             </Link>
           </div>
 
-          <div className="news-side-posts w-[380px] flex-shrink-0 flex flex-col max-[1024px]:w-full">
+              <div className="news-side-posts w-[380px] flex-shrink-0 flex flex-col max-[1024px]:w-full">
             {sidePosts.map((post, i) => (
               <div
                 key={i}
                 className="flex gap-3 bg-white rounded-lg p-3 mb-3 last:mb-0 border border-gray-100 transition-colors hover:bg-gray-50"
+                style={getCssVars(CARD_STYLES["latest-articles"])}
               >
                 <Link href={getHref(post)} className="block flex-shrink-0 w-[100px] h-[85px] rounded-lg overflow-hidden">
                   <img
@@ -172,7 +174,7 @@ export default function BreakingNews({ articles }: BreakingNewsProps) {
           >
             {sliderPosts.map((post, i) => (
               <SwiperSlide key={i} className="h-auto">
-                <div className="group flex h-full flex-col bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[12px] overflow-hidden p-[16px] transition-all duration-300 hover:shadow-md">
+                <div className="group flex h-full flex-col bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[12px] overflow-hidden p-[16px] transition-all duration-300 hover:shadow-md" style={getCssVars(CARD_STYLES["popular-articles"])}>
                   <Link href={getHref(post)} className="block relative overflow-hidden rounded-[8px] aspect-[16/10] flex-shrink-0">
                     <img
                       src={post.image}

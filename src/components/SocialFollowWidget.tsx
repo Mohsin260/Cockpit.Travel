@@ -36,8 +36,8 @@ const socialIcons: Record<string, { path: string; viewBox: string }> = {
   },
 };
 
-const cardColors: Record<string, string> = {
-  facebook: "#0073FF",
+const platformColors: Record<string, string> = {
+  facebook: "#2264CB",
   twitter: "#121213",
   youtube: "#FF0000",
   dribbble: "#F53E82",
@@ -48,26 +48,28 @@ const cardColors: Record<string, string> = {
 
 export default function SocialFollowWidget({ socialLinks = [] }: { socialLinks?: SocialLink[] }) {
   if (!socialLinks || socialLinks.length === 0) return null;
+
   return (
     <div>
-      <h4 className="text-[18px] font-bold text-[var(--titleColor)] mb-[20px]">Follow Us</h4>
+      <h4 className="text-[20px] font-semibold text-[var(--titleColor)] mb-[20px] leading-[1.44]">Follow Us</h4>
       <div className="rs-social-menu style1">
-        <div className="social-wrapper grid grid-cols-1 md:grid-cols-2 gap-[12px]">
+        <div className="social-wrapper flex flex-col gap-[12px]">
           {socialLinks.map((link) => {
             const icon = socialIcons[link.icon];
             const isInstagram = link.icon === "instagram";
-            const cardStyle = isInstagram
-              ? { background: cardColors[link.icon] }
-              : { backgroundColor: cardColors[link.icon] };
+            const bgColor = platformColors[link.icon] || platformColors.facebook;
 
             return (
               <a
                 key={link.name}
                 href={link.url}
-                className="flex items-center relative p-[12px_15px] rounded-[6px] group transition-opacity duration-300 hover:opacity-70"
-                style={cardStyle}
+                className="flex items-center relative p-[10px_15px] rounded-[6px] group transition-opacity duration-300 hover:opacity-70"
+                style={{
+                  background: isInstagram ? bgColor : bgColor,
+                  backgroundColor: isInstagram ? undefined : bgColor,
+                }}
               >
-                <div className="icon-wrapper flex items-center justify-center w-[30px] h-auto flex-shrink-0 mr-[15px]">
+                <div className="icon-wrapper flex items-center justify-center w-[24px] h-auto flex-shrink-0 mr-[15px]" style={{ backgroundColor: "transparent" }}>
                   {icon && (
                     <svg
                       aria-hidden="true"
@@ -79,11 +81,11 @@ export default function SocialFollowWidget({ socialLinks = [] }: { socialLinks?:
                     </svg>
                   )}
                 </div>
-                <div className="content-wrapper flex flex-col">
-                  <span className="text-wrapper text-[14px] font-bold text-white leading-tight">
+                <div className="content-wrapper flex-1 relative" style={{ minWidth: 0 }}>
+                  <span className="text-wrapper block text-[14px] font-medium text-white leading-tight pr-[60px]">
                     {link.name}
                   </span>
-                  <span className="sub-text text-[12px] font-medium text-white/90 mt-[2px]">
+                  <span className="sub-text absolute top-[9px] right-[15px] text-[14px] font-medium text-white">
                     {link.followers}
                   </span>
                 </div>

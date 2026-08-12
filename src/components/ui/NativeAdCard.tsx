@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { CARD_STYLES, CardStyleKey, getCssVars } from "./cardStyles";
 
 interface NativeContent {
     title: string;
@@ -40,296 +41,7 @@ interface Props {
     className?: string;
 }
 
-// ── Card style configs ───────────────────────────────────────────
-const CARD_STYLES = {
-    /** News Grid: compact image + title + date (matches hero-recent-grid cards 114x88) */
-    "news-grid": {
-        imageHeight: "88px",
-        imageWidth: "114px",
-        imageMb: "mb-2",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        titleSize: "15px",
-        titleLineHeight: "18px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Hero Featured: horizontal card with 80x70 thumbnail (matches hero-featured-card) */
-    "hero-featured": {
-        imageHeight: "70px",
-        imageWidth: "80px",
-        imageMb: "mb-0",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        cardRoundedValue: "10px",
-        titleSize: "14px",
-        titleLineHeight: "18px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Hero Recent: horizontal card with 114x88 thumbnail (matches hero-recent-grid cards) */
-    "hero-recent": {
-        imageHeight: "88px",
-        imageWidth: "114px",
-        imageMb: "mb-0",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        cardRoundedValue: "8px",
-        titleSize: "14px",
-        titleLineHeight: "18px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Sidebar text list: no image, title + category + excerpt (matches TopStories) */
-    "sidebar-list": {
-        imageHeight: "0",
-        imageMb: "mb-0",
-        imageRounded: false,
-        titleSize: "18px",
-        titleLineHeight: "24px",
-        showCategory: true,
-        showExcerpt: true,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Sidebar featured: 180px image + title + excerpt (matches Tech & Innovation / Editor's Picks) */
-    "sidebar-featured": {
-        imageHeight: "180px",
-        imageMb: "mb-3",
-        imageRounded: false,
-        titleSize: "15px",
-        titleLineHeight: "20px",
-        showCategory: false,
-        showExcerpt: true,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Latest Articles: horizontal card with 100x85 thumbnail (matches BreakingNews side posts) */
-    "latest-articles": {
-        imageHeight: "85px",
-        imageWidth: "100px",
-        imageMb: "mb-0",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        cardRoundedValue: "8px",
-        titleSize: "14px",
-        titleLineHeight: "20px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Hero side card: full-bleed image, no rounded, no margin (matches HeroSliderBlock) */
-    "hero-side": {
-        imageHeight: "100%",
-        imageMb: "mb-0",
-        imageRounded: false,
-        titleSize: "17px",
-        titleLineHeight: "24px",
-        showCategory: true,
-        showExcerpt: true,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Review list: 80x60 thumb + title + stars (matches Latest Reviews sidebar) */
-    "review-list": {
-        imageHeight: "60px",
-        imageWidth: "80px",
-        imageMb: "mb-0",
-        imageRounded: false,
-        titleSize: "15px",
-        titleLineHeight: "20px",
-        showCategory: false,
-        showExcerpt: false,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Carousel: 80x60 thumb in table layout (matches FeaturedCarousel) */
-    "carousel": {
-        imageHeight: "60px",
-        imageWidth: "80px",
-        imageMb: "mb-0",
-        imageRounded: false,
-        titleSize: "15px",
-        titleLineHeight: "20px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Most Viewed: number + title (matches Most Viewed sidebar list) */
-    "most-viewed": {
-        imageHeight: "0",
-        imageMb: "mb-0",
-        imageRounded: false,
-        titleSize: "16px",
-        titleLineHeight: "22px",
-        showCategory: false,
-        showExcerpt: false,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Social Card: colored bg + icon + name + followers (matches FollowWidget social cards) */
-    "social-card": {
-        imageHeight: "0",
-        imageMb: "mb-0",
-        imageRounded: false,
-        titleSize: "16px",
-        titleLineHeight: "20px",
-        showCategory: false,
-        showExcerpt: false,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Popular Articles: vertical card with 16:10 aspect ratio (matches BreakingNews carousel) */
-    "popular-articles": {
-        imageHeight: "0",
-        imageAspect: "16/10",
-        imageMb: "mb-2",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        cardRoundedValue: "12px",
-        titleSize: "16px",
-        titleLineHeight: "22px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: true,
-        showDate: true,
-        showReadTime: false,
-    },
-    /** Travel Intel: compact horizontal card (matches VideoNews side cards 112x112) */
-    "travel-intel": {
-        imageHeight: "112px",
-        imageWidth: "112px",
-        imageMb: "mb-0",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        titleSize: "14px",
-        titleLineHeight: "20px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Top Destinations: 2-col grid card (matches TopOfWeek ArticleCard 200x130) */
-    "top-destinations": {
-        imageHeight: "130px",
-        imageWidth: "200px",
-        imageMb: "mb-2",
-        imageRounded: true,
-        imageRoundedValue: "10px",
-        titleSize: "16px",
-        titleLineHeight: "22px",
-        showCategory: true,
-        showExcerpt: true,
-        showAuthor: true,
-        showDate: true,
-        showReadTime: false,
-    },
-    /** Sidebar Tabs: horizontal card with small thumbnail (matches TopOfWeek TabItem 65x65) */
-    "sidebar-tabs": {
-        imageHeight: "65px",
-        imageWidth: "65px",
-        imageMb: "mb-0",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        titleSize: "13px",
-        titleLineHeight: "18px",
-        showCategory: false,
-        showExcerpt: false,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Top Flights: horizontal card (matches TopStories smallCards 180x130) */
-    "top-flights": {
-        imageHeight: "130px",
-        imageWidth: "180px",
-        imageMb: "mb-0",
-        imageRounded: true,
-        imageRoundedValue: "8px",
-        cardRoundedValue: "12px",
-        titleSize: "16px",
-        titleLineHeight: "22px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Article Inline: full-width inline card between paragraphs */
-    "article-inline": {
-        imageHeight: "clamp(150px, 25vw, 200px)",
-        imageMb: "mb-2",
-        imageRounded: true,
-        titleSize: "16px",
-        titleLineHeight: "22px",
-        showCategory: true,
-        showExcerpt: true,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Related Articles: carousel card (matches RelatedPosts) */
-    "related-articles": {
-        imageHeight: "200px",
-        imageMb: "mb-0",
-        imageRounded: true,
-        titleSize: "16px",
-        titleLineHeight: "22px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: true,
-        showDate: false,
-        showReadTime: false,
-    },
-    /** Sidebar Ad: compact sidebar card */
-    "sidebar-ad": {
-        imageHeight: "clamp(100px, 20vw, 150px)",
-        imageMb: "mb-2",
-        imageRounded: true,
-        titleSize: "14px",
-        titleLineHeight: "20px",
-        showCategory: true,
-        showExcerpt: false,
-        showAuthor: false,
-        showDate: false,
-        showReadTime: false,
-    },
-} as const;
-
-type CardStyleKey = keyof typeof CARD_STYLES;
-
-/**
- * NativeAdCard — renders a native ad that matches the surrounding article cards.
- * 
- * The `cardStyle` field on nativeContent controls which card style to use:
- * - "news-grid": compact grid (NewsGridItem style)
- * - "sidebar-list": text-only list (TopStories style)
- * - "sidebar-featured": featured image + text (Tech & Innovation / Editor's Picks style)
- * - "latest-articles": list with image left, text right
- * - "hero-side": compact grid for hero side cards
- * 
- * Falls back to "grid" / "list" variants for backward compatibility.
- */
+// Card styles and helper moved to src/components/ui/cardStyles.ts
 export default function NativeAdCard({ ad, variant: variantProp, cardStyle: cardStyleOverride, position, pageType, className }: Props) {
     const { nativeContent: nc, trackingPixels } = ad;
     const containerRef = useRef<HTMLDivElement>(null);
@@ -338,6 +50,12 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     // Determine card style: prop override > nativeContent.cardStyle > variant fallback
     const cardStyle: CardStyleKey = cardStyleOverride || nc.cardStyle || (nc.layout === "row" ? "latest-articles" : "news-grid");
     const style = CARD_STYLES[cardStyle] || CARD_STYLES["news-grid"];
+    const imgWidth = (style as any).imageWidth;
+    const imgAspect = (style as any).imageAspect;
+
+    // expose sizes as CSS vars so existing var() fallbacks become effective
+    const cssVars = getCssVars(style);
+
 
     // ── Impression tracking ──────────────────────────────────────────
     useEffect(() => {
@@ -390,28 +108,28 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     const cardRounded = (style as any).cardRoundedValue ? `rounded-[${(style as any).cardRoundedValue}]` : "";
 
     // ── "carousel" style: 80x60 table layout (matches FeaturedCarousel) ──
-    if (cardStyle === "carousel") {
+    if (cardStyle === "carousel")
         return (
             <div
                 ref={containerRef}
                 className="group cursor-pointer"
-                style={{ display: "table", width: "100%", padding: "0", textAlign: "left" }}
+                style={{ ...cssVars, display: "table", width: "100%", padding: "0", textAlign: "left" }}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div style={{ display: "table-cell", width: "var(--ad-thumb-w, 80px)", maxWidth: "100px", verticalAlign: "top", position: "relative" }}>
-                    <div className="block relative overflow-hidden">
+                <div style={{ display: "table-cell", width: "100%", maxWidth: "var(--ad-thumb-w, 80px)", verticalAlign: "top", position: "relative" }}>
+                    <div className="block relative overflow-hidden" style={imgAspect ? { width: "100%", aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { width: "100%", height: "var(--ad-thumb-h, 60px)" }}>
                         {nc.image ? (
                             <img
                                 src={nc.image}
                                 alt={nc.title || "Sponsored content"}
-                                style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 60px)", objectFit: "cover", display: "block" }}
+                                style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                                 className="transition-transform duration-300 hover:opacity-80"
                             />
                         ) : (
-                            <div style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 60px)", backgroundColor: "#333" }} />
+                            <div style={{ width: "100%", height: "100%", backgroundColor: "#333" }} />
                         )}
                     </div>
                 </div>
@@ -432,15 +150,14 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 </div>
             </div>
         );
-    }
-
+    
     // ── "hero-side" style: full-bleed image, no rounded, no margin ──
     if (cardStyle === "hero-side") {
         return (
             <div
                 ref={containerRef}
                 className="group relative overflow-hidden cursor-pointer"
-                style={{ width: "100%", height: "100%", backgroundColor: "#111" }}
+                style={{ ...cssVars, width: "100%", height: "100%", backgroundColor: "#111" }}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
@@ -495,18 +212,18 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     }
 
     // ── "review-list" style: 80x60 thumb + title + stars ───────────
-    if (cardStyle === "review-list") {
+    if (cardStyle === "review-list")
         return (
             <div
                 ref={containerRef}
                 className="group flex gap-3 mb-3 pb-3 cursor-pointer"
-                style={{ borderBottom: "1px solid var(--flex-gray-15, rgba(255,255,255,0.1))" }}
+                style={{ ...cssVars, borderBottom: "1px solid var(--flex-gray-15, rgba(255,255,255,0.1))" }}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 60px)", borderRadius: "var(--ad-thumb-radius, 0)" }}>
+                <div className="shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: "var(--ad-thumb-w, 90px)", borderRadius: "var(--ad-thumb-radius, 0)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, 60px)" }) }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover" />
                     ) : (
@@ -528,7 +245,6 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 </div>
             </div>
         );
-    }
 
     // ── "sidebar-featured" style: full-width image + title + excerpt ─
     if (cardStyle === "sidebar-featured") {
@@ -537,14 +253,15 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="mb-3 pb-3 cursor-pointer"
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
                 {nc.image && (
-                    <div className="block mb-3" style={sfImgWidth ? { width: sfImgWidth } : undefined}>
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className={`object-cover ${sfImgWidth ? "" : "w-full"}`} style={{ height: "var(--ad-thumb-h, 180px)", width: sfImgWidth || "100%" }} />
+                    <div className="block mb-3" style={sfImgWidth ? { width: "100%", maxWidth: sfImgWidth } : (imgAspect ? { width: "100%", aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : undefined)}>
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className={`object-cover ${sfImgWidth ? "" : "w-full"}`} style={imgAspect && !sfImgWidth ? { width: "100%", height: "100%" } : { height: "var(--ad-thumb-h, 180px)", width: sfImgWidth || "100%" }} />
                     </div>
                 )}
                 <h5 className="font-bold leading-snug mb-1" style={{ fontSize: style.titleSize, lineHeight: style.titleLineHeight, color: "var(--heading-color, #fff)" }}>
@@ -563,7 +280,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="post-grid cursor-pointer"
-                style={{ padding: "14px 0", borderBottom: "1px solid var(--flex-gray-15, rgba(255,255,255,0.1))" }}
+                style={{ ...cssVars, padding: "14px 0", borderBottom: "1px solid var(--flex-gray-15, rgba(255,255,255,0.1))" }}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
@@ -595,6 +312,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="cursor-pointer"
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
@@ -619,6 +337,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="group cursor-pointer"
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
@@ -651,8 +370,6 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     }
 
     // ── "hero-featured" style: matches .hero-featured-card (dark bg, border, padding) ──
-    const imgWidth = (style as any).imageWidth;
-    const imgAspect = (style as any).imageAspect;
 
     // ── "top-destinations" style: matches TopOfWeek ArticleCard (200×130 thumb + pill + title + meta icons) ──
     if (cardStyle === "top-destinations") {
@@ -660,12 +377,13 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="group md:flex gap-[20px] pb-[30px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0 cursor-pointer"
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="block flex-shrink-0 overflow-hidden" style={{ width: "320px", height: "200px", borderRadius: "var(--ad-thumb-radius, 10px)" }}>
+                <div className="block flex-shrink-0 overflow-hidden" style={{ width: "100%", maxWidth: "320px", borderRadius: "var(--ad-thumb-radius, 10px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "200px" }) }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
@@ -706,12 +424,13 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="group flex items-start h-25 gap-[12px] cursor-pointer"
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, 80px)", height: "var(--ad-thumb-h, 70px)", borderRadius: "var(--ad-thumb-radius, 8px)" }}>
+                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: "var(--ad-thumb-w, 80px)", borderRadius: "var(--ad-thumb-radius, 8px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, 70px)" }) }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                     ) : (
@@ -739,11 +458,18 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
     }
 
     // ── "latest-articles" style: matches BreakingNews side posts (100×85 thumb + badge + title) ──
-    // Returns Fragment so image & text are direct children of the InFeedNativeAd wrapper
     if (cardStyle === "latest-articles") {
         return (
-            <>
-                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, 100px)", height: "var(--ad-thumb-h, 85px)", borderRadius: "var(--ad-thumb-radius, 8px)" }}>
+            <div
+                ref={containerRef}
+                className={`group flex items-center gap-[15px] cursor-pointer ${cardRounded}`}
+                style={cssVars}
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`Sponsored: ${nc.title}`}
+            >
+                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: (style as any).imageWidth || "var(--ad-thumb-w, 100px)", borderRadius: (style as any).imageRoundedValue ? (style as any).imageRoundedValue : "var(--ad-thumb-radius, 8px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: (style as any).imageHeight || "var(--ad-thumb-h, 85px)" }) }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
                     ) : (
@@ -771,7 +497,39 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         </li>
                     </ul>
                 </div>
-            </>
+            </div>
+        );
+    }
+
+    // ── "sidebar-tabs" style: match TabItem in TopOfWeek (circular 90×90 / 100×100 on xl)
+    if (cardStyle === "sidebar-tabs") {
+        return (
+            <div
+                ref={containerRef}
+                className="flex items-start gap-[10px] xl:gap-[20px] px-0 cursor-pointer"
+                style={{ ...cssVars, paddingTop: undefined }}
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`Sponsored: ${nc.title}`}
+            >
+                <div className="block flex-shrink-0 w-[90px] h-[90px] xl:w-[100px] xl:h-[100px] rounded-full overflow-hidden">
+                    {nc.image ? (
+                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover" />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
+                    )}
+                </div>
+                <div className="flex-1 min-w-0">
+                    <h6 className="text-[16px] xl:text-[17px] font-semibold text-[var(--titleColor)] leading-[1.44] line-clamp-2" style={{ margin: 0 }}>
+                        {nc.title}
+                    </h6>
+                    <ul className="flex items-center gap-[8px] mt-[5px] text-[14px] text-[var(--bodyColor)]">
+                        {(nc.author || nc.sponsorName) && <li>By {nc.author || nc.sponsorName}</li>}
+                        <li>Sponsored</li>
+                    </ul>
+                </div>
+            </div>
         );
     }
 
@@ -781,12 +539,13 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className={`group flex items-center gap-[15px] cursor-pointer ${cardRounded}`}
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "var(--ad-thumb-w, " + (imgWidth || "auto") + ")", height: "var(--ad-thumb-h, " + (style.imageHeight || "auto") + ")", borderRadius: "var(--ad-thumb-radius, " + ((style as any).imageRoundedValue || "8px") + ")" }}>
+                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: "var(--ad-thumb-w, " + (imgWidth || "auto") + ")", borderRadius: "var(--ad-thumb-radius, " + ((style as any).imageRoundedValue || "8px") + ")", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, " + (style.imageHeight || "auto") + ")" }) }}>
                     {nc.image ? (
                         <img
                             src={nc.image}
@@ -837,6 +596,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="group flex h-full flex-col bg-white border border-[var(--borderColor,#e5e7eb)] rounded-[12px] overflow-hidden p-[16px] transition-all duration-300 hover:shadow-md cursor-pointer"
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
@@ -879,13 +639,14 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             <div
                 ref={containerRef}
                 className="group flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full cursor-pointer"
+                style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
                 {nc.image && (
-                    <div className="block w-full overflow-hidden flex-shrink-0" style={{ height: "var(--ad-thumb-h, 200px)", borderRadius: "var(--ad-thumb-radius, 10px)" }}>
+                    <div className="block w-full overflow-hidden flex-shrink-0" style={{ borderRadius: "var(--ad-thumb-radius, 10px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, 200px)" }) }}>
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     </div>
                 )}
@@ -924,6 +685,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         <div
             ref={containerRef}
             className="group cursor-pointer"
+            style={cssVars}
             onClick={handleClick}
             role="link"
             tabIndex={0}

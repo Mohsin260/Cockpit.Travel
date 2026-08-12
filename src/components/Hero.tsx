@@ -7,6 +7,7 @@ import "swiper/swiper-bundle.css";
 import Link from "next/link";
 import { generateSlug } from "@/lib/slug";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import { CARD_STYLES, getCssVars } from "@/components/ui/cardStyles";
 import { useTranslations } from "@/hooks/useTranslations";
 import { formatDate as formatDateLocale } from "@/lib/dateFormat";
 import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
@@ -123,10 +124,10 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
             >
               {featuredCards.map((post, i) => (
                 <SwiperSlide key={i} className="h-auto">
-                  <div className="hero-featured-card">
+                  <div className="hero-featured-card" style={getCssVars(CARD_STYLES["hero-featured"])}>
                     <div className="fpg-post-thumb">
                       <Link href={getHref(post)} className="image-link">
-                        <img src={post.image} alt="" width={300} height={149} />
+                        <img src={post.image} alt="" width={220} height={110} />
                       </Link>
                     </div>
                     <div className="fpg-post-content">
@@ -200,11 +201,11 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
             </Link>
           </div>
           <div className="hero-recent-grid">
-            {recentNews.map((post, i) => (
-              <div className="fpg-card-style style-two" key={i}>
+              {recentNews.map((post, i) => (
+              <div className="fpg-card-style style-two" key={i} style={getCssVars(CARD_STYLES["hero-recent"])}>
                 <div className="fpg-post-thumb">
                   <Link href={getHref(post)} className="image-link">
-                    <img src={post.image} alt="" width={300} height={149} />
+                    <img src={post.image} alt="" width={124} height={100} />
                   </Link>
                 </div>
                 <div className="fpg-post-content">

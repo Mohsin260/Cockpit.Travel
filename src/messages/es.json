@@ -304,10 +304,11 @@
     "selectProduct": "Selecciona un producto arriba"
   },
   "newsletter": {
-    "title": "Mantente actualizado",
+    "title": "¡Suscríbete a las Novedades!",
     "description": "Recibe los últimos artículos y comparaciones en tu bandeja de entrada.",
-    "emailPlaceholder": "Ingresa tu correo",
+    "emailPlaceholder": "Ingresa tu correo...",
     "subscribe": "Suscribirse",
+    "consent": "He leído y acepto los",
     "subscribed": "¡Suscrito!",
     "stayConnected": "Mantente conectado",
     "stayInTheLoop": "Mantente al día",

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Article, Category } from "@/types";
 import CategoryBadge from "./CategoryBadge";
+import { CARD_STYLES, getCssVars } from "./cardStyles";
 import { useBookmarkStore } from "@/hooks/useBookmarkStore";
 import { toast } from "sonner";
 import { formatDate } from "@/lib/dateFormat";
@@ -63,7 +64,7 @@ function GridCard({ article: a, categories = [], priority }: Omit<Props, "varian
     };
 
     return (
-        <div className="p-wrap group flex flex-col relative">
+        <div className="p-wrap group flex flex-col relative" style={getCssVars(CARD_STYLES["news-grid"])}>
             {/* Image */}
             <div className="relative overflow-hidden rounded-[var(--round-5)] mb-3" style={{ aspectRatio: "16/10" }}>
                 {isVideoUrl(a.articleMedia?.heroCoverMedia?.url) ? (
@@ -149,7 +150,7 @@ function ListCard({ article: a, categories = [], priority }: Omit<Props, "varian
     };
 
     return (
-        <div className="p-wrap group flex gap-4 items-start relative">
+        <div className="p-wrap group flex gap-4 items-start relative" style={getCssVars(CARD_STYLES["article-list"])}>
             {/* Thumbnail */}
             <div className="relative overflow-hidden rounded-[var(--round-5)] shrink-0" style={{ width: "130px", aspectRatio: "4/3" }}>
                 {isVideoUrl(a.articleMedia?.heroCoverMedia?.url) ? (
@@ -217,7 +218,7 @@ function ListCard({ article: a, categories = [], priority }: Omit<Props, "varian
 // ── Small variant (tiny thumb + title only) ───────────────────────
 function SmallCard({ article: a, categories = [], counter }: Omit<Props, "variant">) {
     return (
-        <div className="p-wrap group flex gap-3 items-start">
+        <div className="p-wrap group flex gap-3 items-start" style={getCssVars(CARD_STYLES["article-small"])}>
             {/* Optional counter */}
             {counter && (
                 <span
@@ -286,7 +287,7 @@ function HeroCard({ article: a, categories = [], priority }: Omit<Props, "varian
     };
 
     return (
-        <div className="p-wrap hero-card group relative overflow-hidden rounded-[var(--round-7)]" style={{ aspectRatio: "16/9" }}>
+        <div className="p-wrap hero-card group relative overflow-hidden rounded-[var(--round-7)]" style={{ ...getCssVars(CARD_STYLES["article-hero"] || {} as any), aspectRatio: "16/9" }}>
             {isVideoUrl(a.articleMedia?.heroCoverMedia?.url) ? (
                   a.articleMedia?.heroCoverMedia?.poster ? (
                     <img

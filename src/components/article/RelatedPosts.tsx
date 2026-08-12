@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
+import { CARD_STYLES, getCssVars } from "@/components/ui/cardStyles";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -70,8 +71,8 @@ export default function RelatedPosts({ articles }: { articles: RelatedArticle[] 
             const authorName = typeof article.author === "string" ? article.author : article.author.name;
             return (
               <SwiperSlide key={article.slug} className="h-auto">
-                <div className="fpg-card-style style-one flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full group">
-                  <Link href={`/${article.slug}`} className="fpg-post-thumb w-full h-[200px] rounded-[10px] overflow-hidden block">
+                <div className="fpg-card-style style-one flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full group" style={getCssVars(CARD_STYLES["related-articles"])}>
+                  <Link href={`/${article.slug}`} className="fpg-post-thumb w-full overflow-hidden block">
                     <img
                       src={article.featuredImage}
                       alt={article.title}
