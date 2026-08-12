@@ -2041,10 +2041,10 @@ ul {
 /* ========================
    VIDEO NEWS SECTION
 ======================== */
-.video-section {
-  background-color: #121213;
+/* .video-news-section {
+  background-color: #171A1E;
   padding: 70px 0 80px;
-}
+} */
 
 /* --- Category pill --- */
 .video-cat-pill {
@@ -2059,81 +2059,59 @@ ul {
   width: fit-content;
 }
 
-/* --- Author link hover --- */
-.video-author-link:hover {
-  color: var(--primaryColor);
-}
-
 /* --- Thumb overlay gradient for featured card --- */
-.video-thumb-overlay {
+.thumb-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg,
       rgba(255, 255, 255, 0) 18%,
-      #121213 100%);
+      #171A1E 100%);
   pointer-events: none;
   z-index: 1;
 }
 
-/* --- Play button base --- */
-.video-play-btn {
+/* --- Play button (fpg-play-btn style) --- */
+.fpg-play-btn {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  font-size: 13px;
+  width: 48px;
+  height: 48px;
   display: inline-flex;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
   z-index: 2;
-  transition: all 0.3s ease-in-out;
-  background: #e80000;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.6);
   color: #ffffff;
   cursor: pointer;
+  backdrop-filter: blur(4px);
 }
 
-/* Pulse ripple on ::after */
-.video-play-btn::after {
-  content: "";
-  position: absolute;
-  width: 90%;
-  height: 90%;
-  z-index: -1;
-  left: 50%;
-  top: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  display: block;
-  border-radius: 50%;
-  background: #e80000;
-  animation: video-pulse 1500ms ease-out infinite;
+.fpg-play-btn i {
+  font-size: 20px;
+  margin-left: 2px;
 }
 
-.video-play-btn:hover {
-  background: #e80000;
-  color: #ffffff;
+.fpg-play-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.fpg-play-btn.popup-video {
+  /* Additional styles for popup video if needed */
 }
 
 /* Large variant for featured card */
-.video-play-btn--large {
+.fpg-play-btn--large {
   width: 70px;
   height: 70px;
-  top: 42%;
 }
 
-/* --- Pulse keyframe --- */
-@keyframes video-pulse {
-  0% {
-    transform: translateX(-50%) translateY(-50%) scale(1);
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateX(-50%) translateY(-50%) scale(1.8);
-    opacity: 0;
-  }
+.fpg-play-btn--large i {
+  font-size: 28px;
 }
 
 /* ========================

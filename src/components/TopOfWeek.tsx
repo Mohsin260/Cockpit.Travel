@@ -77,15 +77,16 @@ function CategoryPill({ label, color }: { label: string; color: string }) {
 function ArticleCard({ post }: { post: Article }) {
   const color = categoryColors[post.category] || "#54bd05";
   return (
-    <div className="group flex gap-[20px] pb-[20px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0">
-      <Link href={getHref(post)} className="block flex-shrink-0 w-[200px] h-[130px] rounded-[10px] overflow-hidden">
-        <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+    <div className="group md:flex gap-[20px] pb-[20px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0">
+      <Link href={getHref(post)} className="block flex-shrink-0 w-[320px] h-[200px] rounded-[10px] overflow-hidden">
+        <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
       </Link>
-      <div className="flex-1 min-w-0 flex flex-col justify-center">
+      <div className="flex-1 justify-center gap-[20px] md:mt-[30px] ">
         <CategoryPill label={post.categoryLabel} color={color} />
         <h5 className="mt-[8px] text-[16px] font-bold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
           <Link href={getHref(post)} className="hover:text-[var(--primaryColor)] transition-colors">{post.title}</Link>
         </h5>
+        <p className="mt-[8px] text-sm font-normal leading-[1.4] line-clamp-2">{post.excerpt}</p>
         <ul className="flex items-center gap-[12px] mt-[8px] text-[12px] text-[var(--bodyColor)]">
           <li className="flex items-center gap-[4px]">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
@@ -163,7 +164,7 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-[30px]">
-          <div className="top-destinations-grid grid grid-cols-1 md:grid-cols-2 gap-[24px]">
+          <div className="top-destinations-grid grid grid-cols-1 md:grid-cols-1 gap-[24px]">
             {articles.slice(0, 10).map((post, i) => (
               <>
                 <ArticleCard key={i} post={post} />

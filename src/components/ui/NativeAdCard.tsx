@@ -239,7 +239,7 @@ const CARD_STYLES = {
         titleSize: "16px",
         titleLineHeight: "22px",
         showCategory: true,
-        showExcerpt: false,
+        showExcerpt: true,
         showAuthor: true,
         showDate: true,
         showReadTime: false,
@@ -659,28 +659,31 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         return (
             <div
                 ref={containerRef}
-                className="group flex gap-[20px] pb-[20px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0 cursor-pointer"
+                className="group md:flex gap-[20px] pb-[30px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0 cursor-pointer"
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
                 aria-label={`Sponsored: ${nc.title}`}
             >
-                <div className="block flex-shrink-0 overflow-hidden" style={{ width: "var(--ad-thumb-w, 200px)", height: "var(--ad-thumb-h, 130px)", borderRadius: "var(--ad-thumb-radius, 10px)" }}>
+                <div className="block flex-shrink-0 overflow-hidden" style={{ width: "320px", height: "200px", borderRadius: "var(--ad-thumb-radius, 10px)" }}>
                     {nc.image ? (
                         <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
                     )}
                 </div>
-                <div className="flex-1 min-w-0 flex flex-col justify-center">
+                <div className="flex-1 min-w-0 flex-col justify-center">
                     {nc.category && (
-                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
+                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: "#ef4444" }}>
                             {nc.category}
                         </span>
                     )}
                     <h5 className="mt-[8px] text-[16px] font-bold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
                         {nc.title}
                     </h5>
+                    <p className="mt-[8px] text-sm font-normal leading-[1.4] line-clamp-2">
+                        {nc.excerpt}
+                    </p>
                     <ul className="flex items-center gap-[12px] mt-[8px] text-[12px] text-[var(--bodyColor)]">
                         {(nc.author || nc.sponsorName) && (
                             <li className="flex items-center gap-[4px]">
