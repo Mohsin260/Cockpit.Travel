@@ -78,9 +78,9 @@ export default function Subscribe() {
               </form>
             </div>
 
-            <div className="hidden md:block absolute inset-y-0 right-0 w-[60%] overflow-hidden pointer-events-none">
+            <div className="hidden md:block absolute inset-y-0 right-10 w-[60%] overflow-hidden pointer-events-none">
               <img
-                src="/assets/images/subscribe/cta-thumb-01.png"
+                src="/assets/images/screenshot.png"
                 alt=""
                 className="absolute right-[-15px] top-1/2 -translate-y-1/2 w-[720px] max-w-none object-contain"
               />
