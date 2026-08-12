@@ -75,7 +75,6 @@ export default function ListenButton({
 
   const handleStop = () => {
     stop();
-    clearAudioContent();
   };
 
   const handleVoiceSelect = (voice: SpeechSynthesisVoice) => {
@@ -106,7 +105,7 @@ export default function ListenButton({
       {/* Play/Pause Button */}
       <button
         onClick={handlePlayPause}
-        className={`${sizeClasses[size]} inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--bodyColor)] hover:text-[var(--primaryColor)] hover:border-[var(--primaryColor)] transition-all cursor-pointer`}
+        className={`${sizeClasses[size]} inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--titleColor)] hover:text-[var(--primaryColor)] hover:border-[var(--primaryColor)] hover:shadow-[0_0_12px_rgba(0,115,255,0.4)] transition-all cursor-pointer`}
         aria-label={isPlaying ? "Pause" : isPaused ? "Resume" : "Listen"}
         title={isPlaying ? "Pause" : isPaused ? "Resume" : "Listen"}
       >
@@ -125,7 +124,7 @@ export default function ListenButton({
       {(isPlaying || isPaused) && (
         <button
           onClick={handleStop}
-          className={`${sizeClasses[size]} inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--bodyColor)] hover:text-red-500 hover:border-red-500 transition-all cursor-pointer`}
+          className={`${sizeClasses[size]} inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--titleColor)] hover:text-red-500 hover:border-red-500 transition-all cursor-pointer`}
           aria-label="Stop"
           title="Stop"
         >
@@ -140,7 +139,7 @@ export default function ListenButton({
         <div className="relative" ref={speedDropdownRef}>
           <button
             onClick={() => { setShowSpeedDropdown(!showSpeedDropdown); setShowVoiceDropdown(false); }}
-            className="h-[28px] px-2 inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--bodyColor)] text-[11px] font-bold hover:text-[var(--primaryColor)] hover:border-[var(--primaryColor)] transition-all cursor-pointer"
+            className="h-[28px] px-2 inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--titleColor)] text-[11px] font-bold hover:text-[var(--primaryColor)] hover:border-[var(--primaryColor)] transition-all cursor-pointer"
             aria-label={`Speed ${rate}x`}
             title="Playback speed"
           >
@@ -171,7 +170,7 @@ export default function ListenButton({
         <div className="relative" ref={voiceDropdownRef}>
           <button
             onClick={() => { setShowVoiceDropdown(!showVoiceDropdown); setShowSpeedDropdown(false); }}
-            className={`${sizeClasses[size]} inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--bodyColor)] hover:text-[var(--primaryColor)] hover:border-[var(--primaryColor)] transition-all cursor-pointer`}
+className={`${sizeClasses[size]} inline-flex items-center justify-center rounded-full border border-[var(--borderColor)] bg-[var(--shadeColor)] text-[var(--titleColor)] hover:text-[var(--primaryColor)] hover:border-[var(--primaryColor)] transition-all cursor-pointer`}
             aria-label="Select voice"
             title="Voice"
           >

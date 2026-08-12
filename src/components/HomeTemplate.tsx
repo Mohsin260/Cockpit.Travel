@@ -77,7 +77,7 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
       { title: "Travel Intelligence", articles: intelligenceArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
     ];
 
-    let fullText = "";
+    let fullText = "Welcome To Cockpit.Travel. Your trusted partner for finding the best flight deals, hotel bookings, and travel inspiration worldwide. ";
     sections.forEach((section) => {
       if (section.articles.length === 0) return;
       fullText += section.title + ". ";

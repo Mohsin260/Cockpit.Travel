@@ -94,9 +94,9 @@ export default function Header() {
             { label: "Post Layout 06", href: "#" },
           ],
         },
+        { label: t("nav.contact"), href: "/contact" },
       ],
     },
-    { label: t("nav.contact"), href: "/contact" },
     {
       label: t("nav.staticLegal"),
       hasSubMenu: true,
@@ -135,11 +135,11 @@ export default function Header() {
             { label: "Post Layout 05", href: "#" },
           ],
         },
+        { label: t("nav.contact"), href: "/contact" },
         { label: t("nav.login"), href: "/login" },
         { label: t("nav.register"), href: "/register" },
       ],
     },
-    { label: t("nav.contact"), href: "/contact" },
     {
       label: t("nav.staticLegal"),
       children: [
@@ -853,6 +853,7 @@ export default function Header() {
 
                 <div className="flex items-center gap-3 header-actions-desktop">
                   <ListenButton size="sm" className="hidden lg:inline-flex" />
+                  <ThemeToggle className="hidden lg:inline-flex" />
 
                   <Link href="/login" className="rs-button user-btn">
                     <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">

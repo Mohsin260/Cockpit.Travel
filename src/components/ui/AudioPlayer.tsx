@@ -42,7 +42,6 @@ export default function AudioPlayer() {
 
   const handleStop = () => {
     stop();
-    clearAudioContent();
   };
 
   const handleVoiceSelect = (voice: SpeechSynthesisVoice) => {

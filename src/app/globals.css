@@ -12,7 +12,7 @@
   --whiteColor: #ffffff;
   --blackColor: #000000;
   --bodyBgColor: #ffffff;
-  --bodyColor: #616C74;
+  --bodyColor: #ffffff;
   --titleColor: #121213;
   --shadeColor: #F8F8F9;
   --borderColor: #E5E5E5;
@@ -51,22 +51,22 @@
 }
 
 .dark {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --card: #0a0a0a;
-  --card-foreground: #ededed;
+  --background: #000000;
+  --foreground: #ffffff;
+  --card: #111111;
+  --card-foreground: #ffffff;
   --popover: #171717;
-  --popover-foreground: #ededed;
+  --popover-foreground: #ffffff;
   --primary: #0073FF;
   --primary-foreground: #ffffff;
   --secondary: #262626;
-  --secondary-foreground: #ededed;
+  --secondary-foreground: #ffffff;
   --muted: #262626;
   --muted-foreground: #a3a3a3;
   --accent: #262626;
-  --accent-foreground: #ededed;
+  --accent-foreground: #ffffff;
   --destructive: #7f1d1d;
-  --destructive-foreground: #ededed;
+  --destructive-foreground: #ffffff;
   --border: #262626;
   --input: #262626;
   --ring: #0073FF;
@@ -1402,6 +1402,7 @@ ul {
   background-position: center;
   background-blend-mode: overlay;
   overflow: hidden;
+  position: relative;
 }
 
 .hero-inner {
@@ -1412,8 +1413,7 @@ ul {
   gap: 0;
   padding: 0;
   width: 100%;
-  max-width: 1316px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .hero-inner>* {
@@ -1423,10 +1423,9 @@ ul {
 
 /* --- LEFT COLUMN — Featured Post --- */
 .hero-featured {
-  width: 1006px;
-  height: 850px;
-  flex-shrink: 0;
+  flex: 1;
   min-width: 0;
+  height: 850px;
   padding: 150px 30px 50px 30px;
   position: relative;
   overflow: hidden;
@@ -3749,9 +3748,9 @@ ul {
    Dark Mode Overrides
    ═══════════════════════════════════════════ */
 .dark {
-  --bodyBgColor: #0a0a0a;
+  --bodyBgColor: #000000;
   --bodyColor: #a3a3a3;
-  --titleColor: #ededed;
+  --titleColor: #ffffff;
   --shadeColor: #171717;
   --borderColor: #262626;
   --meta-fcolor: #a3a3a3;
@@ -3764,7 +3763,7 @@ ul {
 
 /* Header dark */
 .dark .header-top {
-  background-color: #0a0a0a;
+  background-color: #000000;
 }
 
 .dark .header-bottom {
@@ -3772,16 +3771,16 @@ ul {
 }
 
 .dark .rstb-site-logo a {
-  color: #ededed;
+  color: #ffffff;
 }
 
 /* Hero section dark */
 .dark .hero-section {
-  background-color: #0a0a0a;
+  background-color: transparent;
 }
 
 .dark .hero-recent {
-  background-color: #0a0a0a;
+  background-color: #000000;
 }
 
 /* Section backgrounds dark */
@@ -3789,7 +3788,7 @@ ul {
 .dark .video-news-section,
 .dark .top-of-week-section,
 .dark .top-stories-section {
-  background-color: #0a0a0a;
+  background-color: #000000;
 }
 
 /* Card backgrounds dark */
@@ -3804,7 +3803,7 @@ ul {
 
 /* Title colors dark */
 .dark .text-\[var\(--titleColor\)\] {
-  color: #ededed !important;
+  color: #ffffff !important;
 }
 
 .dark .text-\[var\(--bodyColor\)\] {
@@ -3832,7 +3831,7 @@ ul {
 }
 
 .dark .fpg-author-link {
-  color: #ededed !important;
+  color: #ffffff !important;
 }
 
 .dark .fpg-author-link:hover {
@@ -3845,7 +3844,7 @@ ul {
 .dark h4 a,
 .dark h5 a,
 .dark h6 a {
-  color: #ededed;
+  color: #ffffff;
 }
 
 .dark h2 a:hover,
@@ -3882,7 +3881,7 @@ ul {
 .dark .newsletter-input {
   background-color: #1a1a1a;
   border-color: #333;
-  color: #ededed;
+  color: #ffffff;
 }
 
 .dark .newsletter-input::placeholder {
@@ -3891,21 +3890,21 @@ ul {
 
 /* Section heading dark */
 .dark .section-heading-label {
-  color: #ededed;
+  color: #ffffff;
 }
 
 /* View all link dark */
 .dark .group span.text-\[var\(--titleColor\)\] {
-  color: #ededed;
+  color: #ffffff;
 }
 
 /* Footer dark */
 .dark .rstb-footer {
-  background-color: #0a0a0a;
+  background-color: #000000;
 }
 
 .dark .footer-copyright-bar {
-  background-color: #0a0a0a;
+  background-color: #000000;
 }
 
 .dark .footer-social a {
@@ -3924,11 +3923,11 @@ ul {
 
 /* Offcanvas panel dark */
 .dark .offcanvas-container {
-  background-color: #0a0a0a;
+  background-color: #000000;
 }
 
 .dark .mobile-panel-content {
-  background-color: #0a0a0a;
+  background-color: #000000;
 }
 
 /* Subscribe section dark */
@@ -3943,7 +3942,7 @@ ul {
 }
 
 .dark .mega-menu-item-title {
-  color: #ededed;
+  color: #ffffff;
 }
 
 .dark .mega-menu-item-link {
@@ -3977,7 +3976,7 @@ ul {
 }
 
 .dark .text-gray-900 {
-  color: #ededed !important;
+  color: #ffffff !important;
 }
 
 /* Subscribe section */
@@ -3991,7 +3990,7 @@ ul {
 
 .dark .newsletter-gradient h2,
 .dark .newsletter-gradient h3 {
-  color: #ededed !important;
+  color: #ffffff !important;
 }
 
 .dark .newsletter-gradient p {
@@ -4004,7 +4003,7 @@ ul {
 }
 
 .dark .text-\[var\(--titleColor\)\] {
-  color: #ededed !important;
+  color: #ffffff !important;
 }
 
 /* Post meta visibility */
@@ -4018,18 +4017,15 @@ ul {
   color: #a3a3a3 !important;
 }
 
-/* Top leaderboard ad container background */
+/* Top leaderboard ad container — fixed, unaffected by dark/light mode */
 .ad-container[data-ad-position="top-leaderboard"] {
-  background-color: #171A1E;
+  background-color: #171A1E !important;
+  border-radius: 0 !important;
 }
 
 /* Ad containers dark */
 .dark .ad-container {
   background-color: #111;
-}
-
-.dark .ad-container[data-ad-position="top-leaderboard"] {
-  background-color: #171A1E !important;
 }
 
 .dark .ad-label {

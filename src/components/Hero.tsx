@@ -9,6 +9,13 @@ import { generateSlug } from "@/lib/slug";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
 import { useTranslations } from "@/hooks/useTranslations";
 import { formatDate as formatDateLocale } from "@/lib/dateFormat";
+import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
+
+const HERO_BG_IMAGES: Record<string, string> = {
+  en: "https://images.unsplash.com/photo-1501761095094-94d36f57edbb?w=1400&auto=format&fit=crop&q=80",
+  es: "https://images.unsplash.com/photo-1497470888337-ded683b67494?w=1400&auto=format&fit=crop&q=80",
+  ar: "https://images.unsplash.com/photo-1497470888337-ded683b67494?w=1400&auto=format&fit=crop&q=80",
+};
 
 interface Article {
   slug: string;
@@ -52,11 +59,12 @@ function formatDate(dateStr: string) {
 export default function Hero({ featured, featuredCards, recentNews }: HeroProps) {
   const t = useTranslations();
   const featuredColor = categoryColors[featured.category] || "#f27100";
+  const heroBgImage = HERO_BG_IMAGES[DEPLOYMENT_LOCALE] || HERO_BG_IMAGES.en;
 
   return (
-    <section className="hero-section">
+    <section className="hero-section" style={{ backgroundImage: `url('${heroBgImage}')` }}>
       <div className="hero-inner">
-        <div className="hero-featured">
+        <div className="hero-featured" style={{ backgroundImage: `url('${heroBgImage}')` }}>
           <div className="hero-featured-content">
             <div className="hero-post-cat">
               <Link

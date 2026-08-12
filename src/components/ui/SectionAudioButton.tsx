@@ -1,7 +1,6 @@
 "use client";
 
 import { useSpeechEngine } from "@/hooks/useSpeechEngine";
-import { useAudioStore } from "@/hooks/useAudioStore";
 
 interface Article {
   title: string;
@@ -16,13 +15,8 @@ interface SectionAudioButtonProps {
 
 export default function SectionAudioButton({ text, articles, className = "" }: SectionAudioButtonProps) {
   const { togglePlayPause, isPlaying, isPaused, hasSupport } = useSpeechEngine();
-  const audioContent = useAudioStore((s) => s.audioContent);
-  const sourceId = useAudioStore((s) => s.sourceId);
-  const setAudioContent = useAudioStore((s) => s.setAudioContent);
 
   if (!hasSupport || !text) return null;
-
-  const isActive = (isPlaying || isPaused) && sourceId === text;
 
   const buildFullText = () => {
     let fullText = text + ". ";
@@ -38,19 +32,13 @@ export default function SectionAudioButton({ text, articles, className = "" }: S
   };
 
   const handleClick = () => {
-    if (isActive) {
-      togglePlayPause(audioContent);
-    } else {
-      const fullText = buildFullText();
-      setAudioContent(fullText, text);
-      setTimeout(() => togglePlayPause(fullText), 50);
-    }
+    togglePlayPause(buildFullText());
   };
 
   return (
     <button
       onClick={handleClick}
-      className={`section-audio-btn ${isActive ? "section-audio-btn-active" : ""} ${className}`}
+      className={`section-audio-btn ${isPlaying || isPaused ? "section-audio-btn-active" : ""} ${className}`}
       aria-label={isPlaying ? "Pause listening" : isPaused ? "Resume listening" : "Listen to this section"}
       title={isPlaying ? "Pause" : isPaused ? "Resume" : "Listen"}
     >

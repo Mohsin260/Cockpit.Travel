@@ -141,7 +141,7 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
   };
 
   return (
-    <section className="top-of-week-section py-[80px] bg-white dark:bg-[#0a0a0a]">
+    <section className="top-of-week-section py-[40px] bg-white">
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-2">

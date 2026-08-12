@@ -51,7 +51,7 @@ export default function TopStories({ articles }: TopStoriesProps) {
   const color = categoryColors[largeCard.category] || "#0073ff";
 
   return (
-    <section className="top-stories-section py-[80px] bg-white dark:bg-[#0a0a0a]">
+    <section className="top-stories-section py-[40px] bg-white">
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-2">
