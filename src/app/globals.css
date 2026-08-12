@@ -4019,7 +4019,7 @@ ul {
 
 /* Top leaderboard ad container — fixed, unaffected by dark/light mode */
 .ad-container[data-ad-position="top-leaderboard"] {
-  background-color: #171A1E !important;
+  background-color: rgb(58 64 72) !important;
   border-radius: 0 !important;
 }
 
