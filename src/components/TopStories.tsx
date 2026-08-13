@@ -68,7 +68,7 @@ export default function TopStories({ articles }: TopStoriesProps) {
                 <path fillRule="evenodd" clipRule="evenodd" d="M16.2079 5.0991C14.0115 5.0991 12.0097 3.0991 12.0097 0.900901V0H10.2079V0.900901C10.2079 2.4991 10.9088 3.9982 12.0088 5.0991H0.892578V6.9009H12.0088C10.9088 8.0018 10.2079 9.5009 10.2079 11.0991V12H12.0097V11.0991C12.0097 8.9018 14.0115 6.9009 16.2079 6.9009H17.1088V5.0991H16.2079Z" />
               </svg>
             </span>
-            <span className="absolute bottom-[-2px] left-0 w-0 h-[2px] bg-[var(--primaryColor)] transition-all duration-300 group-hover:w-full" />
+            <span className="absolute bottom-[-2px] start-0 w-0 h-[2px] bg-[var(--primaryColor)] transition-all duration-300 group-hover:w-full" />
           </Link>
         </div>
 
@@ -83,7 +83,7 @@ export default function TopStories({ articles }: TopStoriesProps) {
               <h3 className="mt-3 text-xl md:text-[22px] font-semibold text-white leading-snug">{largeCard.title}</h3>
               <ul className="flex items-center gap-3 mt-3 text-[13px] text-white/70">
                 <li>{largeCard.authorName}</li>
-                <li>{largeCard.views} Views</li>
+                <li>{largeCard.views} {t("common.views")}</li>
                 <li>{formatDate(largeCard.date)}</li>
               </ul>
             </div>
@@ -104,12 +104,12 @@ export default function TopStories({ articles }: TopStoriesProps) {
                   </h5>
                   <ul className="flex items-center gap-3 mt-2 text-[12px] text-[var(--bodyColor)]">
                     <li>{post.authorName}</li>
-                    <li>{post.views} Views</li>
+                    <li>{post.views} {t("common.views")}</li>
                   </ul>
                 </div>
               </div>
             ))}
-            <InFeedNativeAd position="in-feed-9" cardStyle="top-flights" className="flex gap-4 bg-white rounded-xl border border-[var(--borderColor,#e5e7eb)] overflow-hidden p-4" />
+            <InFeedNativeAd position="in-feed-9" cardStyle="top-flights" className="bg-white rounded-xl border border-[var(--borderColor,#e5e7eb)] overflow-hidden p-4" />
           </div>
         </div>
       </div>

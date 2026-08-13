@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import { translate } from "@/lib/translate";
+
+const ADVERTISEMENT = translate("common.advertisement");
 
 const isVideoUrl = (url?: string) => {
   if (!url) return false;
@@ -281,7 +284,7 @@ function VastVideoPlayer({ src, poster, vastTagUrl }: { src: string; poster?: st
             autoComputeAdSize: true,
             showCountdown: true,
             showControlsForJSAds: true,
-            adLabel: "Advertisement",
+            adLabel: ADVERTISEMENT,
             adsRenderingSettings: {
               restoreCustomPlaybackStateOnAdBreakComplete: true,
               enablePreloading: true,

@@ -48,7 +48,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-2xl font-bold mt-8 mb-4">Contact Us</h2>
               <p>
-                If you have any questions about these Terms, please contact us at info@nerio.com.
+                If you have any questions about these Terms, please contact us at info@cockpit.travel.
               </p>
             </div>
           </div>

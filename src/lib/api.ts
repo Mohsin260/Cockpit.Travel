@@ -4,6 +4,7 @@ import { Article as ArticleModel } from "@/lib/models/Article";
 import { SimpleCategory } from "@/lib/models/SimpleCategory";
 import articlesJson from "@/data/articles.json";
 import categoriesJson from "@/data/categories.json";
+import authorsJson from "@/data/authors.json";
 import { DEPLOYMENT_LOCALE, DEFAULT_LOCALE } from "@/lib/i18n";
 
 const API_BASE =
@@ -12,6 +13,24 @@ const API_BASE =
     : process.env.NEXTAUTH_URL?.replace(/\/$/, "") || "http://localhost:3000";
 
 const useDb = process.env.USE_DATABASE !== "false";
+
+const authorLookup = new Map<string, any>(
+  (authorsJson as any[]).map((a) => [a.slug, a] as [string, any])
+);
+
+function resolveAuthorInfo(article: any): {
+  authorName: string;
+  author_avatar: string;
+  author_bio: string;
+} {
+  const ref = article.author ? authorLookup.get(article.author) : undefined;
+  return {
+    authorName: article.authorName || ref?.name || "Admin",
+    author_avatar:
+      article.author_avatar || article.authorAvatar || ref?.avatar || "",
+    author_bio: article.authorBio || ref?.bio || "",
+  };
+}
 
 function stripMongoId(obj: any): any {
   if (Array.isArray(obj)) return obj.map(stripMongoId);
@@ -49,6 +68,8 @@ function mapArticle(article: any): Article {
   }
   // Keep heroCoverMedia.url as the original URL so article pages can play the video
 
+  const author = resolveAuthorInfo(article);
+
   return {
     id: article._id?.toString?.() || article.id || "",
     slug: article.slug,
@@ -57,7 +78,9 @@ function mapArticle(article: any): Article {
     category: article.category,
     categoryLabel: article.categoryLabel,
     author: article.author,
-    authorName: article.authorName,
+    authorName: author.authorName,
+    author_avatar: author.author_avatar,
+    author_bio: author.author_bio,
     date: article.date,
     readTime: article.readTime,
     image: imageForCards,
@@ -146,7 +169,17 @@ function fetchArticleBySlugFromJSON(slug: string): Article | null {
 }
 
 function fetchCategoriesFromJSON(): Category[] {
-  return categoriesJson as Category[];
+  const locale = DEPLOYMENT_LOCALE;
+  const countMap = new Map<string, number>();
+  for (const a of articlesJson as any[]) {
+    if (a.status === "draft" || (a.locale || "en") !== locale) continue;
+    const catKey = (a.category || "").toLowerCase();
+    countMap.set(catKey, (countMap.get(catKey) || 0) + 1);
+  }
+  return (categoriesJson as Category[]).map((c) => ({
+    ...c,
+    count: countMap.get((c.slug || "").toLowerCase()) ?? 0,
+  }));
 }
 
 async function fetchArticlesFromDB(params?: {

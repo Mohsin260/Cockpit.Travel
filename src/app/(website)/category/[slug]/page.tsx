@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import CategoryTemplate from "@/components/CategoryTemplate";
 import { fetchArticles, fetchCategories } from "@/lib/api";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { translate } from "@/lib/translate";
+
+const siteName = translate("common.siteName");
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -21,10 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     if (!cat) return {};
     return {
         title: cat.label,
-        description: `Browse all ${cat.label} articles on Cockpit.Travel`,
+        description: `Browse all ${cat.label} articles on ${siteName}`,
         openGraph: {
-            title: `${cat.label} — Cockpit.Travel`,
-            description: `Browse all ${cat.label} articles on Cockpit.Travel`,
+            title: `${cat.label} — ${siteName}`,
+            description: `Browse all ${cat.label} articles on ${siteName}`,
             type: "website",
         },
         alternates: {

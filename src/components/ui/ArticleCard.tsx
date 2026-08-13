@@ -8,6 +8,7 @@ import { CARD_STYLES, getCssVars } from "./cardStyles";
 import { useBookmarkStore } from "@/hooks/useBookmarkStore";
 import { toast } from "sonner";
 import { formatDate } from "@/lib/dateFormat";
+import { translate } from "@/lib/translate";
 
 // Helper to determine if a URL points to video content
 const isVideoUrl = (url?: string) => {
@@ -42,7 +43,7 @@ function ArticleMeta({ article, isHero }: { article: Article; isHero?: boolean }
                 {formatDate(article.date, { month: "short", day: "numeric", year: "numeric" })}
             </span>
             <span className="opacity-30">•</span>
-            <span>{article.readTime} min read</span>
+            <span>{article.readTime} {translate("article.minReadShort")}</span>
         </div>
     );
 }
@@ -263,7 +264,7 @@ function SmallCard({ article: a, categories = [], counter }: Omit<Props, "varian
                     </Link>
                 </h4>
                 <div style={{ fontSize: "12px", color: "var(--meta-fcolor)" }}>
-                    {a.readTime} min read
+                    {a.readTime} {translate("article.minReadShort")}
                 </div>
             </div>
         </div>

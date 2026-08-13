@@ -1,6 +1,8 @@
 {
   "common": {
     "siteName": "Cockpit.Travel",
+    "brandPart1": "Cockpit",
+    "brandPart2": "Travel",
     "readMore": "Read More",
     "viewAll": "View All",
     "seeAll": "See All",
@@ -34,7 +36,29 @@
     "enterKeyword": "Enter a keyword to find articles.",
     "tryDifferent": "Try different keywords or browse our categories.",
     "savedArticle": "saved article",
-    "savedArticles": "saved articles"
+    "savedArticles": "saved articles",
+    "sponsored": "Sponsored",
+    "advertisement": "Advertisement",
+    "adActions": {
+      "adOptions": "Ad options",
+      "whyThisAd": "Why this ad?",
+      "stopSeeingThisAd": "Stop seeing this ad",
+      "reportAd": "Report ad",
+      "aboutThisAd": "About this ad",
+      "aboutThisAdDescription": "This ad is shown based on your browsing activity and location. Your feedback helps us show more relevant ads.",
+      "whatWasWrong": "What was wrong?",
+      "notRelevant": "Not relevant to me",
+      "coveredContent": "Ad covered content",
+      "seenMultiple": "Seen this ad multiple times",
+      "inappropriate": "Ad was inappropriate",
+      "otherReason": "Other reason...",
+      "moreDetails": "More Details",
+      "placeholder": "Briefly describe the issue...",
+      "submit": "Submit",
+      "submitting": "Submitting...",
+      "thanks": "Thanks for the feedback!",
+      "thanksDescription": "We'll try not to show you this ad again."
+    }
   },
   "nav": {
     "home": "Home",
@@ -77,7 +101,12 @@
     "liveNews": "Live News",
     "offcanvasDesc": "Your trusted partner for finding the best flight deals, hotel bookings, and travel inspiration worldwide.",
     "quickContact": "Quick Contact:",
-    "getInTouch": "Get In Touch"
+    "getInTouch": "Get In Touch",
+    "toggleMenu": "Toggle menu",
+    "search": "Search",
+    "menu": "Menu",
+    "previousTags": "Previous tags",
+    "nextTags": "Next tags"
   },
   "ticker": {
     "news1": "Dubai launches new direct flight routes to 12 Asian destinations",
@@ -190,7 +219,8 @@
   "hero": {
     "recentNews": "Recent News",
     "viewAll": "View All",
-    "readArticle": "Read Article"
+    "readArticle": "Read Article",
+    "listenToArticle": "Listen to this article"
   },
   "sections": {
     "hotels": "Hotels",
@@ -264,7 +294,30 @@
     "recent": "Recent",
     "popular": "Popular",
     "random": "Random",
-    "categories": "Categories"
+    "categories": "Categories",
+    "previous": "Previous",
+    "next": "Next",
+    "tags": "Tags",
+    "website": "Website",
+    "websitePlaceholder": "Website",
+    "emailPlaceholder": "Email *",
+    "fullName": "Full Name *",
+    "notPublished": "Your email address will not be published.",
+    "requiredFields": "Required fields are marked",
+    "saveMyInfo": "Save my name, email, and website in this browser for the next time I comment.",
+    "listenToArticle": "Listen to this article",
+    "minReadShort": "min read",
+    "listen": "Listen",
+    "pause": "Pause",
+    "resume": "Resume",
+    "stop": "Stop",
+    "listening": "Listening...",
+    "paused": "Paused",
+    "speed": "Speed",
+    "playbackSpeed": "Playback speed",
+    "selectVoice": "Select voice",
+    "voice": "Voice",
+    "noVoices": "No voices available"
   },
   "comparison": {
     "verdict": "Verdict",
@@ -310,6 +363,9 @@
     "subscribe": "Subscribe",
     "consent": "I have read and agree to the",
     "subscribed": "Subscribed!",
+    "popupTitle": "Don't Miss a News",
+    "popupDescription": "Join thousands of readers who never miss a headline.",
+    "popupClose": "Close",
     "stayConnected": "Stay Connected",
     "stayInTheLoop": "Stay in the Loop",
     "newsletterDescription": "Get the latest viral stories delivered straight to your inbox.",
@@ -389,6 +445,18 @@
     "followUs": "Follow Us",
     "tags": "Tags"
   },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "dribbble": "Dribbble",
+    "pinterest": "Pinterest",
+    "fans": "Fans",
+    "followers": "Followers",
+    "subscribers": "Subscribers"
+  },
   "widgets": {
     "weather": {
       "partlySunny": "Partly Sunny",
@@ -401,7 +469,16 @@
       "wed": "Wed",
       "thu": "Thu",
       "fri": "Fri",
-      "sat": "Sat"
+      "sat": "Sat",
+      "title": "Weather",
+      "currentWeather": "Current weather",
+      "feelsLike": "Feels Like",
+      "humidity": "Humidity",
+      "condition": "Condition",
+      "currentCity": "Current City",
+      "windInfo": "Wind Info",
+      "windSpeed": "Wind Speed",
+      "country": "Country"
     },
     "poll": {
       "title": "Poll",

@@ -86,7 +86,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
               <li>
                 <span className="fpg-meta">
                   <span>
-                    By{" "}
+                    {t("common.by")}{" "}
                     <span className="fpg-author-link">
                       {featured.authorName}
                     </span>
@@ -95,7 +95,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
               </li>
               <li>
                 <span className="fpg-meta">
-                  <i className="ri-pulse-fill" /> {featured.views} Views
+                  <i className="ri-pulse-fill" /> {featured.views} {t("common.views")}
                 </span>
               </li>
               <li>
@@ -158,7 +158,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
                         <li>
                           <span className="fpg-meta">
                             <span>
-                              By{" "}
+                              {t("common.by")}{" "}
                               <span className="fpg-author-link">
                                 {post.authorName}
                               </span>
@@ -167,7 +167,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
                         </li>
                         <li>
                           <span className="fpg-meta">
-                            <i className="ri-pulse-fill" /> {post.views} Views
+                            <i className="ri-pulse-fill" /> {post.views} {t("common.views")}
                           </span>
                         </li>
                       </ul>
@@ -230,7 +230,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
                     <li>
                       <span className="fpg-meta">
                         <span>
-                          By{" "}
+                          {t("common.by")}{" "}
                           <span className="fpg-author-link">
                             {post.authorName}
                           </span>
@@ -239,7 +239,7 @@ export default function Hero({ featured, featuredCards, recentNews }: HeroProps)
                     </li>
                     <li>
                       <span className="fpg-meta">
-                        <i className="ri-pulse-fill" /> {post.views} Views
+                        <i className="ri-pulse-fill" /> {post.views} {t("common.views")}
                       </span>
                     </li>
                   </ul>

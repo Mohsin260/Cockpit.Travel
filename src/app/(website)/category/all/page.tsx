@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import AllCategoriesTemplate from "@/components/AllCategoriesTemplate";
+import { translate } from "@/lib/translate";
 
 export const dynamic = "force-dynamic";
 
+const siteName = translate("common.siteName");
+
 export const metadata: Metadata = {
   title: "All Categories",
-  description: "Browse all content categories on Cockpit.Travel",
+  description: `Browse all content categories on ${siteName}`,
   openGraph: {
-    title: "All Categories — Cockpit.Travel",
-    description: "Browse all content categories on Cockpit.Travel",
+    title: `All Categories — ${siteName}`,
+    description: `Browse all content categories on ${siteName}`,
     type: "website",
   },
   alternates: {

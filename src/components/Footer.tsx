@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import BrandLogo from "@/components/ui/BrandLogo";
 
 const CircleIcon = () => (
   <svg
@@ -25,29 +27,55 @@ export default function Footer() {
     { name: t("footer.travelIntelligence"), href: "#" },
   ], [t]);
 
-  const recentPosts = useMemo(() => [
+  const staticRecentPosts = useMemo(() => [
     {
       title: t("ticker.news1"),
       href: "#",
       author: "Matt Rosnor",
-      views: "98 Views",
+      views: `98 ${t("common.views")}`,
       image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=200&h=200&fit=crop",
     },
     {
       title: t("ticker.news2"),
       href: "#",
       author: "Matt Rosnor",
-      views: "83 Views",
+      views: `83 ${t("common.views")}`,
       image: "https://images.unsplash.com/photo-1556388158-158ea5ccacbd?w=200&h=200&fit=crop",
     },
     {
       title: t("ticker.news3"),
       href: "#",
       author: "Matt Rosnor",
-      views: "79 Views",
+      views: `79 ${t("common.views")}`,
       image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=200&h=200&fit=crop",
     },
   ], [t]);
+
+  const { data: recentArticles, isSuccess } = useQuery({
+    queryKey: ["footer-recent-posts"],
+    queryFn: async () => {
+      const res = await fetch("/api/articles?limit=3&status=published");
+      if (!res.ok) throw new Error("Failed to load recent posts");
+      const json = (await res.json()) as { items?: Array<{
+        title: string; slug: string; image?: string;
+        authorName?: string; views?: number;
+      }> };
+      return json.items || [];
+    },
+    staleTime: 1000 * 60 * 5,
+  });
+
+  const recentPosts = isSuccess && recentArticles?.length
+    ? recentArticles.map((post) => ({
+        title: post.title,
+        href: `/posts/${post.slug}`,
+        author: post.authorName || "RSTheme",
+        views: `${post.views ?? 0} ${t("common.views")}`,
+        image: post.image
+          ? `${post.image}${post.image.includes("?") ? "&" : "?"}w=200&h=200&fit=crop`
+          : staticRecentPosts[0].image,
+      }))
+    : staticRecentPosts;
 
   const tags = useMemo(() => [
     t("footer.hotels"),
@@ -77,9 +105,7 @@ export default function Footer() {
                 priority={false}
               /> */}
               <h2 className="text-xxl text-white font-bold ml-0">
-                <span className="text-[#0073FF]">Cockpit</span>
-                <span className="text-white">.</span>
-                <span className="text-white" style={{ marginLeft: '-0.10rem' }}>Travel</span>
+                <BrandLogo gap="-0.10rem" />
               </h2>
             </div>
             <p className="footer-desc">

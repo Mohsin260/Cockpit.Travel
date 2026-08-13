@@ -1,0 +1,18 @@
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config({ path: ".env" });
+const uri = process.env.MONGO_URI;
+const conn = await mongoose.createConnection(uri, { serverSelectionTimeoutMS: 15000 });
+await new Promise((res, rej) => { conn.once("connected", res); conn.once("error", rej); });
+console.log("connected to db:", conn.name);
+const db = conn.db;
+const cats = await db.collection("simplecategories").find({}).limit(30).project({slug:1,label:1,locale:1,color:1}).toArray();
+console.log("categories count:", cats.length);
+for (const c of cats) console.log(JSON.stringify({slug:c.slug, label:c.label, locale:c.locale, color:c.color}));
+const arArticles = await db.collection("articles").countDocuments({ locale: "ar" });
+const enArticles = await db.collection("articles").countDocuments({ locale: "en" });
+console.log("ar articles:", arArticles, "en articles:", enArticles);
+const arCats = await db.collection("articles").aggregate([{$match:{locale:"ar",status:{$ne:"draft"}}},{$group:{_id:"$category", count:{$sum:1}}}]).toArray();
+console.log("ar article categories:", JSON.stringify(arCats));
+await conn.close();
+process.exit(0);

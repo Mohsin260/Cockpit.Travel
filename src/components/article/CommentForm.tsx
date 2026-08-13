@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslations } from "@/hooks/useTranslations";
 
 export default function CommentForm() {
+  const t = useTranslations();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [website, setWebsite] = useState("");
@@ -17,13 +19,13 @@ export default function CommentForm() {
     <div className="comments-area mb-[30px] bg-[#f8f9fa] border border-border rounded-[10px] p-[30px]">
       <div className="comment-respond">
         <h4 className="comment-reply-title font-title text-black text-[22px] font-bold mb-[10px]">
-          Leave a Comment
+          {t("article.leaveComment")}
         </h4>
 
         <form onSubmit={handleSubmit} className="comment-form mt-[15px]">
           <p className="comment-notes text-[15px] text-bodyColor mb-[25px] w-full">
-            <span id="email-notes">Your email address will not be published.</span>
-            <span className="required-field-message font-medium"> Required fields are marked <span className="required text-primaryColor">*</span></span>
+            <span id="email-notes">{t("article.notPublished")}</span>
+            <span className="required-field-message font-medium"> {t("article.requiredFields")} <span className="required text-primaryColor">*</span></span>
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-[20px]">
@@ -31,7 +33,7 @@ export default function CommentForm() {
               <input
                 id="author"
                 type="text"
-                placeholder="Full Name *"
+                placeholder={t("article.fullName")}
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -43,7 +45,7 @@ export default function CommentForm() {
               <input
                 id="email"
                 type="email"
-                placeholder="Email *"
+                placeholder={t("article.emailPlaceholder")}
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -56,7 +58,7 @@ export default function CommentForm() {
             <input
               id="url"
               type="url"
-              placeholder="Website"
+              placeholder={t("article.websitePlaceholder")}
               value={website}
               onChange={(e) => setWebsite(e.target.value)}
               className="w-full bg-transparent border-b border-border pb-[10px] text-[15px] text-titleColor placeholder:text-bodyColor outline-none focus:border-primaryColor transition-colors font-body"
@@ -66,7 +68,7 @@ export default function CommentForm() {
           <p className="comment-form-comment mb-[25px]">
             <textarea
               id="comment"
-              placeholder="Write Comment"
+              placeholder={t("article.commentPlaceholder")}
               required
               rows={4}
               value={comment}
@@ -84,7 +86,7 @@ export default function CommentForm() {
               className="w-[15px] h-[15px] rounded-[3px] border border-border accent-primaryColor cursor-pointer"
             />
             <label htmlFor="wp-comment-cookies-consent" className="text-bodyColor text-[15px] font-normal leading-[1.6] ml-[10px] cursor-pointer">
-              Save my name, email, and website in this browser for the next time I comment.
+              {t("article.saveMyInfo")}
             </label>
           </p>
 
@@ -93,7 +95,7 @@ export default function CommentForm() {
               type="submit"
               className="submit-btn inline-flex items-center justify-center h-[50px] px-[30px] bg-[#007AFF] text-white font-medium text-[15px] rounded-[6px] hover:bg-black transition-all duration-300"
             >
-              Post Comment
+              {t("article.submit")}
             </button>
           </p>
         </form>

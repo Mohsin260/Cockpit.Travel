@@ -34,9 +34,11 @@ export async function DELETE(req: Request) {
     const status =
       apiError.error === "Validation error"
         ? 400
-        : apiError.error === "Forbidden"
-          ? 403
-          : 500;
+        : apiError.error === "Unauthorized"
+          ? 401
+          : apiError.error === "Forbidden"
+            ? 403
+            : 500;
     return NextResponse.json(apiError, { status });
   }
 }
@@ -62,9 +64,11 @@ export async function PATCH(req: Request) {
     const status =
       apiError.error === "Validation error"
         ? 400
-        : apiError.error === "Forbidden"
-          ? 403
-          : 500;
+        : apiError.error === "Unauthorized"
+          ? 401
+          : apiError.error === "Forbidden"
+            ? 403
+            : 500;
     return NextResponse.json(apiError, { status });
   }
 }

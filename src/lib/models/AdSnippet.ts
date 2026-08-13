@@ -155,7 +155,7 @@ const adSnippetSchema = new Schema(
       readTime: { type: String, default: "" },
       author: { type: String, default: "" },
       layout: { type: String, enum: ["column", "row"], default: "column" },
-      cardStyle: { type: String, enum: ["news-grid", "sidebar-list", "sidebar-featured", "latest-articles", "hero-side", "review-list", "carousel", "most-viewed", "social-card", "popular-articles", "travel-intel", "top-destinations", "sidebar-tabs", "top-flights", "article-inline", "related-articles", "sidebar-ad"], default: "news-grid" },
+      cardStyle: { type: String, enum: ["news-grid", "hero-featured", "hero-recent", "sidebar-list", "sidebar-featured", "latest-articles", "hero-side", "review-list", "carousel", "most-viewed", "social-card", "popular-articles", "travel-intel", "top-destinations", "sidebar-tabs", "top-flights", "article-inline", "related-articles", "sidebar-ad"], default: "news-grid" },
     },
 
     // ── Tracking pixels for native/third-party ads ──

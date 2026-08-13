@@ -3,6 +3,9 @@ import CategoryTemplate from "@/components/CategoryTemplate";
 import { fetchArticles, fetchCategories } from "@/lib/api";
 import authors from "@/data/authors.json";
 import type { Author } from "@/types";
+import { translate } from "@/lib/translate";
+
+const siteName = translate("common.siteName");
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -20,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title: author.name,
         description: author.bio,
         openGraph: {
-            title: `${author.name} — Cockpit.Travel`,
+            title: `${author.name} — ${siteName}`,
             description: author.bio,
             type: "profile",
         },

@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { CARD_STYLES, CardStyleKey, getCssVars } from "./cardStyles";
+import { translate } from "@/lib/translate";
+
+const SPONSORED = translate("common.sponsored");
+const BY = translate("common.by");
 
 interface NativeContent {
     title: string;
@@ -117,14 +121,14 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div style={{ display: "table-cell", width: "100%", maxWidth: "var(--ad-thumb-w, 80px)", verticalAlign: "top", position: "relative" }}>
                     <div className="block relative overflow-hidden" style={imgAspect ? { width: "100%", aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { width: "100%", height: "var(--ad-thumb-h, 60px)" }}>
                         {nc.image ? (
                             <img
                                 src={nc.image}
-                                alt={nc.title || "Sponsored content"}
+                                alt={nc.title || `${SPONSORED} content`}
                                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                                 className="transition-transform duration-300 hover:opacity-80"
                             />
@@ -161,12 +165,12 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 {nc.image ? (
                     <img
                         src={nc.image}
-                        alt={nc.title || "Sponsored content"}
+                        alt={nc.title || `${SPONSORED} content`}
                         style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                         className="transition-transform duration-500 group-hover:scale-105"
                     />
@@ -198,7 +202,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         <ul style={{ listStyle: "none", padding: 0, margin: "6px 0 0", display: "flex", flexWrap: "wrap", gap: "4px" }}>
                             {(nc.author || nc.sponsorName) && style.showAuthor && (
                                 <li style={{ fontSize: "12px", color: "rgba(255,255,255,0.7)" }}>
-                                    By <span style={{ fontWeight: 700, color: "#fff" }}>{nc.author || nc.sponsorName}</span>
+                                    {BY} <span style={{ fontWeight: 700, color: "#fff" }}>{nc.author || nc.sponsorName}</span>
                                 </li>
                             )}
                             <li style={{ fontSize: "10px", color: "rgba(255,255,255,0.5)", backgroundColor: "rgba(0,0,0,0.4)", padding: "1px 6px", borderRadius: "3px" }}>
@@ -221,11 +225,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div className="shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: "var(--ad-thumb-w, 90px)", borderRadius: "var(--ad-thumb-radius, 0)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, 60px)" }) }}>
                     {nc.image ? (
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover" />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className="w-full h-full object-cover" />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
                     )}
@@ -257,11 +261,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 {nc.image && (
                     <div className="block mb-3" style={sfImgWidth ? { width: "100%", maxWidth: sfImgWidth } : (imgAspect ? { width: "100%", aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : undefined)}>
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className={`object-cover ${sfImgWidth ? "" : "w-full"}`} style={imgAspect && !sfImgWidth ? { width: "100%", height: "100%" } : { height: "var(--ad-thumb-h, 180px)", width: sfImgWidth || "100%" }} />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className={`object-cover ${sfImgWidth ? "" : "w-full"}`} style={imgAspect && !sfImgWidth ? { width: "100%", height: "100%" } : { height: "var(--ad-thumb-h, 180px)", width: sfImgWidth || "100%" }} />
                     </div>
                 )}
                 <h5 className="font-bold leading-snug mb-1" style={{ fontSize: style.titleSize, lineHeight: style.titleLineHeight, color: "var(--heading-color, #fff)" }}>
@@ -284,7 +288,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div className="posts-inner" style={{ padding: 0 }}>
                     <h6 className="posts-title" style={{ fontFamily: "Roboto, sans-serif", fontSize: style.titleSize, lineHeight: style.titleLineHeight, fontWeight: 500, color: "var(--heading-color, #fff)", marginBottom: "5px" }}>
@@ -294,7 +298,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         {nc.category && style.showCategory && (
                             <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white" style={{ backgroundColor: nc.categoryColor || "#4c66a3" }}>{nc.category}</span>
                         )}
-                        <span style={{ color: "#71717a", fontSize: "10px", fontWeight: 400, textTransform: "uppercase" }}>Sponsored</span>
+                        <span style={{ color: "#71717a", fontSize: "10px", fontWeight: 400, textTransform: "uppercase" }}>{SPONSORED}</span>
                     </div>
                     {nc.excerpt && style.showExcerpt && (
                         <p style={{ fontFamily: '"Source Sans Pro", sans-serif', fontWeight: 400, fontSize: "15px", color: "var(--excerpt-color, #bbb)", lineHeight: "20px", margin: 0, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
@@ -316,14 +320,14 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <span className="count" style={{ width: "20%", float: "left", color: "var(--meta-fcolor, #888)", fontSize: "40px", paddingInlineEnd: "20px", lineHeight: "24px", fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 600 }}>
                     {nc.readTime || "04"}
                 </span>
                 <span className="text" style={{ width: "80%", float: "left", fontSize: "16px", paddingInlineStart: "20px", borderLeft: "1px solid var(--flex-gray-15, rgba(255,255,255,0.1))", fontWeight: 600, lineHeight: "22px", color: "var(--heading-color, #fff)" }}>
                     {nc.title}
-                    <span style={{ display: "block", fontSize: "10px", color: "#71717a", fontWeight: 400, textTransform: "uppercase", marginTop: "4px" }}>Sponsored</span>
+                    <span style={{ display: "block", fontSize: "10px", color: "#71717a", fontWeight: 400, textTransform: "uppercase", marginTop: "4px" }}>{SPONSORED}</span>
                 </span>
                 <div style={{ clear: "both" }} />
             </div>
@@ -341,7 +345,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div
                     className="flex items-center p-[12px_15px] rounded-[6px] transition-opacity duration-300 hover:opacity-70"
@@ -361,7 +365,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                             {nc.sponsorName || nc.title}
                         </span>
                         <span className="sub-text text-[13px] font-medium text-white/90 mt-[2px]">
-                            {nc.sponsorLabel || "Sponsored"}
+                            {nc.sponsorLabel || SPONSORED}
                         </span>
                     </div>
                 </div>
@@ -376,16 +380,16 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         return (
             <div
                 ref={containerRef}
-                className="group md:flex gap-[20px] pb-[30px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0 cursor-pointer"
+                className="group md:flex gap-[20px] pb-[20px] mb-[20px] border-b border-[var(--borderColor,#e5e7eb)] last:border-0 last:pb-0 last:mb-0 cursor-pointer"
                 style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div className="block flex-shrink-0 overflow-hidden" style={{ width: "100%", maxWidth: "320px", borderRadius: "var(--ad-thumb-radius, 10px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "200px" }) }}>
                     {nc.image ? (
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
                     )}
@@ -411,7 +415,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         )}
                         <li className="flex items-center gap-[4px]">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                            <span>Sponsored</span>
+                            <span>{SPONSORED}</span>
                         </li>
                     </ul>
                 </div>
@@ -423,35 +427,122 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         return (
             <div
                 ref={containerRef}
-                className="group flex items-start h-25 gap-[12px] cursor-pointer"
+                className="group flex items-start gap-[12px] w-full cursor-pointer"
                 style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
-                <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: "var(--ad-thumb-w, 80px)", borderRadius: "var(--ad-thumb-radius, 8px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, 70px)" }) }}>
+                <div className="fpg-post-thumb">
                     {nc.image ? (
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
                     )}
                 </div>
-                <div className="flex-1 min-w-0">
-                    {nc.category && (
-                        <span className="inline-flex items-center px-[10px] py-[1px] rounded-[0_100px_100px_70px] font-medium text-[12px] uppercase leading-[22px] text-white w-fit mb-[2px]" style={{ backgroundColor: nc.categoryColor || "#ef4444" }}>
-                            {nc.category}
-                        </span>
-                    )}
-                    <h5 className="font-semibold leading-[1.35] line-clamp-2" style={{ fontSize: "14px", color: "#fff" }}>
-                        {nc.title}
-                    </h5>
-                    <div className="flex items-center gap-2 mt-[11px]" style={{ fontSize: "11px", color: "rgba(255,255,255,0.6)" }}>
-                        {(nc.author || nc.sponsorName) && (
-                            <span>By {nc.author || nc.sponsorName}</span>
+                <div className="fpg-post-content">
+                    <div className="fpg-post-content-inner">
+                        {nc.category && (
+                            <div className="fpg-post-cat">
+                                <span
+                                    className="post-cat"
+                                    style={{
+                                        "--catCurrentBgColor": nc.categoryColor || "#f27100",
+                                        "--catCurrentColor": "#ffffff",
+                                        fontSize: "10px",
+                                        lineHeight: "18px",
+                                        padding: "1px 7px 0",
+                                        letterSpacing: "-0.3px",
+                                    } as React.CSSProperties}
+                                >
+                                    {nc.category}
+                                </span>
+                            </div>
                         )}
-                        <span>Sponsored</span>
+                        <h6 className="fpg-post-title">
+                            <span className="text-white hover:text-primary transition-colors cursor-pointer">
+                                {nc.title}
+                            </span>
+                        </h6>
                     </div>
+                    <ul className="fpg-post-meta">
+                        {(nc.author || nc.sponsorName) && (
+                            <li>
+                                <span className="fpg-meta">
+                                    <span>
+                                        {BY} <span className="fpg-author-link">{nc.author || nc.sponsorName}</span>
+                                    </span>
+                                </span>
+                            </li>
+                        )}
+                        <li>
+                            <span className="fpg-meta">
+                                <span>{SPONSORED}</span>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        );
+    }
+
+    // ── "hero-recent" style: matches .hero-recent-grid .fpg-card-style (124×100 thumb + title + meta) ──
+    if (cardStyle === "hero-recent") {
+        return (
+            <div
+                ref={containerRef}
+                className="fpg-card-style style-two"
+                style={cssVars}
+                onClick={handleClick}
+                role="link"
+                tabIndex={0}
+                aria-label={`${SPONSORED}: ${nc.title}`}
+            >
+                <div className="fpg-post-thumb">
+                    {nc.image ? (
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
+                    )}
+                </div>
+                <div className="fpg-post-content">
+                    <div className="fpg-post-content-inner">
+                        {nc.category && (
+                            <div className="fpg-post-cat">
+                                <span
+                                    className="post-cat"
+                                    style={{
+                                        "--catCurrentBgColor": nc.categoryColor || "#f27100",
+                                        "--catCurrentColor": "#ffffff",
+                                    } as React.CSSProperties}
+                                >
+                                    {nc.category}
+                                </span>
+                            </div>
+                        )}
+                        <h6 className="fpg-post-title" style={{ color: "#ffffff" }}>
+                            <span className="cursor-pointer">
+                                {nc.title}
+                            </span>
+                        </h6>
+                    </div>
+                    <ul className="fpg-post-meta">
+                        {(nc.author || nc.sponsorName) && (
+                            <li>
+                                <span className="fpg-meta">
+                                    <span>
+                                        {BY} <span className="fpg-author-link">{nc.author || nc.sponsorName}</span>
+                                    </span>
+                                </span>
+                            </li>
+                        )}
+                        <li>
+                            <span className="fpg-meta">
+                                <span>{SPONSORED}</span>
+                            </span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         );
@@ -462,16 +553,16 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         return (
             <div
                 ref={containerRef}
-                className={`group flex items-center gap-[15px] cursor-pointer ${cardRounded}`}
+                className={`group flex items-center gap-3 cursor-pointer ${cardRounded}`}
                 style={cssVars}
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: (style as any).imageWidth || "var(--ad-thumb-w, 100px)", borderRadius: (style as any).imageRoundedValue ? (style as any).imageRoundedValue : "var(--ad-thumb-radius, 8px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: (style as any).imageHeight || "var(--ad-thumb-h, 85px)" }) }}>
                     {nc.image ? (
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
                     )}
@@ -489,11 +580,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         {(nc.author || nc.sponsorName) && (
                             <li className="flex items-center gap-1">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3 h-3 fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                                <span>By <span style={{ color: "var(--bodyColor, #616C74)" }}>{nc.author || nc.sponsorName}</span></span>
+                                <span>{BY} <span style={{ color: "var(--bodyColor, #616C74)" }}>{nc.author || nc.sponsorName}</span></span>
                             </li>
                         )}
                         <li className="flex items-center gap-1">
-                            <span>Sponsored</span>
+                            <span>{SPONSORED}</span>
                         </li>
                     </ul>
                 </div>
@@ -511,11 +602,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div className="block flex-shrink-0 w-[90px] h-[90px] xl:w-[100px] xl:h-[100px] rounded-full overflow-hidden">
                     {nc.image ? (
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover" />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className="w-full h-full object-cover" />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
                     )}
@@ -525,8 +616,8 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         {nc.title}
                     </h6>
                     <ul className="flex items-center gap-[8px] mt-[5px] text-[14px] text-[var(--bodyColor)]">
-                        {(nc.author || nc.sponsorName) && <li>By {nc.author || nc.sponsorName}</li>}
-                        <li>Sponsored</li>
+                        {(nc.author || nc.sponsorName) && <li>{BY} {nc.author || nc.sponsorName}</li>}
+                        <li>{SPONSORED}</li>
                     </ul>
                 </div>
             </div>
@@ -543,17 +634,22 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 <div className="flex-shrink-0 relative overflow-hidden" style={{ width: "100%", maxWidth: "var(--ad-thumb-w, " + (imgWidth || "auto") + ")", borderRadius: "var(--ad-thumb-radius, " + ((style as any).imageRoundedValue || "8px") + ")", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, " + (style.imageHeight || "auto") + ")" }) }}>
                     {nc.image ? (
                         <img
                             src={nc.image}
-                            alt={nc.title || "Sponsored content"}
+                            alt={nc.title || `${SPONSORED} content`}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                     ) : (
                         <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900" />
+                    )}
+                    {cardStyle === "travel-intel" && (
+                        <span className="fpg-play-btn">
+                            <i className="ri-play-fill" />
+                        </span>
                     )}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -581,9 +677,9 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                             : "var(--bodyColor, #616C74)"
                     }}>
                         {(nc.author || nc.sponsorName) && style.showAuthor && (
-                            <span>By {nc.author || nc.sponsorName}</span>
+                            <span>{BY} {nc.author || nc.sponsorName}</span>
                         )}
-                        <span>Sponsored</span>
+                        <span>{SPONSORED}</span>
                     </div>
                 </div>
             </div>
@@ -600,11 +696,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 {nc.image && (
                     <div className="block relative overflow-hidden flex-shrink-0" style={{ aspectRatio: "var(--ad-thumb-aspect, 16/10)", borderRadius: "var(--ad-thumb-radius, 8px)" }}>
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105" />
                     </div>
                 )}
                 <div className="flex flex-col flex-1 pt-[16px]">
@@ -619,13 +715,13 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                     <ul className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-[12px] mt-auto text-[14px] text-[var(--bodyColor)]">
                         {(nc.author || nc.sponsorName) && (
                             <li className="flex items-center gap-1">
-                                <span>By</span>
+                                <span>{BY}</span>
                                 <span className="font-medium text-[var(--titleColor)]">{nc.author || nc.sponsorName}</span>
                             </li>
                         )}
                         <li className="flex items-center gap-1.5">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-4 h-4 fill-current"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                            <span>Sponsored</span>
+                            <span>{SPONSORED}</span>
                         </li>
                     </ul>
                 </div>
@@ -643,11 +739,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 onClick={handleClick}
                 role="link"
                 tabIndex={0}
-                aria-label={`Sponsored: ${nc.title}`}
+                aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 {nc.image && (
                     <div className="block w-full overflow-hidden flex-shrink-0" style={{ borderRadius: "var(--ad-thumb-radius, 10px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, 200px)" }) }}>
-                        <img src={nc.image} alt={nc.title || "Sponsored content"} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                        <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     </div>
                 )}
                 <div className="flex-1 flex flex-col justify-between min-w-0 px-[15px]">
@@ -668,11 +764,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                     <ul className="fpg-post-meta flex items-center gap-[10px] text-[14px] text-[var(--bodyColor,#616C74)]">
                         {(nc.author || nc.sponsorName) && (
                             <li>
-                                <span className="fpg-meta">By <span className="text-gray-600">{nc.author || nc.sponsorName}</span></span>
+                                <span className="fpg-meta">{BY} <span className="text-gray-600">{nc.author || nc.sponsorName}</span></span>
                             </li>
                         )}
                         <li>
-                            <span className="fpg-meta">Sponsored</span>
+                            <span className="fpg-meta">{SPONSORED}</span>
                         </li>
                     </ul>
                 </div>
@@ -689,13 +785,13 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
             onClick={handleClick}
             role="link"
             tabIndex={0}
-            aria-label={`Sponsored: ${nc.title}`}
+            aria-label={`${SPONSORED}: ${nc.title}`}
         >
             {nc.image && (
                 <div className="relative overflow-hidden mb-2" style={{ aspectRatio: imgAspect ? "var(--ad-thumb-aspect, " + imgAspect + ")" : undefined, borderRadius: "var(--ad-thumb-radius, " + ((style as any).imageRoundedValue || "8px") + ")" }}>
                     <img
                         src={nc.image}
-                        alt={nc.title || "Sponsored content"}
+                        alt={nc.title || `${SPONSORED} content`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                 </div>
@@ -722,7 +818,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                     ? "rgba(255,255,255,0.6)"
                     : "var(--bodyColor, #616C74)"
             }}>
-                <span>Sponsored</span>
+                <span>{SPONSORED}</span>
             </div>
         </div>
     );

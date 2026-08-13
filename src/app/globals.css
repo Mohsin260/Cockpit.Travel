@@ -1195,6 +1195,7 @@ ul {
   overflow: hidden;
   flex: 1;
   min-width: 0;
+  height: 18px;
 }
 
 .tag-cloud-track {
@@ -1586,6 +1587,7 @@ ul {
   gap: 12px;
   align-items: flex-start;
   flex: 1;
+  height: 100%;
   min-width: 0;
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -1626,6 +1628,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  justify-content: space-between;
 }
 
 .hero-featured-card .fpg-post-content .fpg-post-content-inner {
@@ -1658,7 +1661,8 @@ ul {
   margin: 0;
 }
 
-.hero-featured-card .fpg-post-title a {
+.hero-featured-card .fpg-post-title a,
+.hero-featured-card .fpg-post-title span {
   color: #ffffff;
   font-size: 14px;
   font-weight: 600;
@@ -1670,7 +1674,8 @@ ul {
   transition: color 0.3s ease;
 }
 
-.hero-featured-card .fpg-post-title a:hover {
+.hero-featured-card .fpg-post-title a:hover,
+.hero-featured-card .fpg-post-title span:hover {
   color: var(--primaryColor);
 }
 
@@ -1867,7 +1872,8 @@ ul {
   border-radius: var(--ad-thumb-radius, 8px);
   transition: transform 0.3s ease;
 }
-.hero-recent-grid .fpg-card-style .fpg-post-title a {
+.hero-recent-grid .fpg-card-style .fpg-post-title a,
+.hero-recent-grid .fpg-card-style .fpg-post-title span {
   color: #ffffff;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1876,7 +1882,8 @@ ul {
   transition: color 0.3s ease;
 }
 
-.hero-recent-grid .fpg-card-style .fpg-post-title a:hover {
+.hero-recent-grid .fpg-card-style .fpg-post-title a:hover,
+.hero-recent-grid .fpg-card-style .fpg-post-title span:hover {
   color: var(--primaryColor);
 }
 
@@ -2045,11 +2052,18 @@ ul {
 
 /* ========================
    VIDEO NEWS SECTION
-======================== */
-/* .video-news-section {
-  background-color: #171A1E;
-  padding: 70px 0 80px;
-} */
+======================= */
+/* Section is always black in BOTH light & dark mode. To keep every child
+   readable on the black background we re-scope the theme variables this
+   section relies on to their dark values — the rest of the page is unaffected. */
+.video-news-section {
+  background-color: #000000;
+  --titleColor: #ffffff;
+  --bodyColor: #a3a3a3;
+  --shadeColor: #1b1e21;
+  --whiteColor: #171717;
+  --borderColor: #2a2e33;
+}
 
 /* --- Category pill --- */
 .video-cat-pill {
@@ -2076,47 +2090,75 @@ ul {
 }
 
 /* --- Play button (fpg-play-btn style) --- */
+/* Styled exactly like the reference theme (nerio.rstheme.com/sports-news)
+   elementor-fpg element: 40px red circle with a pulsing glow ring. */
 .fpg-play-btn {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
-  z-index: 2;
-  transition: all 0.3s ease;
-  background: rgba(0, 0, 0, 0.6);
-  color: #ffffff;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
+  z-index: 1;
+  transition: var(--transition);
+  background: var(--primaryColor);
+  color: var(--primaryFgColor);
+}
+
+.fpg-play-btn:after {
+  background: var(--primaryColor);
+  content: "";
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: block;
+  border-radius: 50%;
+  -webkit-animation: fpg-pulse-border 1500ms ease-out infinite;
+  animation: fpg-pulse-border 1500ms ease-out infinite;
+  transition: var(--transition);
+}
+
+.video-news-section .fpg-play-btn {
+  --primaryColor: #E80000;
 }
 
 .fpg-play-btn i {
-  font-size: 20px;
-  margin-left: 2px;
+  font-size: 17px;
 }
 
 .fpg-play-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--primaryColor);
+  color: var(--primaryFgColor);
 }
 
-.fpg-play-btn.popup-video {
-  /* Additional styles for popup video if needed */
-}
-
-/* Large variant for featured card */
+/* Large variant for the featured card (reference: 70x70, red, top:42%) */
 .fpg-play-btn--large {
   width: 70px;
   height: 70px;
+  top: 42%;
 }
 
 .fpg-play-btn--large i {
-  font-size: 28px;
+  font-size: 24px;
+}
+
+@keyframes fpg-pulse-border {
+  0% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1.5);
+    opacity: 0;
+  }
 }
 
 /* ========================
@@ -3554,13 +3596,29 @@ ul {
 }
 
 [dir="rtl"] .mega-menu {
-  left: auto;
-  right: 0;
+  left: 50%;
+  right: auto;
 }
 
 [dir="rtl"] .header-actions-desktop {
   flex-direction: row-reverse;
 }
+
+/* RTL: keep natural reading order but let the hamburger toggle take the
+   search icon's place and the search icon take the hamburger's place */
+[dir="rtl"] .header-actions-desktop > :nth-child(1) { order: 1; }
+[dir="rtl"] .header-actions-desktop > :nth-child(2) { order: 2; }
+[dir="rtl"] .header-actions-desktop > :nth-child(3) { order: 6; }
+[dir="rtl"] .header-actions-desktop > :nth-child(4) { order: 4; }
+[dir="rtl"] .header-actions-desktop > :nth-child(5) { order: 5; }
+[dir="rtl"] .header-actions-desktop > :nth-child(6) { order: 3; }
+
+[dir="rtl"] .header-sticky-bar .header-actions-desktop > :nth-child(1) { order: 1; }
+[dir="rtl"] .header-sticky-bar .header-actions-desktop > :nth-child(2) { order: 2; }
+[dir="rtl"] .header-sticky-bar .header-actions-desktop > :nth-child(3) { order: 3; }
+[dir="rtl"] .header-sticky-bar .header-actions-desktop > :nth-child(4) { order: 4; }
+[dir="rtl"] .header-sticky-bar .header-actions-desktop > :nth-child(5) { order: 6; }
+[dir="rtl"] .header-sticky-bar .header-actions-desktop > :nth-child(6) { order: 5; }
 
 [dir="rtl"] .footer-brand {
   direction: rtl;
@@ -3657,6 +3715,10 @@ ul {
   margin-right: 12px;
 }
 
+[dir="rtl"] .tag-cloud-arrows button svg {
+  transform: scaleX(-1);
+}
+
 [dir="rtl"] .tag-cloud-link {
   padding: 0 20px 0 0;
   border-left: none;
@@ -3666,6 +3728,40 @@ ul {
 [dir="rtl"] .tag-cloud-link:first-child {
   border-right: none;
   padding-right: 0;
+}
+
+/* Social follow widget RTL: icon on the start (right), count on the end (left) */
+[dir="rtl"] .rs-social-menu.style1 .icon-wrapper {
+  margin-right: 0;
+  margin-left: 15px;
+}
+
+[dir="rtl"] .rs-social-menu.style1 .text-wrapper {
+  padding-right: 0;
+  padding-left: 60px;
+  text-align: right;
+}
+
+[dir="rtl"] .rs-social-menu.style1 .sub-text {
+  right: auto;
+  left: 15px;
+}
+
+/* Article sidebar FollowWidget (stacked name/count) must not inherit the
+   absolute-positioned count overrides used by the home SocialFollowWidget */
+[dir="rtl"] .rs-social-menu.style1 .content-wrapper.flex.flex-col .text-wrapper {
+  padding-left: 0;
+}
+
+[dir="rtl"] .rs-social-menu.style1 .content-wrapper.flex.flex-col .sub-text {
+  right: auto;
+  left: auto;
+}
+
+/* RelatedPosts custom prev/next arrow flip for RTL */
+[dir="rtl"] .related-prev svg,
+[dir="rtl"] .related-next svg {
+  transform: scaleX(-1);
 }
 
 /* Swiper navigation flip for RTL */
@@ -3712,7 +3808,7 @@ ul {
 }
 
 /* Arabic font override */
-[dir="rtl"] body {
+[dir="rtl"] .website-shell {
   font-family: var(--font-noto-arabic), "Inter Tight", sans-serif;
 }
 
@@ -3728,14 +3824,36 @@ ul {
   transform: scaleX(-1);
 }
 
-/* RTL tag cloud scroll */
-[dir="rtl"] .tag-cloud-track {
-  transform: translateX(0) !important;
+/* RTL section heading "see all" arrow flip */
+[dir="rtl"] .section-heading-arrow {
+  transform: scaleX(-1);
 }
 
 /* RTL newsletter arrow */
 [dir="rtl"] .newsletter-arrow {
   transform: scaleX(-1);
+}
+
+/* RTL subscribe arrows — mirror container & hover swap */
+[dir="rtl"] .subscribe-arrows {
+  right: auto;
+  left: 14px;
+}
+
+[dir="rtl"] .subscribe-arrows .subscribe-arrow:first-child {
+  transform: translateX(-150%);
+}
+
+[dir="rtl"] .subscribe-arrows .subscribe-arrow:last-child {
+  transform: translateX(150%);
+}
+
+[dir="rtl"] .group:hover .subscribe-arrows .subscribe-arrow:first-child {
+  transform: translateX(0);
+}
+
+[dir="rtl"] .group:hover .subscribe-arrows .subscribe-arrow:last-child {
+  transform: translateX(150%);
 }
 
 /* RTL contact send button arrow */
@@ -4310,4 +4428,337 @@ ul {
 .dark .section-audio-btn:hover {
   background: rgba(0, 115, 255, 0.12);
   color: #4da3ff;
+}
+
+/* ===== Scroll To Top (rs-scroll-to-top) ===== */
+#rs-scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999999;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--primaryColor);
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
+  cursor: pointer;
+  display: none;
+}
+
+#rs-scroll-to-top:hover {
+  background: var(--primaryColor);
+  filter: brightness(1.1);
+}
+
+#rs-scroll-to-top .arrowup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  color: var(--primaryFgColor);
+  fill: currentColor;
+  -webkit-transition: var(--transition);
+  transition: var(--transition);
+}
+
+#rs-scroll-to-top .scrollprogress {
+  width: 100%;
+  height: 100%;
+}
+
+#rs-scroll-to-top .scrollprogress .progress-circle {
+  -webkit-transition: stroke-dashoffset 0.5s ease, stroke 0.3s;
+  transition: stroke-dashoffset 0.5s ease, stroke 0.3s;
+  stroke: var(--primaryFgColor);
+  stroke-dashoffset: var(--rs-page-scroll-progress, 113.1);
+}
+
+/* ===== Reading Progress Bar (top sticky) ===== */
+.fpg-reading-progress {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  pointer-events: none;
+  height: var(--fpg-rp-height, 5px);
+  background: var(--fpg-rp-bg, transparent);
+}
+.fpg-reading-progress.position-top {
+  top: 0;
+}
+.fpg-reading-progress .fpg-reading-progress-bar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--fpg-rp-fill, #0073FF);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.1s linear;
+  will-change: transform;
+}
+[dir="rtl"] .fpg-reading-progress .fpg-reading-progress-bar {
+  transform-origin: right center;
+}
+
+/* ===== Template Popup (subscribe modal) ===== */
+.rstb-template-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  display: none;
+  animation-name: popupFadeIn;
+  animation-timing-function: ease-in-out;
+  animation-duration: 0.4s;
+  justify-content: center;
+  align-items: center;
+}
+.rstb-template-popup .popup-overly {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.rstb-template-popup .popup-container {
+  position: relative;
+  z-index: 2;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
+  display: none;
+  animation-name: popupFadeIn;
+  animation-duration: 0.5s;
+}
+.rstb-template-popup .popup-container .popup-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 2;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  color: var(--primaryColor, #0073FF);
+  font-size: 20px;
+  border-color: transparent;
+  transition: 0.3s;
+  cursor: pointer;
+}
+.rstb-template-popup .popup-container .popup-close:focus {
+  outline: none;
+}
+.rstb-template-popup .popup-container .popup-close svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+.rstb-template-popup.show-popup {
+  display: flex;
+}
+.rstb-template-popup.show-popup .popup-container {
+  display: block;
+}
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Popup inner card (port of elementor-6838) */
+.subscribe-popup-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f7f7f7;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 50px 40px;
+}
+.subscribe-popup-content .subscribe-popup-image {
+  margin: -6px 0 -23px;
+  padding: 0 0 20px;
+}
+.subscribe-popup-content .subscribe-popup-image img {
+  width: 181px;
+  height: auto;
+  border-color: var(--borderColor, #eee);
+  text-align: left;
+}
+.subscribe-popup-content .subscribe-popup-heading {
+  margin: -5px 0 0;
+  text-align: left;
+}
+.subscribe-popup-content .subscribe-popup-title {
+  margin: 0;
+  color: var(--titleColor, #1a1a1a);
+}
+.subscribe-popup-content .subscribe-popup-desc {
+  margin-top: 14px;
+  color: var(--bodyColor, #616c74);
+}
+
+/* Form */
+.subscribe-popup-form {
+  display: flex;
+  flex-direction: column;
+}
+.subscribe-popup-form .subscribe-popup-input {
+  margin: 22px 0 0;
+  border-radius: 5px;
+  border: 1px solid #d5d5d5;
+  background: #fff;
+  color: var(--titleColor, #1a1a1a);
+  padding: 13px 16px;
+  font-size: 15px;
+  width: 100%;
+  outline: none;
+  -webkit-transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.subscribe-popup-form .subscribe-popup-input::placeholder {
+  color: var(--bodyColor, #616c74);
+}
+.subscribe-popup-form .subscribe-popup-input:focus {
+  border-color: var(--primaryColor, #0073ff);
+  box-shadow: 0 0 0 3px rgba(0, 115, 255, 0.12);
+}
+.subscribe-popup-form .subscribe-popup-consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 0 15px;
+  cursor: pointer;
+  user-select: none;
+}
+.subscribe-popup-form .subscribe-popup-consent input {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  border-style: solid;
+  border-color: #c7c7c7;
+  accent-color: var(--primaryColor, #0073ff);
+}
+.subscribe-popup-form .subscribe-popup-consent span {
+  color: var(--bodyColor, #616c74);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.subscribe-popup-form .subscribe-popup-consent a {
+  text-decoration: underline;
+  color: var(--bodyColor, #616c74);
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+.subscribe-popup-form .subscribe-popup-consent a:hover {
+  color: var(--primaryColor, #0073ff);
+}
+
+.subscribe-popup-form .subscribe-popup-btn-wrap {
+  position: relative;
+  z-index: 1;
+}
+.subscribe-popup-form .subscribe-popup-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: var(--primaryColor, #0073ff);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  width: 100%;
+  cursor: pointer;
+  -webkit-transition: background-color 0.3s;
+  transition: background-color 0.3s;
+}
+.subscribe-popup-form .subscribe-popup-btn:hover {
+  background-color: var(--secondaryColor, #171a1e);
+}
+.subscribe-popup-form .subscribe-popup-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+.subscribe-popup-form .subscribe-popup-btn .subscribe-popup-btn-icon {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  line-height: 20px;
+  overflow: hidden;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.subscribe-popup-form .subscribe-popup-btn .subscribe-popup-btn-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+}
+.subscribe-popup-form .subscribe-popup-error {
+  margin: 12px 0 0;
+  color: #d32f2f;
+  font-size: 13px;
+}
+.subscribe-popup-content .subscribe-popup-success {
+  margin-top: 18px;
+  color: #2e7d32;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: rgba(46, 125, 50, 0.1);
+  text-align: left;
+}
+
+[dir="rtl"] .subscribe-popup-content .subscribe-popup-image img,
+[dir="rtl"] .subscribe-popup-content .subscribe-popup-heading,
+[dir="rtl"] .subscribe-popup-content .subscribe-popup-success {
+  text-align: right;
+}
+[dir="rtl"] .rstb-template-popup .popup-container .popup-close {
+  right: auto;
+  left: 10px;
+}
+[dir="rtl"] .subscribe-popup-form .subscribe-popup-btn .subscribe-popup-btn-icon {
+  right: auto;
+  left: 24px;
+  -webkit-transform: translateY(-50%) scaleX(-1);
+  transform: translateY(-50%) scaleX(-1);
+}
+
+@media (max-width: 767px) {
+  .rstb-template-popup .popup-container {
+    width: 90vw !important;
+  }
+  .rstb-template-popup .popup-container .popup-close {
+    right: 7%;
+  }
+  [dir="rtl"] .rstb-template-popup .popup-container .popup-close {
+    right: auto;
+    left: 7%;
+  }
+  .subscribe-popup-content {
+    padding: 30px;
+  }
 }

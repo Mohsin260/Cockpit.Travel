@@ -51,19 +51,19 @@ export default function ArticleTemplate({ article, related, categories, trending
           <FeaturedImage src={article.articleMedia?.heroCoverMedia?.url || article.featuredImage} poster={article.articleMedia?.heroCoverMedia?.poster} vastTagUrl={article.articleMedia?.heroCoverMedia?.vastTagUrl} alt={article.title} />
           <ArticleTitle title={article.title} />
           <PostMeta
-            author={{ name: article.authorName || "Admin", avatar: article.authorAvatar || "https://media.licdn.com/dms/image/v2/D4E03AQEZDHRQ7O0C2w/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714234759381?e=1787788800&v=beta&t=BQdZSVLBXmNimnQbwknQXQh5QEpHnPOzNRMsbOIK4Uo" }}
+            author={{ name: article.authorName || "Admin", avatar: article.author_avatar || "" }}
             date={article.date || article.createdAt}
             category={{ label: article.categoryLabel || article.category, color: article.categoryColor || "#004df2" }}
             comments={String(article.comments?.length || 0)}
           />
           <div className="flex items-center gap-3 mb-4">
             <SectionAudioButton text={plainTextContent} className="article-listen-btn" />
-            <span className="text-sm text-[var(--bodyColor)]">Listen to this article</span>
+            <span className="text-sm text-[var(--bodyColor)]">{t("article.listenToArticle")}</span>
           </div>
           <AdSlot pageType="article" position="atf-rectangle" articleSlug={article.slug} />
           <ArticleBody content={article.bodyContent || article.content} />
           <TagsAndShare tags={article.tags || []} />
-          <AuthorBox author={{ name: article.authorName || "Admin", avatar: article.authorAvatar || "", bio: article.authorBio || "" }} />
+          <AuthorBox author={{ name: article.authorName || "Admin", avatar: article.author_avatar || "", bio: article.author_bio || "" }} />
           <PostNavigation
             prevPost={article.prevPost || { slug: "", title: "", image: "" }}
             nextPost={article.nextPost || { slug: "", title: "", image: "" }}

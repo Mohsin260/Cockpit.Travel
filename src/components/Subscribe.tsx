@@ -8,7 +8,7 @@ const ArrowIcon = ({ className = "" }: { className?: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 18 12"
-    className={`absolute left-0 top-0 h-[18px] w-[18px] transition-transform duration-300 group-hover:fill-[#0073FF] ${className}`}
+    className={`subscribe-arrow absolute left-0 top-0 h-[18px] w-[18px] transition-transform duration-300 group-hover:fill-[#0073FF] ${className}`}
   >
     <path
       fillRule="evenodd"
@@ -20,7 +20,7 @@ const ArrowIcon = ({ className = "" }: { className?: string }) => (
 
 function SubscribeArrows() {
   return (
-    <span className="pointer-events-none absolute right-[14px] top-1/2 flex h-[18px] w-[18px] -translate-y-1/2 items-center justify-center overflow-hidden">
+    <span className="subscribe-arrows pointer-events-none absolute right-[14px] top-1/2 flex h-[18px] w-[18px] -translate-y-1/2 items-center justify-center overflow-hidden">
       <ArrowIcon className="fill-white group-hover:translate-x-[150%]" />
       <ArrowIcon className="-translate-x-[150%] fill-white group-hover:translate-x-0" />
     </span>
@@ -43,7 +43,7 @@ export default function Subscribe() {
             backgroundSize: "cover",
           }}
         >
-          <div className="relative z-[2] px-[10px] py-[25px] md:px-[20px] md:py-[40px] md:pr-0 lg:px-[65px]">
+          <div className="relative z-[2] ps-[10px] pe-[10px] py-[25px] md:ps-[20px] md:pe-0 md:py-[40px] lg:ps-[65px] lg:pe-[65px]">
             <h3 className="mb-[24px] text-white text-[20px] font-semibold leading-[1.3] tracking-[0.3px] md:text-[24px] lg:text-[28px]">
               {t("newsletter.title")}
             </h3>
@@ -52,17 +52,17 @@ export default function Subscribe() {
               className="relative w-full md:w-[90%]"
               onSubmit={(e) => e.preventDefault()}
             >
-              <div className="relative h-[52px]">
+              <div className="subscribe-form-row relative flex h-[52px] w-full items-stretch overflow-hidden rounded-[6px] border border-[#E5E5E5] bg-white sm:w-[520px]">
                 <input
                   type="email"
                   required
                   autoComplete="email"
                   placeholder={t("newsletter.emailPlaceholder")}
-                  className="h-[52px] w-120 rounded-[6px] border border-[#E5E5E5] bg-white pl-[20px] pr-[150px] text-[15px] text-[#616C74] outline-none placeholder:text-[#616C74]"
+                  className="h-full min-w-0 flex-1 rounded-none border-0 bg-transparent ps-[20px] pe-[20px] text-[15px] text-[#616C74] outline-none placeholder:text-[#616C74]"
                 />
                 <button
                   type="submit"
-                  className="group absolute top-1 left-76 z-10 inline-flex items-center justify-center rounded-[6px] bg-[#0073FF] px-[50px] py-[9px] text-[16px] font-semibold text-white transition-colors duration-300 cursor-pointer hover:bg-[#005FCC] focus:outline-none focus:ring-2 focus:ring-[#005FCC] focus:ring-offset-2"
+                  className="group relative z-10 inline-flex shrink-0 items-center justify-center rounded-none bg-[#0073FF] px-[50px] text-[16px] font-semibold text-white transition-colors duration-300 cursor-pointer hover:bg-[#005FCC] focus:outline-none focus:ring-2 focus:ring-[#005FCC]"
                 >
                   {t("newsletter.subscribe")}
                   <SubscribeArrows />
@@ -92,7 +92,7 @@ export default function Subscribe() {
             src="/assets/images/subscribe/cta-thumb-01.png"
             alt=""
             aria-hidden
-            className="pointer-events-none absolute z-[5] right-[83px] top-[18px] max-lg:top-[200px]"
+            className="pointer-events-none absolute z-[5] end-[83px] top-[18px] max-lg:top-[200px]"
           />
           <img
             src="/assets/images/subscribe/newsletter-dot.png"
@@ -104,19 +104,19 @@ export default function Subscribe() {
             src="/assets/images/subscribe/cta-thumb-02.png"
             alt=""
             aria-hidden
-            className="pointer-events-none absolute z-[5] right-[-37px] bottom-[-150px] max-lg:right-[19px] max-lg:bottom-[-130px]"
+            className="pointer-events-none absolute z-[5] end-[-37px] bottom-[-150px] max-lg:end-[19px] max-lg:bottom-[-130px]"
           />
           <img
             src="/assets/images/subscribe/cta-thumb-03.png"
             alt=""
             aria-hidden
-            className="pointer-events-none absolute z-[5] right-[99px] top-[120px] max-lg:top-[480px]"
+            className="pointer-events-none absolute z-[5] end-[99px] top-[120px] max-lg:top-[480px]"
           />
           <img
             src="/assets/images/subscribe/cta-thumb-04.png"
             alt=""
             aria-hidden
-            className="pointer-events-none absolute z-[5] right-[-209px] top-[96px] max-lg:right-[-140px] max-lg:top-[109px] max-md:top-[224px]"
+            className="pointer-events-none absolute z-[5] end-[-209px] top-[96px] max-lg:end-[-140px] max-lg:top-[109px] max-md:top-[224px]"
           />
         </div>
       </div>

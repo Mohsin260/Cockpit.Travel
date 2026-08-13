@@ -69,10 +69,10 @@ export default function FollowWidget({
               <a
                 key={card.name}
                 href="#"
-                className="flex items-center relative p-[12px_15px] rounded-[6px] group transition-opacity duration-300 hover:opacity-70"
+                className="flex items-center relative p-[12px_15px] rounded-[6px] transition-opacity duration-300 hover:opacity-70"
                 style={cardStyle}
               >
-                <div className="icon-wrapper flex items-center justify-center w-[30px] h-auto flex-shrink-0 mr-[15px]">
+                <div dir="ltr" className="icon-wrapper flex items-center justify-center w-[30px] h-auto flex-shrink-0 me-[15px]">
                   {icon && (
                     <svg
                       aria-hidden="true"
@@ -95,7 +95,7 @@ export default function FollowWidget({
               </a>
             );
           })}
-          <InFeedNativeAd position="follow-native" cardStyle="social-card" pageType="article" />
+          {/* <InFeedNativeAd position="follow-native" cardStyle="social-card" pageType="article" /> */}
         </div>
       </div>
     </div>

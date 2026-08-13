@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import BrandLogo from "@/components/ui/BrandLogo";
 
 export default function Preloader() {
   const [hidden, setHidden] = useState(false);
@@ -17,7 +18,15 @@ export default function Preloader() {
   const content = (
     <div className="loader-container">
       <div className="loader-icon">
-        <span className="loader-brand">Cockpit<span className="loader-brand-dot">.</span>Travel</span>
+        <span className="loader-brand">
+          <BrandLogo
+            className=""
+            part1ClassName=""
+            part2ClassName=""
+            dotClassName="loader-brand-dot"
+            gap="0"
+          />
+        </span>
       </div>
     </div>
   );

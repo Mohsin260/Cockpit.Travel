@@ -1,6 +1,8 @@
 {
   "common": {
-    "siteName": "Cockpit.Travel",
+    "siteName": "كوكبيت.ترافل",
+    "brandPart1": "كوكبيت",
+    "brandPart2": "تراول",
     "readMore": "اقرأ المزيد",
     "viewAll": "عرض الكل",
     "seeAll": "عرض الكل",
@@ -34,7 +36,29 @@
     "enterKeyword": "أدخل كلمة بحث للعثور على المقالات.",
     "tryDifferent": "جرّب كلمات بحث مختلفة أو تصفّح أقسامنا.",
     "savedArticle": "مقال محفوظ",
-    "savedArticles": "مقالات محفوظة"
+    "savedArticles": "مقالات محفوظة",
+    "sponsored": "محتوى مدعوم",
+    "advertisement": "إعلان",
+    "adActions": {
+      "adOptions": "خيارات الإعلان",
+      "whyThisAd": "لماذا هذا الإعلان؟",
+      "stopSeeingThisAd": "توقف عن رؤية هذا الإعلان",
+      "reportAd": "الإبلاغ عن الإعلان",
+      "aboutThisAd": "حول هذا الإعلان",
+      "aboutThisAdDescription": "يتم عرض هذا الإعلان بناءً على نشاطك في التصفح وموقعك. تساعدنا ملاحظاتك على إظهار إعلانات أكثر صلة.",
+      "whatWasWrong": "ما المشكلة؟",
+      "notRelevant": "غير مناسب لي",
+      "coveredContent": "غطي الإعلان المحتوى",
+      "seenMultiple": "رأيت هذا الإعلان عدة مرات",
+      "inappropriate": "الإعلان غير لائق",
+      "otherReason": "سبب آخر...",
+      "moreDetails": "مزيد من التفاصيل",
+      "placeholder": "صف المشكلة بإيجاز...",
+      "submit": "إرسال",
+      "submitting": "جارٍ الإرسال...",
+      "thanks": "شكرًا لملاحظتك!",
+      "thanksDescription": "سنحاول عدم إظهار هذا الإعلان لك مرة أخرى."
+    }
   },
   "nav": {
     "home": "الرئيسية",
@@ -77,7 +101,12 @@
     "liveNews": "أخبار مباشرة",
     "offcanvasDesc": "شريكك الموثوق للعثور على أفضل عروض الرحلات وحجوزات الفنادق وإلهام السفر حول العالم.",
     "quickContact": "اتصال سريع:",
-    "getInTouch": "تواصل معنا"
+    "getInTouch": "تواصل معنا",
+    "toggleMenu": "تبديل القائمة",
+    "search": "بحث",
+    "menu": "القائمة",
+    "previousTags": "الوسوم السابقة",
+    "nextTags": "الوسوم التالية"
   },
   "ticker": {
     "news1": "دبي تطلق خطوط طيران مباشر جديدة إلى 12 وجهة آسيوية",
@@ -190,7 +219,8 @@
   "hero": {
     "recentNews": "آخر الأخبار",
     "viewAll": "عرض الكل",
-    "readArticle": "اقرأ المقال"
+    "readArticle": "اقرأ المقال",
+    "listenToArticle": "استمع إلى هذا المقال"
   },
   "sections": {
     "hotels": "فنادق",
@@ -264,7 +294,30 @@
     "recent": "الأحدث",
     "popular": "الأكثر شعبية",
     "random": "عشوائي",
-    "categories": "الأقسام"
+    "categories": "الأقسام",
+    "previous": "السابق",
+    "next": "التالي",
+    "tags": "الوسوم",
+    "website": "الموقع الإلكتروني",
+    "websitePlaceholder": "الموقع الإلكتروني",
+    "emailPlaceholder": "البريد الإلكتروني *",
+    "fullName": "الاسم الكامل *",
+    "notPublished": "لن يتم نشر عنوان بريدك الإلكتروني.",
+    "requiredFields": "الحقول المطلوبة مميزة",
+    "saveMyInfo": "احفظ اسمي وبريدي الإلكتروني وموقعي في هذا المتصفح للتعليق في المرة القادمة.",
+    "listenToArticle": "استمع إلى هذا المقال",
+    "minReadShort": "دقائق قراءة",
+    "listen": "استمع",
+    "pause": "إيقاف مؤقت",
+    "resume": "استئناف",
+    "stop": "إيقاف",
+    "listening": "جارٍ الاستماع...",
+    "paused": "متوقف مؤقتاً",
+    "speed": "السرعة",
+    "playbackSpeed": "سرعة التشغيل",
+    "selectVoice": "اختر الصوت",
+    "voice": "الصوت",
+    "noVoices": "لا توجد أصوات متاحة"
   },
   "comparison": {
     "verdict": "الحكم",
@@ -310,6 +363,9 @@
     "subscribe": "اشترك",
     "consent": "لقد قرأت وأوافق على",
     "subscribed": "تم الاشتراك!",
+    "popupTitle": "لا تفوّت أي خبر",
+    "popupDescription": "انضم إلى آلاف القراء الذين لا يفوتهم أي عنوان رئيسي.",
+    "popupClose": "إغلاق",
     "stayConnected": "ابقَ على تواصل",
     "stayInTheLoop": "ابقَ على اطلاع",
     "newsletterDescription": "احصل على آخر الأخبار الرائجة مباشرة في بريدك الإلكتروني.",
@@ -389,6 +445,18 @@
     "followUs": "تابعنا",
     "tags": "الوسوم"
   },
+  "social": {
+    "facebook": "فيسبوك",
+    "twitter": "تويتر",
+    "instagram": "إنستغرام",
+    "youtube": "يوتيوب",
+    "linkedin": "لينكدإن",
+    "dribbble": "دريبل",
+    "pinterest": "بينتيريست",
+    "fans": "متابعون",
+    "followers": "متابعون",
+    "subscribers": "مشتركون"
+  },
   "widgets": {
     "weather": {
       "partlySunny": "مشمس جزئياً",
@@ -401,7 +469,16 @@
       "wed": "أربعاء",
       "thu": "خميس",
       "fri": "جمعة",
-      "sat": "سبت"
+      "sat": "سبت",
+      "title": "الطقس",
+      "currentWeather": "الطقس الحالي",
+      "feelsLike": "الإحساس الحقيقي",
+      "humidity": "الرطوبة",
+      "condition": "الحالة",
+      "currentCity": "المدينة الحالية",
+      "windInfo": "معلومات الرياح",
+      "windSpeed": "سرعة الرياح",
+      "country": "البلد"
     },
     "poll": {
       "title": "استطلاع",

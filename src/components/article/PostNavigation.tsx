@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { translate } from "@/lib/translate";
 
 export default function PostNavigation({
   prevPost,
@@ -32,7 +33,7 @@ export default function PostNavigation({
             </div>
             <div className="post-content flex flex-col">
               <span className="post-custom-label text-[16px] text-bodyColor font-normal mb-[5px]">
-                Previous
+                {translate("article.previous")}
               </span>
               <span className="post-title text-[18px] font-semibold text-titleColor leading-[1.25] group-hover:text-blue-600 transition-colors">
                 {prevPost.title}
@@ -62,7 +63,7 @@ export default function PostNavigation({
             </div>
             <div className="post-content flex flex-col items-end">
               <span className="post-custom-label text-[16px] text-bodyColor font-normal mb-[5px]">
-                Next
+                {translate("article.next")}
               </span>
               <span className="post-title text-[18px] font-semibold text-titleColor leading-[1.25] group-hover:text-blue-600 transition-colors">
                 {nextPost.title}

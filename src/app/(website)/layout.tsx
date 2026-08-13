@@ -1,4 +1,8 @@
 import WebsiteLayoutWrapper from "@/components/layout/WebsiteLayoutWrapper";
+import StickySidebar from "@/components/StickySidebar";
+import ScrollToTop from "@/components/ScrollToTop";
+import ReadingProgress from "@/components/ReadingProgress";
+import SubscribePopup from "@/components/SubscribePopup";
 import { QueryProvider } from "@/components/providers/query-provider";
 import Script from "next/script";
 
@@ -17,6 +21,10 @@ export default function WebsiteLayout({
       <QueryProvider>
         <WebsiteLayoutWrapper>{children}</WebsiteLayoutWrapper>
       </QueryProvider>
+      <StickySidebar />
+      <ScrollToTop />
+      <ReadingProgress />
+      <SubscribePopup />
     </>
   );
 }

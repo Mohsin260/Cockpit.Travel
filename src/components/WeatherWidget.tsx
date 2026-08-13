@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import { translate } from "@/lib/translate";
+import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
 
 interface WeatherData {
   city?: string;
@@ -50,7 +52,9 @@ function WeatherIcon({ code, isRain }: { code?: number; isRain?: boolean }) {
         </linearGradient>
         <symbol id="wicon-sun-b" viewBox="0 0 384 384">
           <circle cx="192" cy="192" r="84" fill="url(#wicon-sun-a)" stroke="#f8af18" strokeMiterlimit="10" strokeWidth="6" />
-          <path fill="none" stroke="#fbbf24" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="24" d="M192 61.7V12m0 360v-49.7m92.2-222.5 35-35M64.8 319.2l35.1-35.1m0-184.4-35-35m254.5 254.5-35.1-35.1M61.7 192H12m360 0h-49.7" />
+          <path fill="none" stroke="#fbbf24" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="24" d="M192 61.7V12m0 360v-49.7m92.2-222.5 35-35M64.8 319.2l35.1-35.1m0-184.4-35-35m254.5 254.5-35.1-35.1M61.7 192H12m360 0h-49.7">
+            <animateTransform additive="sum" attributeName="transform" dur="6s" repeatCount="indefinite" type="rotate" values="0 192 192; 45 192 192" />
+          </path>
         </symbol>
       </defs>
       <use xlinkHref="#wicon-sun-b" width="384" height="384" />
@@ -58,12 +62,16 @@ function WeatherIcon({ code, isRain }: { code?: number; isRain?: boolean }) {
   );
 }
 
+const LOCALE_MAP: Record<string, string> = { en: "en-US", es: "es-ES", ar: "ar-EG" };
+
 function formatDate(date: Date) {
-  return date.toLocaleDateString("en-US", { day: "2-digit", month: "2-digit", year: "numeric" }).replace(/\//g, "/");
+  const locale = LOCALE_MAP[DEPLOYMENT_LOCALE] || "en-US";
+  return date.toLocaleDateString(locale, { day: "2-digit", month: "2-digit", year: "numeric" }).replace(/\//g, "/");
 }
 
 function formatTime(date: Date) {
-  return date.toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", hour12: true });
+  const locale = LOCALE_MAP[DEPLOYMENT_LOCALE] || "en-US";
+  return date.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit", hour12: true });
 }
 
 export default function WeatherWidget({ weather }: { weather?: WeatherData }) {
@@ -77,23 +85,23 @@ export default function WeatherWidget({ weather }: { weather?: WeatherData }) {
   const now = new Date();
 
   const infoItems: { icon: string; label: string; value: ReactNode }[] = [
-    { icon: "ri-temp-cold-line", label: "Feels Like", value: <>{weather.feelsLike}<sup>°C</sup></> },
-    { icon: "ri-water-percent-line", label: "Humidity", value: <>{weather.humidity}%</> },
-    { icon: "ri-pushpin-line", label: "Condition", value: weather.conditionLabel || "" },
-    { icon: "ri-map-pin-line", label: "Current City", value: city || "-" },
-    { icon: "ri-windy-line", label: "Wind Info", value: windInfo || "-" },
-    { icon: "ri-earth-line", label: "Country", value: country || "-" },
+    { icon: "ri-temp-cold-line", label: translate("widgets.weather.feelsLike"), value: <>{weather.feelsLike}<sup>°C</sup></> },
+    { icon: "ri-water-percent-line", label: translate("widgets.weather.humidity"), value: <>{weather.humidity}%</> },
+    { icon: "ri-pushpin-line", label: translate("widgets.weather.condition"), value: weather.conditionLabel || "-" },
+    { icon: "ri-map-pin-line", label: translate("widgets.weather.currentCity"), value: city || "-" },
+    { icon: "ri-windy-line", label: translate("widgets.weather.windInfo"), value: windInfo || "-" },
+    { icon: "ri-earth-line", label: translate("widgets.weather.country"), value: country || "-" },
   ];
 
   return (
     <div className="rs-weather text-white">
       <div className="flex flex-col gap-[10px] mb-[20px]">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-[16px] leading-[1.2]">Weather</h3>
+          <h3 className="font-semibold text-[16px] leading-[1.2]">{translate("widgets.weather.title")}</h3>
           <span className="font-medium text-[16px] leading-[1.2]">{formatDate(now)}</span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="font-medium text-[16px] leading-[1.2]">Current weather</span>
+          <span className="font-medium text-[16px] leading-[1.2]">{translate("widgets.weather.currentWeather")}</span>
           <span className="font-medium text-[16px] leading-[1.2]">{formatTime(now)}</span>
         </div>
       </div>

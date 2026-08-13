@@ -3,6 +3,9 @@ import type { Metadata } from "next";
 import ArticleTemplate from "@/components/ArticleTemplate";
 import { fetchArticles, fetchArticleBySlug, fetchCategories } from "@/lib/api";
 import { ItemPageJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { translate } from "@/lib/translate";
+
+const siteName = translate("common.siteName");
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -27,14 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         title,
         description,
         openGraph: {
-            title: `${title} — Cockpit.Travel`,
+            title: `${title} — ${siteName}`,
             description,
             images: ogImage ? [ogImage] : [],
             type: "article",
         },
         twitter: {
             card: "summary_large_image",
-            title: `${title} — Cockpit.Travel`,
+            title: `${title} — ${siteName}`,
             description,
             images: ogImage ? [ogImage] : [],
         },
@@ -70,7 +73,7 @@ export default async function PostPage({ params }: Props) {
                 description={article.excerpt || ""}
                 image={article.articleMedia?.heroCoverMedia?.url || ""}
                 url={`${baseUrl}/posts/${slug}`}
-                author={article.authorName || "Cockpit.Travel"}
+                author={article.authorName || siteName}
                 datePublished={article.date || new Date().toISOString()}
                 dateModified={article.updatedAt ? new Date(article.updatedAt).toISOString() : new Date().toISOString()}
             />

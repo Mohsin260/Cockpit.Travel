@@ -52,7 +52,7 @@ export const AdSnippetCreateSchema = z.object({
     readTime: z.string().max(50).optional().default(""),
     author: z.string().max(100).optional().default(""),
     layout: z.enum(["column", "row"]).optional().default("column"),
-    cardStyle: z.enum(["news-grid", "sidebar-list", "sidebar-featured", "latest-articles", "hero-side", "review-list", "carousel", "most-viewed", "social-card", "popular-articles", "travel-intel", "top-destinations", "sidebar-tabs", "top-flights", "article-inline", "related-articles", "sidebar-ad"]).optional().default("news-grid"),
+    cardStyle: z.enum(["news-grid", "hero-featured", "hero-recent", "sidebar-list", "sidebar-featured", "latest-articles", "hero-side", "review-list", "carousel", "most-viewed", "social-card", "popular-articles", "travel-intel", "top-destinations", "sidebar-tabs", "top-flights", "article-inline", "related-articles", "sidebar-ad"]).optional().default("news-grid"),
   }).optional(),
 
   // Tracking pixels for native/third-party ads

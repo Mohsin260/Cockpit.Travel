@@ -4,9 +4,11 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "@/hooks/useTranslations";
+import { useLayoutStore } from "@/hooks/useLayoutStore";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import ListenButton from "@/components/ui/ListenButton";
 import AdSlot from "@/components/ui/AdSlot";
+import BrandLogo from "@/components/ui/BrandLogo";
 
 interface NavChild {
   label: string;
@@ -32,6 +34,7 @@ interface MobileNavItem {
 
 export default function Header() {
   const t = useTranslations();
+  const { direction } = useLayoutStore();
   const [searchOpen, setSearchOpen] = useState(false);
   const [offcanvasOpen, setOffcanvasOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -333,9 +336,7 @@ export default function Header() {
                   priority
                 /> */}
                 <h2 className="text-xxl text-white font-bold ml-0">
-                  <span className="text-[#0073FF]">Cockpit</span>
-                  <span className="text-white">.</span>
-                  <span className="text-white" style={{ marginLeft: '-0.40rem' }}>Travel</span>
+                  <BrandLogo />
                 </h2>
               </Link>
 
@@ -458,7 +459,7 @@ export default function Header() {
                   <button
                     className={`menu-toggler ${mobileOpen ? "panel-open" : ""}`}
                     onClick={() => setMobileOpen(!mobileOpen)}
-                    aria-label="Toggle menu"
+                    aria-label={t("header.toggleMenu")}
                   >
                     <span className="open-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18">
@@ -488,9 +489,7 @@ export default function Header() {
                     <div className="mobile-panel-logo">
                       {/* <Image src="/assets/images/logo.png" alt="logo" width={150} height={35} style={{ height: 35, width: "auto" }} /> */}
                       <h2 className="text-xxl text-white font-bold ml-0">
-                        <span className="text-[#0073FF]">Cockpit</span>
-                        <span className="text-white">.</span>
-                        <span className="text-white" style={{ marginLeft: '-0.40rem' }}>Travel</span>
+                        <BrandLogo />
                       </h2>
                     </div>
                     <ul className="mobile-menu has-vertical-divider">
@@ -517,7 +516,7 @@ export default function Header() {
                     <button
                       className={`search-btn ${searchOpen ? "search-open" : ""}`}
                       onClick={() => setSearchOpen(!searchOpen)}
-                      aria-label="Search"
+                      aria-label={t("header.search")}
                     >
                       <span className="open-icon">
                         <svg viewBox="0 0 612.01 612.01" xmlns="http://www.w3.org/2000/svg">
@@ -548,7 +547,7 @@ export default function Header() {
                     <button
                       className="offcanvas-toggle"
                       onClick={() => setOffcanvasOpen(!offcanvasOpen)}
-                      aria-label="Menu"
+                      aria-label={t("header.menu")}
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18">
                         <path d="M6 1.8001C6 1.13738 6.53728 0.600098 7.2 0.600098H22.8C23.4627 0.600098 24 1.13738 24 1.8001C24 2.46282 23.4627 3.0001 22.8 3.0001H7.2C6.53728 3.0001 6 2.46277 6 1.8001ZM22.8 7.8001H1.2C0.537281 7.8001 0 8.33743 0 9.0001C0 9.66282 0.537281 10.2001 1.2 10.2001H22.8C23.4627 10.2001 24 9.66282 24 9.0001C24 8.33743 23.4627 7.8001 22.8 7.8001ZM22.8 15.0001H12C11.3373 15.0001 10.8 15.5374 10.8 16.2001C10.8 16.8628 11.3373 17.4001 12 17.4001H22.8C23.4627 17.4001 24 16.8628 24 16.2001C24 15.5374 23.4627 15.0001 22.8 15.0001Z" />
@@ -572,14 +571,12 @@ export default function Header() {
                           <Link href="/">
                             {/*<Image src="/assets/images/logo.png" alt="Cockpit Travel" width={180} height={35} style={{ height: 35, width: "auto" }} />*/}
                             <h2 className="text-[1.5rem] text-white font-bold ml-0">
-                              <span className="text-[#0073FF]">Cockpit</span>
-                              <span className="text-white">.</span>
-                              <span className="text-white" style={{ marginLeft: '-0.20rem' }}>Travel</span>
+                              <BrandLogo gap="-0.20rem" />
                             </h2>
                           </Link>
                         </div>
                         <p className="offcanvas-description">
-                          Your trusted partner for finding the best flight deals, hotel bookings, and travel inspiration worldwide.
+                          {t("header.offcanvasDesc")}
                         </p>
                         <div className="offcanvas-gallery">
                           <a href="/category/flights"><img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=150&h=150&fit=crop" alt="Beach Paradise" width={150} height={150} /></a>
@@ -605,14 +602,14 @@ export default function Header() {
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 16">
                                 <path d="M21.8667 0H5.33333C4.16 0 3.2 1.10769 3.2 2.46154V3.38462C3.2 3.72308 3.44 4 3.73333 4C4.02667 4 4.26667 3.72308 4.26667 3.38462V2.46154C4.26667 2.33846 4.29333 2.21538 4.32 2.09231L10.2933 8L4.32 13.9077C4.29333 13.7846 4.26667 13.6615 4.26667 13.5385V12.6154C4.26667 12.2769 4.02667 12 3.73333 12C3.44 12 3.2 12.2769 3.2 12.6154V13.5385C3.2 14.8923 4.16 16 5.33333 16H21.8667C23.04 16 24 14.8923 24 13.5385V2.46154C24 1.10769 23.04 0 21.8667 0Z" />
                               </svg>
-                              info@nerio.com
+                              info@cockpit.travel
                             </li>
                             <li>
                               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15 22">
                                 <path d="M7.34697 1.71897C7.10935 1.71725 6.91556 1.90846 6.91385 2.14565C6.91213 2.38284 7.10291 2.57663 7.34053 2.57835C7.57771 2.58006 7.7715 2.38928 7.77322 2.15209C7.77494 1.91491 7.58416 1.72112 7.34697 1.71897Z" />
                                 <path d="M9.9413 16.1753C12.7993 12.4965 14.5854 10.5782 14.6095 7.35962C14.6397 3.3101 11.3534 0 7.30417 0C3.30223 0 0.0306679 3.24105 0.000245952 7.25005C-0.0243322 10.5559 1.79492 12.4716 4.67263 16.1747C1.80984 16.6025 0.000245952 17.6774 0.000245952 18.9922C0.000245952 19.873 0.814333 20.6633 2.29259 21.2176C3.63807 21.7221 5.41814 22 7.30486 22C9.19158 22 10.9716 21.7221 12.3171 21.2176C13.7954 20.6632 14.6095 19.8729 14.6095 18.9922C14.6095 17.6781 12.8016 16.6034 9.9413 16.1753Z" />
                               </svg>
-                              Ta-134/A, NY 11110, USA
+                              Business Bay, Dubai, UAE
                             </li>
                           </ul>
                         </div>
@@ -661,7 +658,7 @@ export default function Header() {
                   <div
                     className="tag-cloud-track"
                     ref={tagTrackRef}
-                    style={{ transform: `translateX(-${tagOffset}px)`, transition: "transform 0.4s ease" }}
+                    style={{ transform: `translateX(${direction === "rtl" ? "" : "-"}${tagOffset}px)`, transition: "transform 0.4s ease" }}
                   >
                     {tags.map((tag, i) => (
                       <Link key={i} href={`/tag/${tag.toLowerCase()}`} className="tag-cloud-link">
@@ -672,14 +669,14 @@ export default function Header() {
                 </div>
                 <div className="tag-cloud-arrows">
                   <button
-                    aria-label="Previous tags"
+                    aria-label={t("header.previousTags")}
                     onClick={() => slideTags("prev")}
                     disabled={!canGoPrev}
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                   </button>
                   <button
-                    aria-label="Next tags"
+                    aria-label={t("header.nextTags")}
                     onClick={() => slideTags("next")}
                     disabled={!canGoNext}
                   >
@@ -715,9 +712,7 @@ export default function Header() {
                     priority
                   /> */}
                   <h2 className="text-xxl text-white font-bold ml-0">
-                    <span className="text-[#0073FF]">Cockpit</span>
-                    <span className="text-white">.</span>
-                    <span className="text-white" style={{ marginLeft: '-0.40rem' }}>Travel</span>
+                    <BrandLogo />
                   </h2>
                 </Link>
 
@@ -835,8 +830,7 @@ export default function Header() {
                     <button
                       className={`menu-toggler ${mobileOpen ? "panel-open" : ""}`}
                       onClick={() => setMobileOpen(!mobileOpen)}
-                      aria-label="Toggle menu"
-                    >
+                      aria-label={t("header.toggleMenu")}                    >
                       <span className="open-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18">
                           <path d="M6 1.8001C6 1.13738 6.53728 0.600098 7.2 0.600098H22.8C23.4627 0.600098 24 1.13738 24 1.8001C24 2.46282 23.4627 3.0001 22.8 3.0001H7.2C6.53728 3.0001 6 2.46277 6 1.8001ZM22.8 7.8001H1.2C0.537281 7.8001 0 8.33743 0 9.0001C0 9.66282 0.537281 10.2001 1.2 10.2001H22.8C23.4627 10.2001 24 9.66282 24 9.0001C24 8.33743 23.4627 7.8001 22.8 7.8001ZM22.8 15.0001H12C11.3373 15.0001 10.8 15.5374 10.8 16.2001C10.8 16.8628 11.3373 17.4001 12 17.4001H22.8C23.4627 17.4001 24 16.8628 24 16.2001C24 15.5374 23.4627 15.0001 22.8 15.0001Z" />
@@ -866,7 +860,7 @@ export default function Header() {
                   </Link>
 
                   <div className="rstb-mini-search">
-                    <button className="search-btn" aria-label="Search">
+                    <button className="search-btn" aria-label={t("header.search")}>
                       <span className="open-icon">
                         <svg viewBox="0 0 612.01 612.01" xmlns="http://www.w3.org/2000/svg">
                           <path d="M606.209 578.714 448.198 423.228C489.576 378.272 515 318.817 515 253.393 514.98 113.439 399.704 0 257.493 0S.006 113.439.006 253.393s115.276 253.393 257.487 253.393c61.445 0 117.801-21.253 162.068-56.586l158.624 156.099c7.729 7.614 20.277 7.614 28.006 0a19.291 19.291 0 0 0 .018-27.585zM257.493 467.8c-120.326 0-217.869-95.993-217.869-214.407S137.167 38.986 257.493 38.986c120.327 0 217.869 95.993 217.869 214.407S377.82 467.8 257.493 467.8z" />
@@ -877,7 +871,7 @@ export default function Header() {
 
                   <div className="rstb-offcanvas-wrap hidden lg:block">
                     <div className="offcanvas-toggle-wrap">
-                      <button className="offcanvas-toggle" onClick={() => setOffcanvasOpen(!offcanvasOpen)} aria-label="Menu">
+                      <button className="offcanvas-toggle" onClick={() => setOffcanvasOpen(!offcanvasOpen)} aria-label={t("header.menu")}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18">
                           <path d="M6 1.8001C6 1.13738 6.53728 0.600098 7.2 0.600098H22.8C23.4627 0.600098 24 1.13738 24 1.8001C24 2.46282 23.4627 3.0001 22.8 3.0001H7.2C6.53728 3.0001 6 2.46277 6 1.8001ZM22.8 7.8001H1.2C0.537281 7.8001 0 8.33743 0 9.0001C0 9.66282 0.537281 10.2001 1.2 10.2001H22.8C23.4627 10.2001 24 9.66282 24 9.0001C24 8.33743 23.4627 7.8001 22.8 7.8001ZM22.8 15.0001H12C11.3373 15.0001 10.8 15.5374 10.8 16.2001C10.8 16.8628 11.3373 17.4001 12 17.4001H22.8C23.4627 17.4001 24 16.8628 24 16.2001C24 15.5374 23.4627 15.0001 22.8 15.0001Z" />
                         </svg>
@@ -899,11 +893,9 @@ export default function Header() {
                           <div className="offcanvas-logo">
                             <Link href="/">
                               <h2 className="text-xxl text-white font-bold ml-0">
-                                <span className="text-[#0073FF]">Cockpit</span>
-                                <span className="text-white">.</span>
-                                <span className="text-white" style={{ marginLeft: '-0.40rem' }}>Travel</span>
-                              </h2>
-                              {/* <Image src="/assets/images/logo.png" alt="Cockpit Travel" width={180} height={35} style={{ height: 35, width: "auto" }} /> */}
+                              <BrandLogo />
+                            </h2>
+                            {/* <Image src="/assets/images/logo.png" alt="Cockpit Travel" width={180} height={35} style={{ height: 35, width: "auto" }} /> */}
                             </Link>
                           </div>
                           <p className="offcanvas-description">
@@ -940,7 +932,7 @@ export default function Header() {
                                   <path d="M7.34697 1.71897C7.10935 1.71725 6.91556 1.90846 6.91385 2.14565C6.91213 2.38284 7.10291 2.57663 7.34053 2.57835C7.57771 2.58006 7.7715 2.38928 7.77322 2.15209C7.77494 1.91491 7.58416 1.72112 7.34697 1.71897Z" />
                                   <path d="M9.9413 16.1753C12.7993 12.4965 14.5854 10.5782 14.6095 7.35962C14.6397 3.3101 11.3534 0 7.30417 0C3.30223 0 0.0306679 3.24105 0.000245952 7.25005C-0.0243322 10.5559 1.79492 12.4716 4.67263 16.1747C1.80984 16.6025 0.000245952 17.6774 0.000245952 18.9922C0.000245952 19.873 0.814333 20.6633 2.29259 21.2176C3.63807 21.7221 5.41814 22 7.30486 22C9.19158 22 10.9716 21.7221 12.3171 21.2176C13.7954 20.6632 14.6095 19.8729 14.6095 18.9922C14.6095 17.6781 12.8016 16.6034 9.9413 16.1753Z" />
                                 </svg>
-                                Ta-134/A, NY 11110, USA
+                                Business Bay, Dubai, UAE
                               </li>
                             </ul>
                           </div>

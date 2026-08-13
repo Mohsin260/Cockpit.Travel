@@ -1,12 +1,16 @@
+import Preloader from "@/components/Preloader";
 import HomeTemplate from "@/components/HomeTemplate";
 import { fetchArticles, fetchCategories, fetchComparisons, fetchHomepageSettings, resolveFeaturedComparisons } from "@/lib/api";
 import type { ComparisonArticle } from "@/types";
 import type { Metadata } from 'next';
+import { translate } from "@/lib/translate";
 
 export const revalidate = 60;
 
+const siteName = translate("common.siteName");
+
 export const metadata: Metadata = {
-  title: "Cockpit.Travel – Travel News & Updates",
+  title: `${siteName} – Travel News & Updates`,
   description: "Your daily source for travel news, destination guides, hotel reviews, and flight updates.",
 };
 
@@ -25,12 +29,15 @@ export default async function HomePage() {
   );
 
   return (
-    <HomeTemplate
-      articles={articles}
-      comparisons={comparisons as ComparisonArticle[]}
-      featuredComparisons={featuredComparisons}
-      categories={categories}
-      featuredComparisonsMaxCount={homepageSettings.maxCount}
-    />
+    <>
+      <Preloader />
+      <HomeTemplate
+        articles={articles}
+        comparisons={comparisons as ComparisonArticle[]}
+        featuredComparisons={featuredComparisons}
+        categories={categories}
+        featuredComparisonsMaxCount={homepageSettings.maxCount}
+      />
+    </>
   );
 }

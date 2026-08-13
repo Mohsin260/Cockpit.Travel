@@ -72,7 +72,7 @@ export default function TabWidget({ recentArticles = [], popularArticles = [], t
               <ul className="fpg-post-meta flex flex-wrap items-center gap-[12px] mt-[10px] text-[13px] text-bodyColor">
                 <li>
                   <span className="fpg-meta flex items-center flex-wrap gap-[8px]">
-                    <span>By {post.authorName}</span>
+                    <span>{t("common.by")} {post.authorName}</span>
                   </span>
                 </li>
                 <li className="flex items-center gap-[4px]">
@@ -83,7 +83,7 @@ export default function TabWidget({ recentArticles = [], popularArticles = [], t
                     <svg className="w-[14px] h-[14px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
                     </svg>
-                    {post.views} Views
+                    {post.views} {t("common.views")}
                   </span>
                 </li>
               </ul>

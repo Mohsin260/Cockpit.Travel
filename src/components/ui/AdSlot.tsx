@@ -8,6 +8,10 @@ import { POSITION_SIZE_CONFIG } from "@/lib/constants/adSizes";
 import { buildVisitorData, buildSspRequestUrl } from "@/lib/ads/buildVastUrl";
 import type { VisitorData } from "@/lib/ads/buildVastUrl";
 import AdActionsPopover from "./AdActionsPopover";
+import { translate } from "@/lib/translate";
+
+const ADVERTISEMENT = translate("common.advertisement");
+const SPONSORED = translate("common.sponsored");
 
 // ── HMR generation counter ──────────────────────────────────────────
 // Re-evaluated every time Fast Refresh re-executes this module.
@@ -75,7 +79,7 @@ const DEFAULT_APPEARANCE: AppearanceSettings = {
     borderRadius: 8,
     boxShadow: "none",
     showLabel: true,
-    labelText: "Advertisement",
+    labelText: ADVERTISEMENT,
     showInfoIcon: true,
     showCloseButton: true,
     closeButtonPosition: "top-right",
@@ -180,7 +184,7 @@ export default function AdSlot(props: Props) {
 function AdSlotInner({
     pageType,
     position,
-    label = "-Advertisement-",
+    label = `-${ADVERTISEMENT}-`,
     width = "728px",
     height = "90px",
     className = "",
@@ -651,7 +655,7 @@ function AdSlotInner({
                     // Simple image URL — render as <img>
                     const img = document.createElement("img");
                     img.src = ad.mediaUrl;
-                    img.alt = "Advertisement";
+                    img.alt = ADVERTISEMENT;
                     img.style.cssText = `width:100%;height:100%;object-fit:cover;border-radius:8px;`;
                     if (ad.clickThroughUrl || ad.url) {
                         const a = document.createElement("a");
@@ -976,7 +980,7 @@ function AdSlotInner({
                                     autoComputeAdSize: true,
                                     showCountdown: true,
                                     showControlsForJSAds: true,
-                                    adLabel: 'Advertisement',
+                                    adLabel: ADVERTISEMENT,
                                     adsRenderingSettings: {
                                         restoreCustomPlaybackStateOnAdBreakComplete: true,
                                         enablePreloading: true,
@@ -1042,7 +1046,7 @@ function AdSlotInner({
                                     z-index: 10003;
                                     display: block;
                                 `;
-                                label.textContent = 'Sponsored Video';
+                                label.textContent = `${SPONSORED} Video`;
                                 const videoContainer = document.getElementById(isBanner ? `Trendsposts-banner-ad-${safePosition}` : `Trendsposts-video-ad-${safePosition}`);
                                 if (videoContainer) {
                                     videoContainer.appendChild(label);
@@ -1486,8 +1490,11 @@ ${ad.code}
                     className="ad-media-wrapper relative flex items-center justify-center"
                     onClick={handleAdClick}
                 >
-                    {displayLabel && (
-                        <div className="absolute top-2 left-2 z-50 pointer-events-none">
+{displayLabel && (
+                        <div
+                            style={{ insetInlineStart: '0.5rem', top: '2px', zIndex: '9999999' }}
+                            className="absolute top-2 pointer-events-none"
+                        >
                             <span className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-black/60 text-white/90 backdrop-blur-sm">
                                 AD
                             </span>
@@ -1501,6 +1508,7 @@ ${ad.code}
                         <AdActionsPopover
                             onOpenChange={setIsPopoverOpen}
                             side={position === "sticky-footer" ? "top" : "bottom"}
+                            align={position?.includes("leaderboard") || position === "sticky-footer" ? "left" : "right"}
                             onSubmit={async (reason, customText) => {
                                 if (!ad || !ad._id) return;
                                 try {

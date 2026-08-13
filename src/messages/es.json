@@ -1,6 +1,8 @@
 {
   "common": {
-    "siteName": "Cockpit.Travel",
+    "siteName": "Cockpit.Viajes",
+    "brandPart1": "Cockpit",
+    "brandPart2": "Viajes",
     "readMore": "Leer más",
     "viewAll": "Ver todo",
     "seeAll": "Ver todo",
@@ -34,7 +36,29 @@
     "enterKeyword": "Ingresa una palabra clave para encontrar artículos.",
     "tryDifferent": "Intenta con otras palabras clave o explora nuestras categorías.",
     "savedArticle": "artículo guardado",
-    "savedArticles": "artículos guardados"
+    "savedArticles": "artículos guardados",
+    "sponsored": "Patrocinado",
+    "advertisement": "Publicidad",
+    "adActions": {
+      "adOptions": "Opciones del anuncio",
+      "whyThisAd": "¿Por qué este anuncio?",
+      "stopSeeingThisAd": "Deja de ver este anuncio",
+      "reportAd": "Reportar anuncio",
+      "aboutThisAd": "Acerca de este anuncio",
+      "aboutThisAdDescription": "Este anuncio se muestra según tu actividad de navegación y ubicación. Tu opinión nos ayuda a mostrar anuncios más relevantes.",
+      "whatWasWrong": "¿Qué estaba mal?",
+      "notRelevant": "No es relevante para mí",
+      "coveredContent": "El anuncio cubrió el contenido",
+      "seenMultiple": "He visto este anuncio varias veces",
+      "inappropriate": "El anuncio fue inapropiado",
+      "otherReason": "Otra razón...",
+      "moreDetails": "Más detalles",
+      "placeholder": "Describe brevemente el problema...",
+      "submit": "Enviar",
+      "submitting": "Enviando...",
+      "thanks": "¡Gracias por tu opinión!",
+      "thanksDescription": "Intentaremos no volver a mostrarte este anuncio."
+    }
   },
   "nav": {
     "home": "Inicio",
@@ -77,7 +101,12 @@
     "liveNews": "Noticias en vivo",
     "offcanvasDesc": "Tu socio de confianza para encontrar las mejores ofertas de vuelos, reservas de hoteles e inspiración de viajes en todo el mundo.",
     "quickContact": "Contacto rápido:",
-    "getInTouch": "Ponte en contacto"
+    "getInTouch": "Ponte en contacto",
+    "toggleMenu": "Alternar menú",
+    "search": "Buscar",
+    "menu": "Menú",
+    "previousTags": "Etiquetas anteriores",
+    "nextTags": "Etiquetas siguientes"
   },
   "ticker": {
     "news1": "Dubai lanza nuevas rutas de vuelo directo a 12 destinos asiáticos",
@@ -190,7 +219,8 @@
   "hero": {
     "recentNews": "Noticias recientes",
     "viewAll": "Ver todo",
-    "readArticle": "Leer artículo"
+    "readArticle": "Leer artículo",
+    "listenToArticle": "Escuchar este artículo"
   },
   "sections": {
     "hotels": "Hoteles",
@@ -264,7 +294,30 @@
     "recent": "Reciente",
     "popular": "Popular",
     "random": "Aleatorio",
-    "categories": "Categorías"
+    "categories": "Categorías",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "tags": "Etiquetas",
+    "website": "Sitio web",
+    "websitePlaceholder": "Sitio web",
+    "emailPlaceholder": "Correo *",
+    "fullName": "Nombre completo *",
+    "notPublished": "Su dirección de correo no será publicada.",
+    "requiredFields": "Los campos obligatorios están marcados",
+    "saveMyInfo": "Guardar mi nombre, correo y sitio web en este navegador para la próxima vez que comente.",
+    "listenToArticle": "Escuchar este artículo",
+    "minReadShort": "min de lectura",
+    "listen": "Escuchar",
+    "pause": "Pausa",
+    "resume": "Reanudar",
+    "stop": "Detener",
+    "listening": "Escuchando...",
+    "paused": "En pausa",
+    "speed": "Velocidad",
+    "playbackSpeed": "Velocidad de reproducción",
+    "selectVoice": "Seleccionar voz",
+    "voice": "Voz",
+    "noVoices": "No hay voces disponibles"
   },
   "comparison": {
     "verdict": "Veredicto",
@@ -310,6 +363,9 @@
     "subscribe": "Suscribirse",
     "consent": "He leído y acepto los",
     "subscribed": "¡Suscrito!",
+    "popupTitle": "No te pierdas una noticia",
+    "popupDescription": "Únete a miles de lectores que nunca se pierden un titular.",
+    "popupClose": "Cerrar",
     "stayConnected": "Mantente conectado",
     "stayInTheLoop": "Mantente al día",
     "newsletterDescription": "Recibe las últimas historias virales directamente en tu bandeja de entrada.",
@@ -389,6 +445,18 @@
     "followUs": "Síguenos",
     "tags": "Etiquetas"
   },
+  "social": {
+    "facebook": "Facebook",
+    "twitter": "Twitter",
+    "instagram": "Instagram",
+    "youtube": "YouTube",
+    "linkedin": "LinkedIn",
+    "dribbble": "Dribbble",
+    "pinterest": "Pinterest",
+    "fans": "Seguidores",
+    "followers": "Seguidores",
+    "subscribers": "Suscriptores"
+  },
   "widgets": {
     "weather": {
       "partlySunny": "Parcialmente soleado",
@@ -401,7 +469,16 @@
       "wed": "Mié",
       "thu": "Jue",
       "fri": "Vie",
-      "sat": "Sáb"
+      "sat": "Sáb",
+      "title": "Clima",
+      "currentWeather": "Clima actual",
+      "feelsLike": "Sensación térmica",
+      "humidity": "Humedad",
+      "condition": "Condición",
+      "currentCity": "Ciudad actual",
+      "windInfo": "Información del viento",
+      "windSpeed": "Velocidad del viento",
+      "country": "País"
     },
     "poll": {
       "title": "Encuesta",

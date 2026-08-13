@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { translate } from "@/lib/translate";
 
 export default function Breadcrumb({
   category,
@@ -26,9 +27,9 @@ export default function Breadcrumb({
             <Link
               href="/"
               className="hover:text-primaryColor transition-colors"
-              title="Go to Travel News."
+              title={translate("article.home")}
             >
-              <span>Home</span>
+              <span>{translate("article.home")}</span>
             </Link>
 
             <span className="item-separator flex items-center leading-none">
@@ -45,9 +46,9 @@ export default function Breadcrumb({
             <Link
               href="/blog"
               className="hover:text-primaryColor transition-colors"
-              title="Go to Blog."
+              title={translate("blogPage.title")}
             >
-              <span>Blog</span>
+              <span>{translate("blogPage.title")}</span>
             </Link>
 
             <span className="item-separator flex items-center leading-none">

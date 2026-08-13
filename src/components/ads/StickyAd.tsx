@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { translate } from "@/lib/translate";
+
+const ADVERTISEMENT = translate("common.advertisement");
 
 interface StickyAdProps {
   position: "sidebar-sticky" | "sticky-footer";
@@ -55,7 +58,7 @@ export default function StickyAd({ position, className = "" }: StickyAdProps) {
       >
         {appearance.showLabel !== false && (
           <div className="ad-label text-[11px] text-gray-400 uppercase tracking-wider mb-1 text-center">
-            {appearance.labelText || "Advertisement"}
+            {appearance.labelText || ADVERTISEMENT}
           </div>
         )}
         <div
@@ -90,7 +93,7 @@ export default function StickyAd({ position, className = "" }: StickyAdProps) {
       <div className="max-w-[728px] mx-auto py-2 px-4 text-center">
         {appearance.showLabel !== false && (
           <div className="ad-label text-[10px] text-gray-400 uppercase tracking-wider mb-1">
-            {appearance.labelText || "Advertisement"}
+            {appearance.labelText || ADVERTISEMENT}
           </div>
         )}
         {ad.clickThroughUrl ? (

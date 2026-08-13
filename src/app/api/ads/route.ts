@@ -66,7 +66,13 @@ export async function POST(req: Request) {
   } catch (err) {
     const apiError = toApiError(err);
     const status =
-      apiError.error === "Validation error" ? 400 : apiError.error === "Forbidden" ? 403 : 500;
+      apiError.error === "Validation error"
+        ? 400
+        : apiError.error === "Unauthorized"
+          ? 401
+          : apiError.error === "Forbidden"
+            ? 403
+            : 500;
     return NextResponse.json(apiError, { status });
   }
 }

@@ -48,10 +48,10 @@ export default function SectionHeading({
             {href && (
                 <Link
                     href={href}
-                    className="text-sm font-medium transition-colors shrink-0"
+                    className="section-heading-link text-sm font-medium transition-colors shrink-0"
                     style={{ color: metaColor }}
                 >
-                    {seeAllLabel} →
+                    {seeAllLabel} <span className="section-heading-arrow inline-block">→</span>
                 </Link>
             )}
         </div>

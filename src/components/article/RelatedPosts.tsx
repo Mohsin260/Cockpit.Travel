@@ -4,6 +4,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
 import { CARD_STYLES, getCssVars } from "@/components/ui/cardStyles";
+import { translate } from "@/lib/translate";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -20,10 +21,10 @@ interface RelatedArticle {
 export default function RelatedPosts({ articles }: { articles: RelatedArticle[] }) {
   return (
     <div className="mb-[30px]">
-      <div className="flex items-center justify-between mb-[20px]">
+      <div className="flex items-center justify-between gap-5 mb-[20px]">
         <div className="flex items-center gap-[15px] flex-1 mr-[20px]">
           <h3 className="font-title text-black text-[22px] font-normal whitespace-nowrap hover:text-[#007AFF] transition-colors cursor-pointer">
-            Related Post
+            {translate("article.relatedArticles")}
           </h3>
           <div className="hidden sm:flex items-center flex-1 gap-[10px]">
             <span className="w-[8px] h-[8px] rotate-45 bg-[#007AFF] flex-shrink-0"></span>
@@ -68,7 +69,10 @@ export default function RelatedPosts({ articles }: { articles: RelatedArticle[] 
           className="fpg-post-slider"
         >
           {articles.map((article) => {
-            const authorName = typeof article.author === "string" ? article.author : article.author.name;
+            const authorName =
+              (article as any).authorName ||
+              (typeof article.author === "string" ? article.author : article.author?.name) ||
+              "Admin";
             return (
               <SwiperSlide key={article.slug} className="h-auto">
                 <div className="fpg-card-style style-one flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full group" style={getCssVars(CARD_STYLES["related-articles"])}>
@@ -98,11 +102,11 @@ export default function RelatedPosts({ articles }: { articles: RelatedArticle[] 
                     <ul className="fpg-post-meta flex items-center gap-[10px] text-[14px] text-body">
                       <li>
                         <span className="fpg-meta">
-                          By <Link href="#" className="text-gray-600 hover:text-[#007AFF] transition-colors duration-300">{authorName}</Link>
+                          {translate("common.by")} <Link href="#" className="text-gray-600 hover:text-[#007AFF] transition-colors duration-300">{authorName}</Link>
                         </span>
                       </li>
                       <li>
-                        <span className="fpg-meta">{article.views} Views</span>
+                        <span className="fpg-meta">{article.views} {translate("common.views")}</span>
                       </li>
                     </ul>
                   </div>
@@ -111,7 +115,7 @@ export default function RelatedPosts({ articles }: { articles: RelatedArticle[] 
             );
           })}
           <SwiperSlide className="h-auto">
-            <InFeedNativeAd position="in-feed-related" cardStyle="related-articles" pageType="article" />
+            <InFeedNativeAd position="in-feed-related" cardStyle="related-articles" pageType="article" className="h-full" />
           </SwiperSlide>
         </Swiper>
       </div>

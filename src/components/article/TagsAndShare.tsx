@@ -1,3 +1,5 @@
+import { translate } from "@/lib/translate";
+
 export default function TagsAndShare({ tags }: { tags: string[] }) {
   const socials = [
     { name: "Facebook", icon: "M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" },
@@ -9,7 +11,7 @@ export default function TagsAndShare({ tags }: { tags: string[] }) {
   return (
     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-[16px] py-[24px] border-t border-b border-border mb-[30px]">
       <div className="flex flex-wrap items-center gap-[10px]">
-        <h6 className="text-[15px] font-semibold text-titleColor">Tags:</h6>
+        <h6 className="text-[15px] font-semibold text-titleColor">{translate("article.tags")}:</h6>
         <div className="inner-pills-wrapper flex flex-wrap items-center">
           {tags.map((tag) => (
             <a
@@ -24,7 +26,7 @@ export default function TagsAndShare({ tags }: { tags: string[] }) {
       </div>
 
       <div className="flex items-center gap-[14px]">
-        <h6 className="text-[15px] font-semibold text-titleColor">Share:</h6>
+        <h6 className="text-[15px] font-semibold text-titleColor">{translate("article.share")}:</h6>
         <div className="rs-social-share flex items-center gap-[10px]">
           {socials.map((social) => (
             <a

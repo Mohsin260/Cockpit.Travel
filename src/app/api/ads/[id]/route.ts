@@ -50,7 +50,13 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
   } catch (err) {
     const apiError = toApiError(err);
     const status =
-      apiError.error === "Validation error" ? 400 : apiError.error === "Forbidden" ? 403 : 500;
+      apiError.error === "Validation error"
+        ? 400
+        : apiError.error === "Unauthorized"
+          ? 401
+          : apiError.error === "Forbidden"
+            ? 403
+            : 500;
     return NextResponse.json(apiError, { status });
   }
 }
@@ -67,7 +73,8 @@ export async function DELETE(_req: Request, { params }: { params: Promise<{ id: 
     return NextResponse.json({ ok: true });
   } catch (err) {
     const apiError = toApiError(err);
-    const status = apiError.error === "Forbidden" ? 403 : 500;
+    const status =
+      apiError.error === "Unauthorized" ? 401 : apiError.error === "Forbidden" ? 403 : 500;
     return NextResponse.json(apiError, { status });
   }
 }

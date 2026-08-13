@@ -1,3 +1,5 @@
+import { translate } from "@/lib/translate";
+
 interface SocialLink {
   name: string;
   icon: "facebook" | "twitter" | "instagram" | "youtube" | "linkedin" | "dribbble" | "pinterest";
@@ -46,12 +48,34 @@ const platformColors: Record<string, string> = {
   instagram: "linear-gradient(29deg, #BE08AF 0%, #F10811 100%)",
 };
 
+function localizeNetworkName(link: SocialLink): string {
+  const key = `social.${link.icon}`;
+  const localized = translate(key);
+  return localized && localized !== key ? localized : link.name;
+}
+
+function localizeFollowers(followers: string): string {
+  const trimmed = (followers || "").trim();
+  if (!trimmed) return "";
+  const match = trimmed.match(/^([\d.,]+\s?[KkMm]?)\s*(.*)$/);
+  if (!match) return trimmed;
+  const [, count, rawLabel] = match;
+  const label = (rawLabel || "").trim();
+  if (!label) return count;
+  const labelKey = label.toLowerCase().includes("subscriber")
+    ? "social.subscribers"
+    : label.toLowerCase().includes("fan")
+      ? "social.fans"
+      : "social.followers";
+  return `${count} ${translate(labelKey)}`.trim();
+}
+
 export default function SocialFollowWidget({ socialLinks = [] }: { socialLinks?: SocialLink[] }) {
   if (!socialLinks || socialLinks.length === 0) return null;
 
   return (
     <div>
-      <h4 className="text-[20px] font-semibold text-[var(--titleColor)] mb-[20px] leading-[1.44]">Follow Us</h4>
+      <h4 className="text-[20px] font-semibold text-[var(--titleColor)] mb-[20px] leading-[1.44]">{translate("sidebar.followUs")}</h4>
       <div className="rs-social-menu style1">
         <div className="social-wrapper flex flex-col gap-[12px]">
           {socialLinks.map((link) => {
@@ -63,13 +87,13 @@ export default function SocialFollowWidget({ socialLinks = [] }: { socialLinks?:
               <a
                 key={link.name}
                 href={link.url}
-                className="flex items-center relative p-[10px_15px] rounded-[6px] group transition-opacity duration-300 hover:opacity-70"
+                className="flex items-center relative p-[10px_15px] rounded-[6px] transition-opacity duration-300 hover:opacity-70"
                 style={{
                   background: isInstagram ? bgColor : bgColor,
                   backgroundColor: isInstagram ? undefined : bgColor,
                 }}
               >
-                <div className="icon-wrapper flex items-center justify-center w-[24px] h-auto flex-shrink-0 mr-[15px]" style={{ backgroundColor: "transparent" }}>
+                <div dir="ltr" className="icon-wrapper flex items-center justify-center w-[24px] h-auto flex-shrink-0 me-[15px]" style={{ backgroundColor: "transparent" }}>
                   {icon && (
                     <svg
                       aria-hidden="true"
@@ -82,11 +106,11 @@ export default function SocialFollowWidget({ socialLinks = [] }: { socialLinks?:
                   )}
                 </div>
                 <div className="content-wrapper flex-1 relative" style={{ minWidth: 0 }}>
-                  <span className="text-wrapper block text-[14px] font-medium text-white leading-tight pr-[60px]">
-                    {link.name}
+                  <span className="text-wrapper block text-[14px] font-medium text-white leading-tight pe-[60px]">
+                    {localizeNetworkName(link)}
                   </span>
-                  <span className="sub-text absolute top-[9px] right-[15px] text-[14px] font-medium text-white">
-                    {link.followers}
+                  <span className="sub-text absolute top-0 end-[15px] text-[14px] font-medium text-white">
+                    {localizeFollowers(link.followers)}
                   </span>
                 </div>
               </a>

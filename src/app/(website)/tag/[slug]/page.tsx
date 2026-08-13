@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import CategoryTemplate from "@/components/CategoryTemplate";
 import { fetchArticles, fetchCategories } from "@/lib/api";
 import tags from "@/data/tags.json";
+import { translate } from "@/lib/translate";
+
+const siteName = translate("common.siteName");
 
 interface Props {
     params: Promise<{ slug: string }>;
@@ -16,10 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     return {
         title: `#${slug}`,
-        description: `Articles tagged with #${slug} on Cockpit.Travel`,
+        description: `Articles tagged with #${slug} on ${siteName}`,
         openGraph: {
-            title: `#${slug} — Cockpit.Travel`,
-            description: `Articles tagged with #${slug} on Cockpit.Travel`,
+            title: `#${slug} — ${siteName}`,
+            description: `Articles tagged with #${slug} on ${siteName}`,
             type: "website",
         },
         alternates: {

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { useTranslations } from "@/hooks/useTranslations";
 import { cn } from "@/lib/utils";
 
 type ViewState = "closed" | "menu" | "why" | "feedback" | "other" | "success";
@@ -24,6 +25,7 @@ interface AdActionsPopoverProps {
   onOpenChange?: (isOpen: boolean) => void;
   adLabel?: string;
   side?: "top" | "bottom";
+  align?: "left" | "right";
 }
 
 export default function AdActionsPopover({
@@ -31,11 +33,34 @@ export default function AdActionsPopover({
   onOpenChange,
   adLabel = "this ad",
   side = "bottom",
+  align = "right",
 }: AdActionsPopoverProps) {
   const [view, setView] = useState<ViewState>("closed");
   const [customText, setCustomText] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("common");
+
+  const labels = {
+    adOptions: t("adActions.adOptions"),
+    whyThisAd: t("adActions.whyThisAd"),
+    stopSeeingThisAd: t("adActions.stopSeeingThisAd"),
+    reportAd: t("adActions.reportAd"),
+    aboutThisAd: t("adActions.aboutThisAd"),
+    aboutThisAdDescription: t("adActions.aboutThisAdDescription"),
+    whatWasWrong: t("adActions.whatWasWrong"),
+    notRelevant: t("adActions.notRelevant"),
+    coveredContent: t("adActions.coveredContent"),
+    seenMultiple: t("adActions.seenMultiple"),
+    inappropriate: t("adActions.inappropriate"),
+    otherReason: t("adActions.otherReason"),
+    moreDetails: t("adActions.moreDetails"),
+    placeholder: t("adActions.placeholder"),
+    submit: t("adActions.submit"),
+    submitting: t("adActions.submitting"),
+    thanks: t("adActions.thanks"),
+    thanksDescription: t("adActions.thanksDescription"),
+  };
 
   // Close when clicking outside
   useEffect(() => {
@@ -83,7 +108,7 @@ export default function AdActionsPopover({
             >
               <div className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-blue-500" />
-                <span className="text-sm text-gray-700 dark:text-gray-200">Why this ad?</span>
+                <span className="text-sm text-gray-700 dark:text-gray-200">{labels.whyThisAd}</span>
               </div>
               <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
             </button>
@@ -93,7 +118,7 @@ export default function AdActionsPopover({
             >
               <div className="flex items-center gap-2">
                 <Ban className="w-4 h-4 text-gray-500" />
-                <span className="text-sm text-gray-700 dark:text-gray-200">Stop seeing this ad</span>
+                <span className="text-sm text-gray-700 dark:text-gray-200">{labels.stopSeeingThisAd}</span>
               </div>
               <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
             </button>
@@ -104,7 +129,7 @@ export default function AdActionsPopover({
               disabled={isSubmitting}
             >
               <AlertOctagon className="w-4 h-4 text-red-500" />
-              <span className="text-sm text-gray-700 dark:text-gray-200">Report ad</span>
+              <span className="text-sm text-gray-700 dark:text-gray-200">{labels.reportAd}</span>
             </button>
           </div>
         );
@@ -119,11 +144,10 @@ export default function AdActionsPopover({
               >
                 <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               </button>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">About this ad</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{labels.aboutThisAd}</span>
             </div>
             <div className="space-y-2 text-xs text-gray-600 dark:text-gray-400">
-              <p>This ad is shown based on your browsing activity and location.</p>
-              <p>Your feedback helps us show more relevant ads.</p>
+              <p>{labels.aboutThisAdDescription}</p>
             </div>
           </div>
         );
@@ -138,14 +162,14 @@ export default function AdActionsPopover({
               >
                 <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               </button>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">What was wrong?</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{labels.whatWasWrong}</span>
             </div>
             <div className="flex flex-col">
               {[
-                { id: "not_relevant", label: "Not relevant to me" },
-                { id: "covered_content", label: "Ad covered content" },
-                { id: "seen_multiple", label: "Seen this ad multiple times" },
-                { id: "inappropriate", label: "Ad was inappropriate" },
+                { id: "not_relevant", label: labels.notRelevant },
+                { id: "covered_content", label: labels.coveredContent },
+                { id: "seen_multiple", label: labels.seenMultiple },
+                { id: "inappropriate", label: labels.inappropriate },
               ].map((option) => (
                 <button
                   key={option.id}
@@ -162,7 +186,7 @@ export default function AdActionsPopover({
                 disabled={isSubmitting}
                 className="flex items-center justify-between px-3 py-1.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-left rounded"
               >
-                <span className="text-xs text-gray-700 dark:text-gray-300">Other reason...</span>
+                <span className="text-xs text-gray-700 dark:text-gray-300">{labels.otherReason}</span>
                 <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
               </button>
             </div>
@@ -179,14 +203,14 @@ export default function AdActionsPopover({
               >
                 <ChevronLeft className="w-4 h-4 text-gray-600 dark:text-gray-400" />
               </button>
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">More Details</span>
+              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{labels.moreDetails}</span>
             </div>
             <div className="space-y-3">
               <Textarea
                 value={customText}
                 onChange={(e) => setCustomText(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
-                placeholder="Briefly describe the issue..."
+                placeholder={labels.placeholder}
                 className="min-h-[60px] text-xs resize-none p-2"
                 maxLength={200}
                 autoFocus
@@ -197,7 +221,7 @@ export default function AdActionsPopover({
                 className="w-full h-7 text-xs"
                 size="sm"
               >
-                {isSubmitting ? "Submitting..." : "Submit"}
+                {isSubmitting ? labels.submitting : labels.submit}
               </Button>
             </div>
           </div>
@@ -207,9 +231,9 @@ export default function AdActionsPopover({
         return (
           <div className="p-4 flex flex-col items-center justify-center space-y-2 text-center">
             <CheckCircle2 className="w-6 h-6 text-green-500" />
-            <p className="text-xs font-medium text-gray-900 dark:text-gray-100">Thanks for the feedback!</p>
+            <p className="text-xs font-medium text-gray-900 dark:text-gray-100">{labels.thanks}</p>
             <p className="text-[10px] text-gray-500 leading-tight">
-              We'll try not to show you this ad again.
+              {labels.thanksDescription}
             </p>
           </div>
         );
@@ -218,13 +242,17 @@ export default function AdActionsPopover({
   };
 
   return (
-    <div className="absolute top-1 right-1 z-[999999] flex items-start gap-1">
+    <div
+      className={cn("absolute top-1 z-[999999] flex items-start gap-1", align === "left" ? "left-1" : "right-1")}
+      data-align={align}
+    >
       {/* Trigger Buttons */}
       <div className="flex items-center bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded shadow-sm border border-gray-200 dark:border-gray-700/50">
         <button
           onClick={(e) => { e.stopPropagation(); setView(view === "closed" ? "menu" : "closed"); }}
           className="p-1 px-1.5 text-gray-500 hover:text-gray-800 dark:hover:text-gray-200 transition-colors"
-          title="Ad Options"
+          title={labels.adOptions}
+          aria-label={labels.adOptions}
         >
           <MoreVertical className="w-3.5 h-3.5" />
         </button>
@@ -235,7 +263,8 @@ export default function AdActionsPopover({
         <div 
           ref={menuRef}
           className={cn(
-            "absolute right-0 w-[220px] bg-white dark:bg-gray-900 rounded-md shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden text-left z-[999999]",
+            "absolute w-[220px] bg-white dark:bg-gray-900 rounded-md shadow-2xl border border-gray-200 dark:border-gray-800 overflow-hidden text-left z-[999999]",
+            align === "left" ? "left-0" : "right-0",
             side === "top" ? "bottom-8" : "top-8"
           )}
           onClick={(e) => e.stopPropagation()}

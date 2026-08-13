@@ -3,10 +3,13 @@ import CategoryTemplate from "@/components/CategoryTemplate";
 import { fetchArticles, fetchCategories } from "@/lib/api";
 import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
 import messages from "@/messages/en.json";
+import { translate } from "@/lib/translate";
+
+const siteName = translate("common.siteName");
 
 export const metadata: Metadata = {
     title: "Blog",
-    description: "All articles on Cockpit.Travel — travel news, destination guides, and in-depth coverage.",
+    description: `All articles on ${siteName} — travel news, destination guides, and in-depth coverage.`,
 };
 
 interface Props {
@@ -38,7 +41,7 @@ export default async function BlogPage({ searchParams }: Props) {
             articles={articles}
             categories={categories}
             allArticles={articles}
-            description={`The latest and most viral stories from Cockpit.Travel — ${pagination?.totalCount || articles.length} stories`}
+            description={`The latest and most viral stories from ${siteName} — ${pagination?.totalCount || articles.length} stories`}
             pagination={pagination}
             categorySlug="blog"
         />
