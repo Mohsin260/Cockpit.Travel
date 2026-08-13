@@ -87,7 +87,7 @@ function ArticleCard({ post }: { post: Article }) {
         </div>
         <ul className="flex items-center gap-[14px] text-[13px] text-[var(--bodyColor)]">
           <li className="flex items-center gap-[5px]">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current opacity-50"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" /></svg>
             <span className="hover:text-[var(--primaryColor)] transition-colors cursor-pointer">{post.authorName}</span>
           </li>
           <li className="flex items-center gap-[5px]">
@@ -95,7 +95,7 @@ function ArticleCard({ post }: { post: Article }) {
             <span>{post.views} Views</span>
           </li>
           <li className="flex items-center gap-[5px]">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current opacity-50"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current opacity-50"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" /></svg>
             <span>{formatDate(post.date)}</span>
           </li>
         </ul>
@@ -169,42 +169,42 @@ function WeatherWidget() {
         </div>
         <ul className="info_list grid grid-cols-2 gap-[10px]">
           <li className="flex items-start gap-[10px]">
-            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></svg>
+            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z" /></svg>
             <div className="info_text_wrapper flex flex-col-reverse gap-[10px]">
               <div className="rs-w-label text-[14px] font-normal text-white leading-[1.2em]">Feels Like</div>
               <div className="value-wrapper text-[14px] font-medium text-white">30.6°C</div>
             </div>
           </li>
           <li className="flex items-start gap-[10px]">
-            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg>
             <div className="info_text_wrapper flex flex-col-reverse gap-[10px]">
               <div className="rs-w-label text-[14px] font-normal text-white leading-[1.2em]">Humidity</div>
               <div className="value-wrapper text-[14px] font-medium text-white">48%</div>
             </div>
           </li>
           <li className="flex items-start gap-[10px]">
-            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
             <div className="info_text_wrapper flex flex-col-reverse gap-[10px]">
               <div className="rs-w-label text-[14px] font-normal text-white leading-[1.2em]">Condition</div>
               <div className="value-wrapper text-[14px] font-medium text-white">Haze</div>
             </div>
           </li>
           <li className="flex items-start gap-[10px]">
-            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
             <div className="info_text_wrapper flex flex-col-reverse gap-[10px]">
               <div className="rs-w-label text-[14px] font-normal text-white leading-[1.2em]">Current City</div>
               <div className="value-wrapper text-[14px] font-medium text-white">New York</div>
             </div>
           </li>
           <li className="flex items-start gap-[10px]">
-            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.7 7.7a7.5 7.5 0 1 0-10.1 10.8"/><path d="M18 12h.01"/><path d="M12 2v2"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M12 20v2"/></svg>
+            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.7 7.7a7.5 7.5 0 1 0-10.1 10.8" /><path d="M18 12h.01" /><path d="M12 2v2" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="M12 20v2" /></svg>
             <div className="info_text_wrapper flex flex-col-reverse gap-[10px]">
               <div className="rs-w-label text-[14px] font-normal text-white leading-[1.2em]">Wind Info</div>
               <div className="value-wrapper text-[14px] font-medium text-white">5.5 km/h WSW</div>
             </div>
           </li>
           <li className="flex items-start gap-[10px]">
-            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            <svg className="w-[24px] h-[24px] flex-shrink-0 mt-[2px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
             <div className="info_text_wrapper flex flex-col-reverse gap-[10px]">
               <div className="rs-w-label text-[14px] font-normal text-white leading-[1.2em]">Country</div>
               <div className="value-wrapper text-[14px] font-medium text-white">US</div>
@@ -217,17 +217,17 @@ function WeatherWidget() {
 }
 
 const socialLinks = [
-  { name: "Facebook", followers: "88.2k Followers", color: "#2264CB", icon: <svg viewBox="0 0 320 512" className="w-[18px] h-[18px] fill-white"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg> },
-  { name: "Twitter - X", followers: "48.6k Followers", color: "#121213", icon: <svg viewBox="0 0 512 512" className="w-[18px] h-[18px] fill-white"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg> },
-  { name: "Dribbble", followers: "39.5k Followers", color: "#F53E82", icon: <svg viewBox="0 0 512 512" className="w-[18px] h-[18px] fill-white"><path d="M256 8C119.252 8 8 119.252 8 256s111.252 248 248 248 248-111.252 248-248S392.748 8 256 8zm163.97 114.366c29.503 36.046 47.369 81.957 47.835 131.955-6.984-1.477-77.018-15.682-147.502-6.818-5.752-14.041-11.181-26.393-18.617-41.614 78.321-31.977 113.818-77.482 118.284-83.523zM396.421 97.87c-3.81 5.427-35.697 48.286-111.021 76.519-34.712-63.776-73.185-116.168-79.04-124.008 67.176-16.193 137.966 1.27 190.061 47.489zm-230.48-33.25c5.585 7.659 43.438 60.116 78.537 122.509-99.087 26.313-186.36 25.934-195.834 25.809C62.38 147.205 106.678 92.573 165.941 64.62zM44.17 256.323c0-2.166.043-4.322.108-6.473 9.268.19 111.92 1.513 217.706-30.146 6.064 11.868 11.857 23.915 17.174 35.949-76.599 21.575-146.194 83.527-180.531 142.306C64.794 360.405 44.17 310.73 44.17 256.323zm81.807 167.113c22.127-45.233 82.178-103.622 167.579-132.756 29.74 77.283 42.039 142.053 45.189 160.638-68.112 29.013-150.015 21.053-212.768-27.882zm248.38 8.489c-2.171-12.886-13.446-74.897-41.152-151.033 66.38-10.626 124.7 6.768 131.947 9.055-9.442 58.941-43.273 109.844-90.795 141.978z"/></svg> },
-  { name: "Pinterest", followers: "28.2k Followers", color: "#AF091C", icon: <svg viewBox="0 0 384 512" className="w-[18px] h-[18px] fill-white"><path d="M204 6.5C101.4 6.5 0 74.9 0 185.6 0 256 39.6 296 63.6 296c9.9 0 15.6-27.6 15.6-35.4 0-9.3-23.7-29.1-23.7-67.8 0-80.4 61.2-137.4 140.4-137.4 68.1 0 118.5 38.7 118.5 109.8 0 53.1-21.3 152.7-90.3 152.7-24.9 0-46.2-18-46.2-43.8 0-37.8 26.4-74.4 26.4-113.4 0-66.2-93.9-54.2-93.9 25.8 0 16.8 2.1 35.4 9.6 50.7-13.8 59.4-42 147.9-42 209.1 0 18.9 2.7 37.5 4.5 56.4 3.4 3.8 1.7 3.4 6.9 1.5 50.4-69 48.6-82.5 71.4-172.8 12.3 23.4 44.1 36 69.3 36 106.2 0 153.9-103.5 153.9-196.8C384 71.3 298.2 6.5 204 6.5z"/></svg> },
-  { name: "Linkedin", followers: "30.3k Followers", color: "#0077B5", icon: <svg viewBox="0 0 448 512" className="w-[18px] h-[18px] fill-white"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"/></svg> },
-  { name: "Instagram", followers: "24.5k Followers", color: "linear-gradient(29deg, #BE08AF, #F10811)", icon: <svg viewBox="0 0 448 512" className="w-[18px] h-[18px] fill-white"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg> },
+  { name: "Facebook", followers: "88.2k Followers", color: "#2264CB", icon: <svg viewBox="0 0 320 512" className="w-[18px] h-[18px] fill-white"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z" /></svg> },
+  { name: "Twitter - X", followers: "48.6k Followers", color: "#121213", icon: <svg viewBox="0 0 512 512" className="w-[18px] h-[18px] fill-white"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z" /></svg> },
+  { name: "Dribbble", followers: "39.5k Followers", color: "#F53E82", icon: <svg viewBox="0 0 512 512" className="w-[18px] h-[18px] fill-white"><path d="M256 8C119.252 8 8 119.252 8 256s111.252 248 248 248 248-111.252 248-248S392.748 8 256 8zm163.97 114.366c29.503 36.046 47.369 81.957 47.835 131.955-6.984-1.477-77.018-15.682-147.502-6.818-5.752-14.041-11.181-26.393-18.617-41.614 78.321-31.977 113.818-77.482 118.284-83.523zM396.421 97.87c-3.81 5.427-35.697 48.286-111.021 76.519-34.712-63.776-73.185-116.168-79.04-124.008 67.176-16.193 137.966 1.27 190.061 47.489zm-230.48-33.25c5.585 7.659 43.438 60.116 78.537 122.509-99.087 26.313-186.36 25.934-195.834 25.809C62.38 147.205 106.678 92.573 165.941 64.62zM44.17 256.323c0-2.166.043-4.322.108-6.473 9.268.19 111.92 1.513 217.706-30.146 6.064 11.868 11.857 23.915 17.174 35.949-76.599 21.575-146.194 83.527-180.531 142.306C64.794 360.405 44.17 310.73 44.17 256.323zm81.807 167.113c22.127-45.233 82.178-103.622 167.579-132.756 29.74 77.283 42.039 142.053 45.189 160.638-68.112 29.013-150.015 21.053-212.768-27.882zm248.38 8.489c-2.171-12.886-13.446-74.897-41.152-151.033 66.38-10.626 124.7 6.768 131.947 9.055-9.442 58.941-43.273 109.844-90.795 141.978z" /></svg> },
+  { name: "Pinterest", followers: "28.2k Followers", color: "#AF091C", icon: <svg viewBox="0 0 384 512" className="w-[18px] h-[18px] fill-white"><path d="M204 6.5C101.4 6.5 0 74.9 0 185.6 0 256 39.6 296 63.6 296c9.9 0 15.6-27.6 15.6-35.4 0-9.3-23.7-29.1-23.7-67.8 0-80.4 61.2-137.4 140.4-137.4 68.1 0 118.5 38.7 118.5 109.8 0 53.1-21.3 152.7-90.3 152.7-24.9 0-46.2-18-46.2-43.8 0-37.8 26.4-74.4 26.4-113.4 0-66.2-93.9-54.2-93.9 25.8 0 16.8 2.1 35.4 9.6 50.7-13.8 59.4-42 147.9-42 209.1 0 18.9 2.7 37.5 4.5 56.4 3.4 3.8 1.7 3.4 6.9 1.5 50.4-69 48.6-82.5 71.4-172.8 12.3 23.4 44.1 36 69.3 36 106.2 0 153.9-103.5 153.9-196.8C384 71.3 298.2 6.5 204 6.5z" /></svg> },
+  { name: "Linkedin", followers: "30.3k Followers", color: "#0077B5", icon: <svg viewBox="0 0 448 512" className="w-[18px] h-[18px] fill-white"><path d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z" /></svg> },
+  { name: "Instagram", followers: "24.5k Followers", color: "linear-gradient(29deg, #BE08AF, #F10811)", icon: <svg viewBox="0 0 448 512" className="w-[18px] h-[18px] fill-white"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" /></svg> },
 ];
 
 function FollowersWidget() {
   return (
-    <div className="border border-[var(--borderColor,#e5e5e5)] rounded-[10px] p-[20px] bg-white">
+    <div className="border border-[var(--borderColor,#e5e5e5)] rounded-[10px] p-[20px] bg-[var(--shadeColor)]">
       <h4 className="text-[18px] font-bold text-[var(--titleColor)] mb-[16px]">Follow Us</h4>
       <div className="flex flex-col gap-[12px]">
         {socialLinks.map((social) => (
@@ -292,17 +292,16 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
           </div>
 
           <div className="flex flex-col gap-[30px] lg:sticky lg:top-[100px]">
-            <div className="border border-[var(--borderColor,#e5e5e5)] rounded-[10px] p-[20px_20px_10px] bg-white">
+            <div className="border border-[var(--borderColor,#e5e5e5)] rounded-[10px] p-[20px_20px_10px] bg-[var(--shadeColor)]">
               <div className="flex gap-[12px] mb-[20px]">
                 {tabLabels.map((tab) => (
                   <button
                     key={tab.key}
                     onClick={() => setActiveTab(tab.key)}
-                    className={`flex-1 py-[12px] px-[16px] text-[16px] font-bold rounded-[8px] transition-all duration-200 ${
-                      activeTab === tab.key
-                        ? "text-white bg-[#007AFF]"
-                        : "text-[var(--titleColor)] bg-white border border-[var(--borderColor,#e5e5e5)] hover:text-[var(--primaryColor)]"
-                    }`}
+                    className={`flex-1 py-[12px] px-[16px] text-[16px] font-bold rounded-[8px] transition-all duration-200 ${activeTab === tab.key
+                      ? "text-white bg-[#007AFF]"
+                      : "text-[var(--titleColor)] bg-white border border-[var(--borderColor,#e5e5e5)] hover:text-[var(--primaryColor)]"
+                      }`}
                   >
                     {tab.label}
                   </button>
@@ -320,14 +319,14 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
 
             <FollowersWidget />
 
-            <div className="border border-[var(--borderColor,#e5e5e5)] rounded-[10px] p-[20px] bg-white">
+            <div className="border border-[var(--borderColor,#e5e5e5)] rounded-[10px] p-[20px] bg-[var(--shadeColor)]">
               <h4 className="text-[18px] font-bold text-[var(--titleColor)] mb-[16px]">Tags</h4>
               <div className="flex flex-wrap gap-[9px]">
                 {tags.map((tag, i) => (
                   <Link
                     key={i}
                     href={`/tag/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="px-[15px] py-[5px] bg-white border border-[#e5e5e5] rounded-[6px] text-[16px] font-medium transition-colors hover:bg-[var(--primaryColor)] hover:border-[var(--primaryColor)]"
+                    className="px-[15px] py-[5px] bg-[var(--shadeColor)] border border-[#e5e5e5] rounded-[6px] text-[16px] font-medium transition-colors hover:bg-[var(--primaryColor)] hover:border-[var(--primaryColor)]"
                     style={{ color: "#000" }}
                     onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.color = "#fff"; }}
                     onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.color = "#000"; }}

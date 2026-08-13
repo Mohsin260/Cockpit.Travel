@@ -208,7 +208,8 @@ ul {
   color: #00a521;
 }
 
-.loader-brand, .loader-brand-dot {
+.loader-brand,
+.loader-brand-dot {
   animation: loader-pulse alternate 900ms infinite;
 }
 
@@ -2138,6 +2139,7 @@ ul {
     transform: scale(1);
     opacity: 1;
   }
+
   100% {
     transform: scale(1.8);
     opacity: 0;
@@ -2302,6 +2304,7 @@ ul {
   /* Vertical padding instead of box padding */
   border-bottom: 1px solid var(--borderColor);
 }
+
 
 .tw-tab-card:last-child {
   border-bottom: none;
@@ -3426,6 +3429,7 @@ ul {
     --ad-thumb-w: 85px;
     --ad-thumb-h: 72px;
   }
+
   .hero-recent-grid {
     --ad-thumb-w: 85px;
     --ad-thumb-h: 72px;
@@ -3587,8 +3591,12 @@ ul {
 }
 
 [dir="rtl"] .font-title,
-[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] h3,
-[dir="rtl"] h4, [dir="rtl"] h5, [dir="rtl"] h6 {
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
   font-family: var(--font-noto-arabic), "Inter Tight", sans-serif;
 }
 
@@ -3616,8 +3624,13 @@ ul {
 
 /* Weather sun rays orbit animation */
 @keyframes weatherSunRays {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .weather-sun-rays {
