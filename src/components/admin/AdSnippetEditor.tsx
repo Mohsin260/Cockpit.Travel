@@ -954,25 +954,13 @@ export default function AdSnippetEditor({
                     {/* Category Badge */}
                     <div className="space-y-1">
                       <label className="text-xs font-medium">Category Badge</label>
-                      <select
+                      <Input
                         value={nativeContent.category}
-                        onChange={(e) => {
-                          const selectedSlug = e.target.value;
-                          const selectedCat = dbCategories.find((c: any) => c.slug === selectedSlug);
-                          updateNativeField("category", selectedCat?.label || selectedSlug);
-                          if (selectedCat?.color) {
-                            updateNativeField("categoryColor", selectedCat.color);
-                          }
-                        }}
-                        className="w-full p-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-xs"
-                      >
-                        <option value="">None</option>
-                        {dbCategories.map((cat: any) => (
-                          <option key={cat.slug} value={cat.slug}>
-                            {cat.label}
-                          </option>
-                        ))}
-                      </select>
+                        onChange={(e) => updateNativeField("category", e.target.value)}
+                        placeholder="e.g., Travel, Technology, Sports"
+                        maxLength={100}
+                        className="text-xs"
+                      />
                     </div>
                     {/* Read Time */}
                     <div className="space-y-1">
