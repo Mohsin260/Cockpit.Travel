@@ -267,6 +267,16 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
 
   return (
     <section className="top-of-week-section py-[60px] bg-white">
+      <style>{`
+        @media (max-width: 1029.32px) {
+          .destinations-main-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .destinations-main-grid > *:last-child {
+            position: static !important;
+          }
+        }
+      `}</style>
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-[28px] font-bold text-[var(--titleColor)]">{t("sections.destinations")}</h2>
@@ -281,7 +291,7 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-[30px] items-start">
+        <div className="destinations-main-grid grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-[30px] items-start">
           <div className="top-destinations-grid flex flex-col">
             {articles.slice(0, 10).map((post, i) => (
               <Fragment key={i}>

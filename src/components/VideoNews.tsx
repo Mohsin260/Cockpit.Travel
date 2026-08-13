@@ -59,6 +59,13 @@ export default function VideoNews({ articles }: VideoNewsProps) {
 
   return (
     <section className="video-news-section py-[70px] bg-[#171A1E]">
+      <style>{`
+        @media (max-width: 1029.32px) {
+          .travel-intel-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+      `}</style>
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-[28px] font-bold text-white">{t("sections.travelIntelligence")}</h2>
@@ -73,7 +80,7 @@ export default function VideoNews({ articles }: VideoNewsProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_1fr] gap-6">
+        <div className="travel-intel-grid grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_1fr] gap-6">
           <div className="travel-videos-left flex flex-col gap-4">
             {leftCards.map((post, i) => (
               <div key={i} className="flex items-center gap-[15px]">

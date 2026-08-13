@@ -51,6 +51,16 @@ export default function TopStories({ articles }: TopStoriesProps) {
 
   return (
     <section className="top-stories-section py-[60px] bg-white">
+      <style>{`
+        @media (min-width: 1022px) and (max-width: 1029.33px) {
+          .top-stories-section .flight-meta {
+            flex-wrap: wrap;
+          }
+          .top-stories-section .flight-date {
+            flex-basis: 100%;
+          }
+        }
+      `}</style>
       <div className="nerio-container">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-[28px] font-bold text-[var(--titleColor)]">{t("sections.flights")}</h2>
@@ -74,10 +84,10 @@ export default function TopStories({ articles }: TopStoriesProps) {
                 {largeCard.categoryLabel}
               </span>
               <h3 className="mt-3 text-xl md:text-[22px] font-semibold text-white leading-snug">{largeCard.title}</h3>
-              <ul className="flex items-center gap-3 mt-3 text-[13px] text-white/70">
+              <ul className="flight-meta flex items-center gap-3 mt-3 text-[13px] text-white/70">
                 <li className="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>{largeCard.authorName}</li>
                 <li className="flex items-center gap-1"><svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>{largeCard.views} Views</li>
-                <li className="flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>{formatDate(largeCard.date)}</li>
+                <li className="flight-date flex items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>{formatDate(largeCard.date)}</li>
               </ul>
             </div>
           </Link>
@@ -96,10 +106,10 @@ export default function TopStories({ articles }: TopStoriesProps) {
                 <h4 className="text-[16px] font-semibold text-[var(--titleColor)] leading-[1.4] line-clamp-2 mb-[7px] hover:text-[var(--primaryColor)] transition-colors cursor-pointer">
                   <Link href={getHref(post)}>{post.title}</Link>
                 </h4>
-                <ul className="flex items-center gap-[0_8px] text-[14px] text-[var(--bodyColor)]">
-                  <li><span className="flex items-center gap-2">By <span className="hover:text-[var(--primaryColor)] transition-colors cursor-pointer">{post.authorName}</span></span></li>
+                <ul className="flight-meta flex items-center gap-[0_8px] text-[14px] text-[var(--bodyColor)]">
+                  <li><span className="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>By <span className="hover:text-[var(--primaryColor)] transition-colors cursor-pointer">{post.authorName}</span></span></li>
                   <li><span className="flex items-center gap-2"><svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>{post.views} Views</span></li>
-                  <li><span className="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>{formatDate(post.date)}</span></li>
+                  <li className="flight-date"><span className="flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>{formatDate(post.date)}</span></li>
                 </ul>
               </div>
             </div>
