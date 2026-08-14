@@ -4318,6 +4318,18 @@ ul {
   text-align: center;
 }
 
+.audio-dropdown-group {
+  padding: 6px 12px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #999;
+  background: #f7f8fa;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
 .audio-player-close {
   width: 32px;
   height: 32px;
@@ -4419,6 +4431,12 @@ ul {
 
 .dark .audio-dropdown-item .audio-voice-lang {
   color: #666;
+}
+
+.dark .audio-dropdown-group {
+  color: #888;
+  background: #242424;
+  border-bottom-color: #333;
 }
 
 .dark .section-audio-btn {

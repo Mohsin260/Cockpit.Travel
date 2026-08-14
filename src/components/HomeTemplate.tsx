@@ -11,6 +11,7 @@ import Subscribe from "@/components/Subscribe";
 import Footer from "@/components/Footer";
 import AdSlot from "@/components/ui/AdSlot";
 import { DEPLOYMENT_LOCALE } from "@/lib/i18n";
+import { translate } from "@/lib/translate";
 import { useAudioStore } from "@/hooks/useAudioStore";
 import { useWeatherWidget } from "@/hooks/useWeatherWidget";
 import { useSocialLinks } from "@/hooks/useSocialLinks";
@@ -75,19 +76,19 @@ export default function HomeTemplate({ articles, categories }: { articles: any[]
     if (!articles || articles.length === 0) return;
 
     const sections: { title: string; articles: { title: string; authorName?: string }[] }[] = [
-      { title: "Hotels", articles: hotelArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
-      { title: "Flights", articles: flightArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
-      { title: "Destinations", articles: destinationArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
-      { title: "Travel Intelligence", articles: intelligenceArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+      { title: translate("sections.hotels"), articles: hotelArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+      { title: translate("sections.flights"), articles: flightArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+      { title: translate("sections.destinations"), articles: destinationArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
+      { title: translate("sections.travelIntelligence"), articles: intelligenceArticles.map((a: any) => ({ title: a.title, authorName: a.authorName })) },
     ];
 
-    let fullText = "Welcome To Cockpit.Travel. Your trusted partner for finding the best flight deals, hotel bookings, and travel inspiration worldwide. ";
+    let fullText = `${translate("audio.welcome")}. `;
     sections.forEach((section) => {
       if (section.articles.length === 0) return;
       fullText += section.title + ". ";
       section.articles.forEach((article, i) => {
-        fullText += `Article ${i + 1}: ${article.title}. `;
-        if (article.authorName) fullText += `By ${article.authorName}. `;
+        fullText += `${translate("audio.article")} ${i + 1}: ${article.title}. `;
+        if (article.authorName) fullText += `${translate("common.by")} ${article.authorName}. `;
       });
     });
 

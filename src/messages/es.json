@@ -229,6 +229,10 @@
     "travelIntelligence": "Inteligencia de viajes",
     "viewChannel": "Ver canal"
   },
+  "audio": {
+    "welcome": "Bienvenido a Cockpit.Travel. Tu socio de confianza para encontrar las mejores ofertas de vuelos, reservas de hoteles e inspiración para viajar por todo el mundo.",
+    "article": "Artículo"
+  },
   "homepage": {
     "title": "Configuración de Página Principal",
     "description": "Administrar el contenido mostrado en la página principal",
@@ -317,7 +321,9 @@
     "playbackSpeed": "Velocidad de reproducción",
     "selectVoice": "Seleccionar voz",
     "voice": "Voz",
-    "noVoices": "No hay voces disponibles"
+    "noVoices": "No hay voces disponibles",
+    "nativeVoices": "Voces nativas",
+    "allVoices": "Todos los idiomas"
   },
   "comparison": {
     "verdict": "Veredicto",

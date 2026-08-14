@@ -43,6 +43,12 @@ export default function ArticleTemplate({ article, related, categories, trending
     .replace(/\s+/g, " ")
     .trim();
 
+  const listenText = [
+    article.title,
+    article.authorName ? `${t("common.by")} ${article.authorName}` : "",
+    plainTextContent,
+  ].filter(Boolean).join(". ");
+
   return (
     <div className="nerio-container has-sidebar py-[80px]">
       <AdSlot pageType="article" position="top-leaderboard" articleSlug={article.slug} />
@@ -57,7 +63,7 @@ export default function ArticleTemplate({ article, related, categories, trending
             comments={String(article.comments?.length || 0)}
           />
           <div className="flex items-center gap-3 mb-4">
-            <SectionAudioButton text={plainTextContent} className="article-listen-btn" />
+            <SectionAudioButton text={listenText} className="article-listen-btn" />
             <span className="text-sm text-[var(--bodyColor)]">{t("article.listenToArticle")}</span>
           </div>
           <AdSlot pageType="article" position="atf-rectangle" articleSlug={article.slug} />
@@ -78,9 +84,10 @@ export default function ArticleTemplate({ article, related, categories, trending
             recentArticles={recent || []}
             popularArticles={trending || []}
             trendyArticles={trending || []}
+            adNode={<InFeedNativeAd position="sidebar-sticky" cardStyle="sidebar-ad" pageType="article" />}
           />
           <CategoriesWidget categories={sidebarCategories} />
-          <InFeedNativeAd position="sidebar-in-feed" cardStyle="sidebar-ad" />
+          <AdSlot pageType="article" position="sidebar-in-feed" articleSlug={article.slug} />
           <FollowWidget socialCards={[
             { name: "Facebook", followers: t("sidebar.followUs"), color: "#0073FF", icon: "facebook" },
             { name: "Twitter", followers: t("sidebar.followUs"), color: "#121213", icon: "twitter" },

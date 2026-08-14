@@ -89,34 +89,16 @@ export default function Subscribe() {
           </div>
 
           <img
-            src="/assets/images/subscribe/cta-thumb-01.png"
+            src="/assets/images/skiing-removebg-preview2.png"
             alt=""
             aria-hidden
-            className="pointer-events-none absolute z-[5] end-[83px] top-[18px] max-lg:top-[200px]"
+            className="pointer-events-none absolute z-[5] end-[83px] -top-3 max-lg:top-[200px]"
           />
           <img
             src="/assets/images/subscribe/newsletter-dot.png"
             alt=""
             aria-hidden
-            className="pointer-events-none absolute z-[5] right-[460px] top-[44px] max-lg:right-[191px]"
-          />
-          <img
-            src="/assets/images/subscribe/cta-thumb-02.png"
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute z-[5] end-[-37px] bottom-[-150px] max-lg:end-[19px] max-lg:bottom-[-130px]"
-          />
-          <img
-            src="/assets/images/subscribe/cta-thumb-03.png"
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute z-[5] end-[99px] top-[120px] max-lg:top-[480px]"
-          />
-          <img
-            src="/assets/images/subscribe/cta-thumb-04.png"
-            alt=""
-            aria-hidden
-            className="pointer-events-none absolute z-[5] end-[-209px] top-[96px] max-lg:end-[-140px] max-lg:top-[109px] max-md:top-[224px]"
+            className="pointer-events-none absolute z-[5] right-[950px] top-[44px] max-lg:right-[300px] max-lg:top-5"
           />
         </div>
       </div>

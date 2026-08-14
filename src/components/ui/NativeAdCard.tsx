@@ -629,7 +629,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         return (
             <div
                 ref={containerRef}
-                className={`group flex items-center gap-[15px] cursor-pointer ${cardRounded}`}
+                className={`group flex items-center gap-[15px] cursor-pointer ${cardRounded} ${cardStyle === "sidebar-ad" ? "py-[15px]" : ""}`}
                 style={cssVars}
                 onClick={handleClick}
                 role="link"
@@ -659,7 +659,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                         </span>
                     )}
                     <h5
-                        className="font-bold leading-snug mb-1 line-clamp-2"
+                        className={`leading-snug mb-1 line-clamp-2 ${(style as any).titleWeight === "normal" ? "font-normal" : "font-bold"}`}
                         style={{
                             fontSize: style.titleSize,
                             lineHeight: style.titleLineHeight,

@@ -229,6 +229,10 @@
     "travelIntelligence": "Travel Intelligence",
     "viewChannel": "View Channel"
   },
+  "audio": {
+    "welcome": "Welcome to Cockpit.Travel. Your trusted partner for finding the best flight deals, hotel bookings, and travel inspiration worldwide.",
+    "article": "Article"
+  },
   "homepage": {
     "title": "Homepage Settings",
     "description": "Manage content displayed on the homepage",
@@ -317,7 +321,9 @@
     "playbackSpeed": "Playback speed",
     "selectVoice": "Select voice",
     "voice": "Voice",
-    "noVoices": "No voices available"
+    "noVoices": "No voices available",
+    "nativeVoices": "Native voices",
+    "allVoices": "All languages"
   },
   "comparison": {
     "verdict": "Verdict",

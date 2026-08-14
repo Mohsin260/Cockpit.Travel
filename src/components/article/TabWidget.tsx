@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useTranslations } from "@/hooks/useTranslations";
 
@@ -16,11 +16,12 @@ interface TabWidgetProps {
   recentArticles?: Article[];
   popularArticles?: Article[];
   trendyArticles?: Article[];
+  adNode?: ReactNode;
 }
 
 type TabKey = "recent" | "popular" | "trendy";
 
-export default function TabWidget({ recentArticles = [], popularArticles = [], trendyArticles = [] }: TabWidgetProps) {
+export default function TabWidget({ recentArticles = [], popularArticles = [], trendyArticles = [], adNode }: TabWidgetProps) {
   const t = useTranslations();
   const [activeTab, setActiveTab] = useState<TabKey>("recent");
 
@@ -90,6 +91,7 @@ export default function TabWidget({ recentArticles = [], popularArticles = [], t
             </div>
           </div>
         ))}
+        {adNode}
       </div>
     </div>
   );

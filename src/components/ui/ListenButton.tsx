@@ -17,6 +17,8 @@ const T = {
   selectVoice: translate("article.selectVoice"),
   voice: translate("article.voice"),
   noVoices: translate("article.noVoices"),
+  nativeVoices: translate("article.nativeVoices"),
+  allVoices: translate("article.allVoices"),
 };
 
 interface ListenButtonProps {
@@ -42,6 +44,7 @@ export default function ListenButton({
     rate,
     setRate,
     voices,
+    localeVoices,
     selectedVoice,
     setSelectedVoice,
     hasSupport,
@@ -198,7 +201,53 @@ className={`${sizeClasses[size]} inline-flex items-center justify-center rounded
               {voices.length === 0 && (
                 <div className="px-3 py-2 text-[12px] text-[var(--bodyColor)] text-center">{T.noVoices}</div>
               )}
-              {voices.map((voice) => (
+              {localeVoices.length > 0 && (
+                <>
+                  <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider font-semibold text-[var(--bodyColor)] bg-[var(--shadeColor)]">
+                    {T.nativeVoices}
+                  </div>
+                  {localeVoices.map((voice) => (
+                    <button
+                      key={voice.name}
+                      onClick={() => handleVoiceSelect(voice)}
+                      className={`w-full px-3 py-1.5 text-start text-[12px] border-none cursor-pointer transition-colors flex items-center justify-between gap-2 ${
+                        selectedVoice?.name === voice.name
+                          ? "bg-[var(--primaryColor)] text-white"
+                          : "bg-transparent text-[var(--titleColor)] hover:bg-[var(--shadeColor)]"
+                      }`}
+                    >
+                      <span className="truncate flex-1">{voice.name}</span>
+                      <span className={`text-[10px] shrink-0 ${selectedVoice?.name === voice.name ? "text-white/60" : "text-[var(--bodyColor)]"}`}>
+                        {voice.lang}
+                      </span>
+                    </button>
+                  ))}
+                  {voices.length > localeVoices.length && (
+                    <>
+                      <div className="px-3 py-1.5 text-[10px] uppercase tracking-wider font-semibold text-[var(--bodyColor)] bg-[var(--shadeColor)]">
+                        {T.allVoices}
+                      </div>
+                      {voices.filter((v) => !localeVoices.includes(v)).map((voice) => (
+                        <button
+                          key={voice.name}
+                          onClick={() => handleVoiceSelect(voice)}
+                          className={`w-full px-3 py-1.5 text-start text-[12px] border-none cursor-pointer transition-colors flex items-center justify-between gap-2 ${
+                            selectedVoice?.name === voice.name
+                              ? "bg-[var(--primaryColor)] text-white"
+                              : "bg-transparent text-[var(--titleColor)] hover:bg-[var(--shadeColor)]"
+                          }`}
+                        >
+                          <span className="truncate flex-1">{voice.name}</span>
+                          <span className={`text-[10px] shrink-0 ${selectedVoice?.name === voice.name ? "text-white/60" : "text-[var(--bodyColor)]"}`}>
+                            {voice.lang}
+                          </span>
+                        </button>
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
+              {localeVoices.length === 0 && voices.map((voice) => (
                 <button
                   key={voice.name}
                   onClick={() => handleVoiceSelect(voice)}

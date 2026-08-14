@@ -1,6 +1,7 @@
 "use client";
 
 import ListenButton from "@/components/ui/ListenButton";
+import { translate } from "@/lib/translate";
 
 interface Article {
   title: string;
@@ -21,9 +22,9 @@ export default function SectionAudioButton({ text, articles, className = "", siz
     let fullText = text + ". ";
     if (articles && articles.length > 0) {
       articles.forEach((article, i) => {
-        fullText += `Article ${i + 1}: ${article.title}. `;
+        fullText += `${translate("audio.article")} ${i + 1}: ${article.title}. `;
         if (article.authorName) {
-          fullText += `By ${article.authorName}. `;
+          fullText += `${translate("common.by")} ${article.authorName}. `;
         }
       });
     }

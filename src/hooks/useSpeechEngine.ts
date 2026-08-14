@@ -277,10 +277,10 @@ export function useSpeechEngine() {
         .replace(/\s+/g, " ")
         .trim();
 
-    // Split into SMALL chunks (by comma, period, exclamation, question mark)
+    // Split into SMALL chunks (by comma, period, exclamation, question mark — incl. Arabic punctuation)
     // so speed changes take effect almost immediately (within ~1-2 seconds)
     const chunks = sanitized
-        .match(/[^.!?,]+[.!?,]*/g) || [sanitized]; 
+        .match(/[^.!?،؛؟,]+[.!?،؛؟,]*/g) || [sanitized]; 
     
     chunksRef.current = chunks
         .map(c => c.trim())
@@ -350,6 +350,12 @@ export function useSpeechEngine() {
     });
   }, []);
 
+  // Voices native to the deployment locale (e.g. "ar-SA", "es-ES"), so the
+  // dropdown can surface them first and the auto-selection stays on-locale.
+  const localeVoices = voices.filter((v) =>
+    v.lang.toLowerCase().startsWith(voiceLangPrefix)
+  );
+
   return {
     speak,
     pause,
@@ -360,6 +366,7 @@ export function useSpeechEngine() {
     isPaused,
     hasSupport,
     voices,
+    localeVoices,
     selectedVoice,
     setSelectedVoice,
     rate,

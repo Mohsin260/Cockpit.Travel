@@ -5,7 +5,7 @@ import { useSpeechEngine } from "@/hooks/useSpeechEngine";
 import { useAudioStore } from "@/hooks/useAudioStore";
 
 export default function AudioPlayer() {
-  const { togglePlayPause, stop, isPlaying, isPaused, rate, setRate, voices, selectedVoice, setSelectedVoice, hasSupport } = useSpeechEngine();
+  const { togglePlayPause, stop, isPlaying, isPaused, rate, setRate, voices, localeVoices, selectedVoice, setSelectedVoice, hasSupport } = useSpeechEngine();
   const audioContent = useAudioStore((s) => s.audioContent);
   const clearAudioContent = useAudioStore((s) => s.clearAudioContent);
   const setSelectedVoiceName = useAudioStore((s) => s.setSelectedVoiceName);
@@ -138,7 +138,37 @@ export default function AudioPlayer() {
               {voices.length === 0 && (
                 <div className="audio-dropdown-empty">No voices available</div>
               )}
-              {voices.map((voice) => (
+              {localeVoices.length > 0 && (
+                <>
+                  <div className="audio-dropdown-group">Native voices</div>
+                  {localeVoices.map((voice) => (
+                    <button
+                      key={voice.name}
+                      onClick={() => handleVoiceSelect(voice)}
+                      className={`audio-dropdown-item ${selectedVoice?.name === voice.name ? "active" : ""}`}
+                    >
+                      <span className="audio-voice-name">{voice.name}</span>
+                      <span className="audio-voice-lang">{voice.lang}</span>
+                    </button>
+                  ))}
+                  {voices.length > localeVoices.length && (
+                    <>
+                      <div className="audio-dropdown-group">All languages</div>
+                      {voices.filter((v) => !localeVoices.includes(v)).map((voice) => (
+                        <button
+                          key={voice.name}
+                          onClick={() => handleVoiceSelect(voice)}
+                          className={`audio-dropdown-item ${selectedVoice?.name === voice.name ? "active" : ""}`}
+                        >
+                          <span className="audio-voice-name">{voice.name}</span>
+                          <span className="audio-voice-lang">{voice.lang}</span>
+                        </button>
+                      ))}
+                    </>
+                  )}
+                </>
+              )}
+              {localeVoices.length === 0 && voices.map((voice) => (
                 <button
                   key={voice.name}
                   onClick={() => handleVoiceSelect(voice)}
