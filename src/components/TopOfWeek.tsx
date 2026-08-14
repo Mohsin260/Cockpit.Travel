@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
 import { CARD_STYLES, getCssVars } from "@/components/ui/cardStyles";
@@ -194,10 +194,10 @@ export default function TopOfWeek({ articles, recentArticles, popularArticles, t
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-[30px]">
           <div className="top-destinations-grid grid grid-cols-1 md:grid-cols-1 gap-[24px]">
             {articles.slice(0, 10).map((post, i) => (
-              <>
-                <ArticleCard key={i} post={post} />
+              <Fragment key={i}>
+                <ArticleCard post={post} />
                 {i === 3 && <InFeedNativeAd position="in-feed-7" cardStyle="top-destinations" />}
-              </>
+              </Fragment>
             ))}
           </div>
 

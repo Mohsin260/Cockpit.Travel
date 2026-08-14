@@ -37,6 +37,7 @@ export default async function EditPostPage({
             categoryLabel: article.categoryLabel || "",
             author: article.author || "admin",
             authorName: article.authorName || "Admin",
+            author_photo: (article as any).author_photo || "",
             date: article.date || new Date().toISOString(),
             readTime: article.readTime || 5,
             featured: article.featured || false,

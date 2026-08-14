@@ -75,6 +75,7 @@ export const PostCreateSchema = z.object({
   categoryLabel: z.string().optional().default(""),
   author: z.string().optional().default("admin"),
   authorName: z.string().optional().default("Admin"),
+  author_photo: z.string().optional().default(""),
   date: z.string().optional().default(""),
   readTime: z.number().int().min(1).max(600).optional().default(5),
   featured: z.boolean().optional().default(false),

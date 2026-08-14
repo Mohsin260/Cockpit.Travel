@@ -113,7 +113,7 @@ export default async function ArticleSlugPage({
               category: { label: categoryObj.label, color: categoryObj.color },
               author: {
                 name: article.authorName,
-                avatar: article.author_avatar || "",
+                avatar: article.author_photo || article.author_avatar || "",
                 bio: "",
               },
               views: String(article.views || 0),
@@ -131,7 +131,7 @@ export default async function ArticleSlugPage({
               },
               author: {
                 name: a.authorName,
-                avatar: a.author_avatar || "",
+                avatar: a.author_photo || a.author_avatar || "",
                 bio: "",
               },
               views: String(a.views || 0),

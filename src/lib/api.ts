@@ -27,7 +27,7 @@ function resolveAuthorInfo(article: any): {
   return {
     authorName: article.authorName || ref?.name || "Admin",
     author_avatar:
-      article.author_avatar || article.authorAvatar || ref?.avatar || "",
+      article.author_photo || article.author_avatar || article.authorAvatar || ref?.avatar || "",
     author_bio: article.authorBio || ref?.bio || "",
   };
 }

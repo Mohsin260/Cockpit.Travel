@@ -734,7 +734,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
         return (
             <div
                 ref={containerRef}
-                className="group flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full cursor-pointer"
+                className="group fpg-card-style style-one flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full cursor-pointer"
                 style={cssVars}
                 onClick={handleClick}
                 role="link"
@@ -742,11 +742,11 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                 aria-label={`${SPONSORED}: ${nc.title}`}
             >
                 {nc.image && (
-                    <div className="block w-full overflow-hidden flex-shrink-0" style={{ borderRadius: "var(--ad-thumb-radius, 10px)", ...(imgAspect ? { aspectRatio: "var(--ad-thumb-aspect, " + imgAspect + ")" } : { height: "var(--ad-thumb-h, 200px)" }) }}>
+                    <div className="w-full md:h-[148px] h-[265px] overflow-hidden block">
                         <img src={nc.image} alt={nc.title || `${SPONSORED} content`} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                     </div>
                 )}
-                <div className="flex-1 flex flex-col justify-between min-w-0 px-[15px]">
+                <div className="fpg-post-content flex-1 flex flex-col justify-between min-w-0 px-[15px]">
                     <div className="fpg-post-content-inner">
                         {nc.category && (
                             <div className="fpg-post-cat mt-[12px] mb-[7px]">
@@ -756,7 +756,7 @@ export default function NativeAdCard({ ad, variant: variantProp, cardStyle: card
                             </div>
                         )}
                         <h6 className="fpg-post-title mt-[9px] mb-[7px]">
-                            <span className="text-[16px] font-semibold text-black leading-[1.4] line-clamp-2">
+                            <span className="text-[16px] leading-[1.4] line-clamp-2 bg-[length:0_1px] bg-left-bottom bg-no-repeat hover:text-primary hover:bg-[length:100%_1px] transition-all duration-300">
                                 {nc.title}
                             </span>
                         </h6>

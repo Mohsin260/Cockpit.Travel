@@ -51,7 +51,7 @@ export default function ArticleTemplate({ article, related, categories, trending
           <FeaturedImage src={article.articleMedia?.heroCoverMedia?.url || article.featuredImage} poster={article.articleMedia?.heroCoverMedia?.poster} vastTagUrl={article.articleMedia?.heroCoverMedia?.vastTagUrl} alt={article.title} />
           <ArticleTitle title={article.title} />
           <PostMeta
-            author={{ name: article.authorName || "Admin", avatar: article.author_avatar || "" }}
+            author={{ name: article.authorName || "Admin", avatar: article.author_photo || article.author_avatar || "" }}
             date={article.date || article.createdAt}
             category={{ label: article.categoryLabel || article.category, color: article.categoryColor || "#004df2" }}
             comments={String(article.comments?.length || 0)}
@@ -63,7 +63,7 @@ export default function ArticleTemplate({ article, related, categories, trending
           <AdSlot pageType="article" position="atf-rectangle" articleSlug={article.slug} />
           <ArticleBody content={article.bodyContent || article.content} />
           <TagsAndShare tags={article.tags || []} />
-          <AuthorBox author={{ name: article.authorName || "Admin", avatar: article.author_avatar || "", bio: article.author_bio || "" }} />
+          <AuthorBox author={{ name: article.authorName || "Admin", avatar: article.author_photo || article.author_avatar || "", bio: article.author_bio || "" }} />
           <PostNavigation
             prevPost={article.prevPost || { slug: "", title: "", image: "" }}
             nextPost={article.nextPost || { slug: "", title: "", image: "" }}

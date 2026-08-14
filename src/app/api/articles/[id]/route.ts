@@ -155,6 +155,7 @@ export async function PUT(
     if (categoryLabel) updateData.categoryLabel = categoryLabel;
     if (parsed.author !== undefined) updateData.author = parsed.author;
     if (parsed.authorName !== undefined) updateData.authorName = parsed.authorName;
+    if (parsed.author_photo !== undefined) updateData.author_photo = parsed.author_photo;
     if (parsed.date !== undefined) updateData.date = parsed.date;
     if (parsed.readTime !== undefined) updateData.readTime = parsed.readTime;
     if (parsed.featured !== undefined) updateData.featured = parsed.featured;
@@ -262,6 +263,7 @@ export async function PUT(
       categoryLabel: a.categoryLabel,
       author: a.author,
       authorName: a.authorName,
+      author_photo: (a as any).author_photo || "",
       date: a.date,
       readTime: a.readTime,
       featured: a.featured,

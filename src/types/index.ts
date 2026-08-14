@@ -60,6 +60,7 @@ export interface Article {
   author: string;
   authorName: string;
   author_avatar?: string;
+  author_photo?: string;
   author_bio?: string;
   date: string;
   readTime: number;

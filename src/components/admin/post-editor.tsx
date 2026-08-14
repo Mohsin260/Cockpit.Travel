@@ -25,6 +25,7 @@ type PostPayload = {
   categoryLabel: string;
   author: string;
   authorName: string;
+  author_photo: string;
   date: string;
   readTime: number;
   featured: boolean;
@@ -62,6 +63,7 @@ export function PostEditor({
   const [categoryLabel, setCategoryLabel] = useState<string>(initial?.categoryLabel ?? "");
   const [author, setAuthor] = useState<string>(initial?.author ?? "admin");
   const [authorName, setAuthorName] = useState<string>(initial?.authorName ?? "Admin");
+  const [authorPhoto, setAuthorPhoto] = useState<string>((initial as any)?.author_photo ?? "");
   const [date, setDate] = useState<string>(initial?.date ?? new Date().toISOString());
   const [readTime, setReadTime] = useState<number>(initial?.readTime ?? 5);
   const [featured, setFeatured] = useState<boolean>(initial?.featured ?? false);
@@ -173,6 +175,7 @@ export function PostEditor({
       categoryLabel: selectedCategory?.name || categoryLabel,
       author,
       authorName,
+      author_photo: authorPhoto,
       date: date || new Date().toISOString(),
       readTime,
       featured,
@@ -370,6 +373,11 @@ export function PostEditor({
               <div className="grid gap-2">
                 <Label htmlFor="authorName">Author Name</Label>
                 <Input id="authorName" value={authorName} onChange={(e) => setAuthorName(e.target.value)} />
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="author_photo">Author Photo (URL)</Label>
+                <Input id="author_photo" value={authorPhoto} onChange={(e) => setAuthorPhoto(e.target.value)} placeholder="https://example.com/author.jpg" />
               </div>
 
               <div className="flex items-center gap-2">

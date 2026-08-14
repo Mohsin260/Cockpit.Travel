@@ -104,7 +104,7 @@ export default function Footer() {
                 height={30}
                 priority={false}
               /> */}
-              <h2 className="text-xxl text-white font-bold ml-0">
+              <h2 className="text-[50px] text-white font-bold ml-0">
                 <BrandLogo gap="-0.10rem" />
               </h2>
             </div>

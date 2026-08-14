@@ -63,6 +63,7 @@ const articleSchema = new Schema(
     categoryLabel: { type: String, default: "Uncategorized" },
     author: { type: String, default: "unknown" },
     authorName: { type: String, default: "Unknown Author" },
+    author_photo: { type: String, default: "" },
     date: { type: String, required: true },
     readTime: { type: Number, default: 5 },
     image: { type: String, default: "" },
