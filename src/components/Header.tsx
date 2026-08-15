@@ -485,6 +485,11 @@ export default function Header() {
                     </button>
                     <div className="flex items-center gap-2">
                       <ListenButton size="sm" />
+                      <Link href="/bookmarks" className="rs-button user-btn" aria-label={t("header.bookmarks")} title={t("header.bookmarks")}>
+                        <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0 48C0 21.5 21.5 0 48 0l0 441.4 130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48v464l-144-102.9L96 512 0 464V48z" />
+                        </svg>
+                      </Link>
                     </div>
                     <div className="mobile-panel-logo">
                       {/* <Image src="/assets/images/logo.png" alt="logo" width={150} height={35} style={{ height: 35, width: "auto" }} /> */}
@@ -509,6 +514,12 @@ export default function Header() {
 
                 <Link href="/register" className="rs-button style-default text-anim-flip-top hidden lg:inline-flex" style={{ height: 50, padding: "0 25px" }}>
                   <span className="button-text" data-text={t("header.signUp")}>{t("header.signUp")}</span>
+                </Link>
+
+                <Link href="/bookmarks" className="rs-button user-btn" aria-label={t("header.bookmarks")} title={t("header.bookmarks")}>
+                  <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0 48C0 21.5 21.5 0 48 0l0 441.4 130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48v464l-144-102.9L96 512 0 464V48z" />
+                  </svg>
                 </Link>
 
                 <div ref={searchRef}>
@@ -849,6 +860,12 @@ export default function Header() {
                   <ListenButton size="sm" className="hidden lg:inline-flex" />
                   <ThemeToggle className="hidden lg:inline-flex" />
 
+                  <Link href="/bookmarks" className="rs-button user-btn" aria-label={t("header.bookmarks")} title={t("header.bookmarks")}>
+                    <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M0 48C0 21.5 21.5 0 48 0l0 441.4 130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48v464l-144-102.9L96 512 0 464V48z" />
+                    </svg>
+                  </Link>
+
                   <Link href="/login" className="rs-button user-btn">
                     <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
                       <path d="M313.6 304c-28.7 0-42.5 16-89.6 16-47.1 0-60.8-16-89.6-16C60.2 304 0 364.2 0 438.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-25.6c0-74.2-60.2-134.4-134.4-134.4zM400 464H48v-25.6c0-47.6 38.8-86.4 86.4-86.4 14.6 0 38.3 16 89.6 16 51.7 0 74.9-16 89.6-16 47.6 0 86.4 38.8 86.4 86.4V464zM224 288c79.5 0 144-64.5 144-144S303.5 0 224 0 80 64.5 80 144s64.5 144 144 144zm0-240c52.9 0 96 43.1 96 96s-43.1 96-96 96-96-43.1-96-96 43.1-96 96-96z" />
@@ -888,6 +905,11 @@ export default function Header() {
                         </button>
                         <div className="flex items-center gap-2">
                           <ListenButton size="sm" />
+                          <Link href="/bookmarks" className="rs-button user-btn" aria-label={t("header.bookmarks")} title={t("header.bookmarks")}>
+                            <svg viewBox="0 0 384 512" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M0 48C0 21.5 21.5 0 48 0l0 441.4 130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48v464l-144-102.9L96 512 0 464V48z" />
+                            </svg>
+                          </Link>
                         </div>
                         <div className="offcanvas-content" style={{ padding: "80px 50px 50px" }}>
                           <div className="offcanvas-logo">

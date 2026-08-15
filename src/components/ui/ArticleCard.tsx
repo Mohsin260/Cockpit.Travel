@@ -218,6 +218,20 @@ function ListCard({ article: a, categories = [], priority }: Omit<Props, "varian
 
 // ── Small variant (tiny thumb + title only) ───────────────────────
 function SmallCard({ article: a, categories = [], counter }: Omit<Props, "variant">) {
+    const { toggle, isBookmarked } = useBookmarkStore();
+    const saved = isBookmarked(a.id);
+
+    const handleBookmark = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggle(a.id);
+        if (saved) {
+            toast("Removed from bookmarks");
+        } else {
+            toast.success("Saved to bookmarks");
+        }
+    };
+
     return (
         <div className="p-wrap group flex gap-3 items-start" style={getCssVars(CARD_STYLES["article-small"])}>
             {/* Optional counter */}
@@ -246,6 +260,17 @@ function SmallCard({ article: a, categories = [], counter }: Omit<Props, "varian
                     sizes="80px"
                 />
                 <Link href={`/posts/${a.slug}`} className="absolute inset-0 z-[1]" aria-label={a.title} />
+
+                {/* Bookmark button overlay */}
+                <button
+                    onClick={handleBookmark}
+                    className={`absolute bottom-1.5 right-1.5 z-[20] w-5 h-5 flex items-center justify-center rounded transition-all transition-colors ${saved ? "bg-[var(--g-color)] text-white" : "bg-black/40 text-white opacity-0 group-hover:opacity-100 hover:bg-[var(--g-color)]"}`}
+                    aria-label="Bookmark"
+                >
+                    <svg width="8" height="8" viewBox="0 0 24 24" fill={saved ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2.5">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                </button>
             </div>
 
             {/* Text */}
