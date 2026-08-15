@@ -322,8 +322,7 @@
     "selectVoice": "Seleccionar voz",
     "voice": "Voz",
     "noVoices": "No hay voces disponibles",
-    "nativeVoices": "Voces nativas",
-    "allVoices": "Todos los idiomas"
+    "nativeVoices": "Voces nativas"
   },
   "comparison": {
     "verdict": "Veredicto",

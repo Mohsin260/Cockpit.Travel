@@ -322,8 +322,7 @@
     "selectVoice": "اختر الصوت",
     "voice": "الصوت",
     "noVoices": "لا توجد أصوات متاحة",
-    "nativeVoices": "الأصوات الأصلية",
-    "allVoices": "كل اللغات"
+    "nativeVoices": "الأصوات الأصلية"
   },
   "comparison": {
     "verdict": "الحكم",

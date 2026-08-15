@@ -151,21 +151,6 @@ export default function AudioPlayer() {
                       <span className="audio-voice-lang">{voice.lang}</span>
                     </button>
                   ))}
-                  {voices.length > localeVoices.length && (
-                    <>
-                      <div className="audio-dropdown-group">All languages</div>
-                      {voices.filter((v) => !localeVoices.includes(v)).map((voice) => (
-                        <button
-                          key={voice.name}
-                          onClick={() => handleVoiceSelect(voice)}
-                          className={`audio-dropdown-item ${selectedVoice?.name === voice.name ? "active" : ""}`}
-                        >
-                          <span className="audio-voice-name">{voice.name}</span>
-                          <span className="audio-voice-lang">{voice.lang}</span>
-                        </button>
-                      ))}
-                    </>
-                  )}
                 </>
               )}
               {localeVoices.length === 0 && voices.map((voice) => (
