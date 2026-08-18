@@ -58,26 +58,34 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        (token as JWT).roles = (user as { roles?: string[] }).roles ?? [];
-        
-        // If they have a custom uploaded avatar, map it
+        const userEmail = (user as { email?: string | null }).email ?? token.email ?? null;
+        const userName = (user as { name?: string | null }).name ?? token.name ?? null;
+
+        token.sub = (user as { id?: string | null }).id ?? token.sub ?? "";
+        (token as JWT).roles = (user as { roles?: string[] }).roles ?? ((token as JWT).roles ?? []);
+        token.email = userEmail ?? token.email;
+        token.name = userName ?? token.name;
+
         let finalAvatarUrl = (user as any).avatarUrl ?? null;
-        
-        // If not, generate Gravatar dynamically from their verified real email
-        if (!finalAvatarUrl && user.email) {
-          const emailHash = createHash("md5").update(user.email.toLowerCase().trim()).digest("hex");
-          // d=404 explicitly tells Gravatar to cleanly fail rather than load a mystery-person placeholder
+
+        if (!finalAvatarUrl && userEmail) {
+          const emailHash = createHash("md5").update(userEmail.toLowerCase().trim()).digest("hex");
           finalAvatarUrl = `https://www.gravatar.com/avatar/${emailHash}?d=404&s=200`;
         }
-        
-        (token as JWT).avatarUrl = finalAvatarUrl;
+
+        (token as JWT).avatarUrl = finalAvatarUrl ?? ((token as JWT).avatarUrl ?? null);
       }
       return token;
     },
     async session({ session, token }) {
-      session.user.id = token.sub ?? "";
-      session.user.roles = ((token as JWT).roles ?? []) as string[];
-      session.user.avatarUrl = (token as JWT).avatarUrl;
+      session.user = {
+        ...session.user,
+        id: token.sub ?? "",
+        name: token.name ?? session.user?.name ?? "User",
+        email: token.email ?? session.user?.email ?? null,
+        roles: ((token as JWT).roles ?? []) as string[],
+        avatarUrl: (token as JWT).avatarUrl ?? session.user?.avatarUrl ?? null,
+      };
       return session;
     },
   },
