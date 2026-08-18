@@ -58,14 +58,15 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
               className="font-black text-2xl tracking-tight"
               style={{ letterSpacing: "-0.03em" }}
             >
-              <div className="flex items-center gap-2"><span><BrandIcon className="w-6 h-6 sm:w-7 sm:h-7 shrink-0" /></span>
+              <div className="flex items-center gap-2">
+                {/* <span><BrandIcon className="w-6 h-6 sm:w-7 sm:h-7 shrink-0" /></span> */}
                 <span style={{ color: "var(--g-color)" }}>Cockpit<span className="text-foreground">.Travel</span></span>
               </div>
             </span>
           </Link>
-          <Link href="/dashboard" className="hidden items-center justify-center w-full group-data-[collapsible=icon]:flex">
+          {/* <Link href="/dashboard" className="hidden items-center justify-center w-full group-data-[collapsible=icon]:flex">
             <BrandIcon className="size-6 shrink-0 text-primary" />
-          </Link>
+          </Link> */}
         </div>
       </SidebarHeader>
       <SidebarContent>
