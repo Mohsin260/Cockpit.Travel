@@ -106,7 +106,7 @@ export function AdminSidebar({ ...props }: React.ComponentProps<typeof Sidebar>)
           <SidebarMenuItem>
             <SidebarMenuButton asChild tooltip="Back to Site" className="cursor-pointer bg-[#0073FF] hover:bg-[#005FCC] rounded-md px-2 py-2">
               <Link href="/">
-                <span className="truncate group-data-[collapsible=icon]:hidden w-full text-center text-sm text-white cursor-pointer rounded-md px-2 py-2">
+                <span className="truncate group-data-[collapsible=icon]:hidden w-full text-center text-sm cursor-pointer rounded-md px-2 py-2">
                   View Website &rarr;
                 </span>
                 <span className="hidden group-data-[collapsible=icon]:block text-center text-sm text-white cursor-pointer rounded-md  w-full">
