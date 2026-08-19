@@ -40,10 +40,17 @@ describe("authOptions session callback", () => {
       user: undefined,
     } as any);
 
-    expect(sessionResult.user.id).toBe("abc123");
-    expect(sessionResult.user.name).toBe("Primary Administrator");
-    expect(sessionResult.user.email).toBe("admin@cockpit.travel");
-    expect(sessionResult.user.roles).toEqual(["admin"]);
-    expect(sessionResult.user.avatarUrl).toBe("https://example.com/avatar.jpg");
+    expect(sessionResult.user).toBeDefined();
+    const sessionUser = sessionResult.user as NonNullable<typeof sessionResult.user> & {
+      id: string;
+      roles: string[];
+      avatarUrl?: string | null;
+    };
+
+    expect(sessionUser.id).toBe("abc123");
+    expect(sessionUser.name).toBe("Primary Administrator");
+    expect(sessionUser.email).toBe("admin@cockpit.travel");
+    expect(sessionUser.roles).toEqual(["admin"]);
+    expect(sessionUser.avatarUrl).toBe("https://example.com/avatar.jpg");
   });
 });
