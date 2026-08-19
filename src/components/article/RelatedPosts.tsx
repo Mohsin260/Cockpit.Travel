@@ -76,7 +76,7 @@ export default function RelatedPosts({ articles }: { articles: RelatedArticle[] 
             return (
               <SwiperSlide key={article.slug} className="h-auto">
                 <div className="fpg-card-style style-one flex flex-col bg-white p-[12px_12px_25px] border border-border rounded-[10px] gap-0 h-full group" style={getCssVars(CARD_STYLES["related-articles"])}>
-                  <Link href={`/${article.slug}`} className="fpg-post-thumb w-full overflow-hidden block">
+                  <Link href={`/posts/${article.slug}`} className="fpg-post-thumb w-full overflow-hidden block">
                     <img
                       src={article.featuredImage}
                       alt={article.title}
@@ -94,7 +94,7 @@ export default function RelatedPosts({ articles }: { articles: RelatedArticle[] 
                         </span>
                       </div>
                       <h6 className="fpg-post-title mt-[9px] mb-[7px]">
-                        <Link href={`/${article.slug}`} className="text-[16px] font-semibold text-black leading-[1.4] line-clamp-2 bg-[length:0_1px] bg-left-bottom bg-no-repeat hover:text-primary hover:bg-[length:100%_1px] transition-all duration-300">
+                        <Link href={`/posts/${article.slug}`} className="text-[16px] font-semibold text-black leading-[1.4] line-clamp-2 bg-[length:0_1px] bg-left-bottom bg-no-repeat hover:text-primary hover:bg-[length:100%_1px] transition-all duration-300">
                           {article.title}
                         </Link>
                       </h6>

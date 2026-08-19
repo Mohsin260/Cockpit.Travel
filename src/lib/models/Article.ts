@@ -163,6 +163,12 @@ const articleSchema = new Schema(
       duration: { type: Number, default: 0 },
       provenance: { type: String, default: "" },
     },
+
+    // ── Destination city for weather widget ─────────────────
+    destination: { type: String, default: "" },
+
+    // ── Video URL for video section articles ────────────────
+    videoUrl: { type: String, default: "" },
   },
   {
     timestamps: true,

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, useRef, type ReactNode } from "react";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
 import SectionAudioButton from "@/components/ui/SectionAudioButton";
 import { useTranslations } from "@/hooks/useTranslations";
@@ -17,6 +17,14 @@ interface Article {
   authorName: string;
   views: number;
   date: string;
+  videoUrl?: string;
+  articleMedia?: {
+    heroCoverMedia?: {
+      url?: string;
+      vastTagUrl?: string;
+      poster?: string;
+    };
+  };
 }
 
 interface VideoNewsProps {
@@ -32,7 +40,7 @@ const categoryColors: Record<string, string> = {
 };
 
 function getHref(article: Article) {
-  return `/${article.slug}`;
+  return `/posts/${article.slug}`;
 }
 
 function CategoryPill({ label, color }: { label: string; color: string }) {
@@ -43,21 +51,30 @@ function CategoryPill({ label, color }: { label: string; color: string }) {
   );
 }
 
-function SideVideoRow({ post, color }: { post: Article; color: string }) {
+const isVideoUrl = (url?: string) => {
+  if (!url) return false;
+  const cleanUrl = url.split("?")[0].toLowerCase();
+  return cleanUrl.endsWith(".mp4") || cleanUrl.endsWith(".webm") || cleanUrl.endsWith(".mov") || cleanUrl.endsWith(".m4v");
+};
+
+function SideVideoRow({ post, color, isActive, onSelect }: { post: Article; color: string; isActive: boolean; onSelect: () => void }) {
   return (
-    <div className="flex items-center gap-[15px]">
-      <Link href={getHref(post)} className="block flex-shrink-0 w-[112px] min-w-[112px] h-[112px] rounded-lg overflow-hidden relative group">
+    <div
+      className={`flex items-center gap-[15px] cursor-pointer rounded-lg p-1 transition-all duration-200 ${isActive ? "bg-[var(--primaryColor)]/10 ring-1 ring-[var(--primaryColor)]/30" : "hover:bg-white/5"}`}
+      onClick={onSelect}
+    >
+      <div className="block flex-shrink-0 w-[112px] min-w-[112px] h-[112px] rounded-lg overflow-hidden relative group">
         <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
         <span className="fpg-play-btn">
           <i className="ri-play-fill" />
         </span>
-      </Link>
+      </div>
       <div className="flex-1 min-w-0">
         <CategoryPill label={post.categoryLabel} color={color} />
-        <h6 className="mt-1 text-[14px] font-semibold text-[var(--titleColor)] leading-[1.4] line-clamp-2">
-          <Link href={getHref(post)} className="hover:text-[var(--primaryColor)] transition-colors">{post.title}</Link>
+        <h6 className="mt-1 text-[14px] font-semibold text-white leading-[1.4] line-clamp-2">
+          <span className="text-white">{post.title}</span>
         </h6>
-        <ul className="flex items-center gap-2 mt-1 text-[11px] text-[var(--bodyColor)]">
+        <ul className="flex items-center gap-2 mt-1 text-[11px] text-white/60">
           <li>{post.authorName}</li>
           <li>{post.views} {translate("common.views")}</li>
         </ul>
@@ -66,8 +83,6 @@ function SideVideoRow({ post, color }: { post: Article; color: string }) {
   );
 }
 
-/* Intersperses the column cards with the in-feed ad at a random index so the ad
-   blends into the article cards instead of always sitting at the end. */
 function useRandomAdIndex(count: number) {
   const [index, setIndex] = useState(() => count);
   useEffect(() => {
@@ -77,18 +92,294 @@ function useRandomAdIndex(count: number) {
   return index;
 }
 
-function VideoColumn({ posts, color, adPosition, adIndex }: { posts: Article[]; color: string; adPosition: string; adIndex: number }) {
+function VideoColumn({ posts, color, adPosition, adIndex, activeSlug, onSelect }: { posts: Article[]; color: string; adPosition: string; adIndex: number; activeSlug: string; onSelect: (article: Article) => void }) {
   const nodes: ReactNode[] = [];
   for (let i = 0; i < posts.length; i++) {
     if (i === adIndex) {
       nodes.push(<InFeedNativeAd key="travel-intel-ad" position={adPosition} cardStyle="travel-intel" />);
     }
-    nodes.push(<SideVideoRow key={posts[i].slug} post={posts[i]} color={color} />);
+    nodes.push(
+      <SideVideoRow
+        key={posts[i].slug}
+        post={posts[i]}
+        color={color}
+        isActive={posts[i].slug === activeSlug}
+        onSelect={() => onSelect(posts[i])}
+      />
+    );
   }
   if (posts.length === adIndex) {
     nodes.push(<InFeedNativeAd key="travel-intel-ad" position={adPosition} cardStyle="travel-intel" />);
   }
   return <>{nodes}</>;
+}
+
+const loadScript = (src: string): Promise<void> =>
+  new Promise((resolve) => {
+    if (document.querySelector(`script[src="${src}"]`)) {
+      resolve();
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = src;
+    s.onload = () => resolve();
+    s.onerror = () => resolve();
+    document.head.appendChild(s);
+  });
+
+function VastVideoPlayer({ src, poster, vastTagUrl, onReady }: { src: string; poster?: string; vastTagUrl: string; onReady?: () => void }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const playerRef = useRef<any>(null);
+  const cancelledRef = useRef(false);
+
+  useEffect(() => {
+    cancelledRef.current = false;
+
+    const ensurePlugins = async () => {
+      const vjsExists = !!(window as any).videojs;
+      const imaExists = vjsExists && !!(
+        (window as any).videojs.prototype?.ima ||
+        (window as any).videojs.ima ||
+        (window as any).videojs.getPlugin?.("ima")
+      );
+
+      if (!imaExists) {
+        const baseScripts: Promise<void>[] = [];
+        if (!vjsExists) {
+          if (!document.querySelector('link[href*="video-js.css"]')) {
+            const l = document.createElement("link");
+            l.rel = "stylesheet";
+            l.href = "https://vjs.zencdn.net/8.10.0/video-js.css";
+            document.head.appendChild(l);
+          }
+          baseScripts.push(loadScript("https://vjs.zencdn.net/8.10.0/video.min.js"));
+        }
+        baseScripts.push(loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js"));
+        await Promise.all(baseScripts);
+        await Promise.all([
+          loadScript("https://unpkg.com/videojs-contrib-ads@6/dist/videojs.ads.min.js"),
+          loadScript("https://unpkg.com/videojs-ima@1/dist/videojs.ima.min.js"),
+        ]);
+      }
+
+      if (cancelledRef.current) return;
+
+      let checkCount = 0;
+      const waitForPlugins = (): Promise<boolean> =>
+        new Promise((resolve) => {
+          const check = () => {
+            if (cancelledRef.current) { resolve(false); return; }
+            const vjs = (window as any).videojs;
+            checkCount++;
+            if (checkCount > 100) { resolve(!!vjs); return; }
+            if (vjs) {
+              const hasIma = vjs.prototype?.ima || vjs.ima || vjs.getPlugin?.("ima");
+              if (!hasIma) { setTimeout(check, 50); return; }
+              resolve(true);
+            } else {
+              setTimeout(check, 50);
+            }
+          };
+          check();
+        });
+
+      return waitForPlugins();
+    };
+
+    const initPlayer = async () => {
+      const ready = await ensurePlugins();
+      if (cancelledRef.current || !ready || !containerRef.current) return;
+
+      const videojs = (window as any).videojs;
+      const targetId = `video-news-player-${Date.now()}`;
+
+      const wrapper = document.createElement("div");
+      wrapper.innerHTML = `
+        <div id="video-news-wrapper-${targetId}" style="width:100%; height:100%; position:absolute; top:0; left:0; overflow:hidden; background:#000; border-radius:6px;">
+          <video id="${targetId}" class="video-js vjs-big-play-centered" style="width:100%; height:100%; display:block;" playsinline webkit-playsinline="true" poster="${poster || ""}"></video>
+        </div>`;
+      containerRef.current.appendChild(wrapper);
+
+      try {
+        const existing = videojs.getPlayer?.(targetId);
+        if (existing && typeof existing.dispose === "function") existing.dispose();
+      } catch (e) {}
+
+      await new Promise((r) => setTimeout(r, 100));
+      if (cancelledRef.current) return;
+
+      const el = document.getElementById(targetId);
+      if (!el) return;
+
+      const player = videojs(targetId, {
+        autoplay: "muted",
+        muted: true,
+        controls: true,
+        preload: "auto",
+        fluid: false,
+        responsive: false,
+        nativeControlsForTouch: false,
+        fill: true,
+      });
+      playerRef.current = player;
+
+      if (poster) {
+        player.poster(poster);
+      }
+
+      if (typeof player.ima === "function") {
+        try {
+          let resolvedUrl = vastTagUrl;
+          try {
+            const ipRes = await fetch("/api/visitor-ip", { cache: "no-store" });
+            const ipData = await ipRes.json();
+            const ip = ipData?.ip || "";
+            if (ip) {
+              const { buildVisitorData, buildSspRequestUrl } = await import("@/lib/ads/buildVastUrl");
+              const vw = containerRef.current?.clientWidth || 1280;
+              const vh = Math.round(vw * 9 / 16);
+              const visitorData = buildVisitorData(ip, vw, vh);
+              const resolved = buildSspRequestUrl(vastTagUrl, visitorData);
+              if (resolved) {
+                resolvedUrl = resolved;
+                if (!resolvedUrl.includes("cb=") && !resolvedUrl.includes("cachebuster=")) {
+                  resolvedUrl += (resolvedUrl.includes("?") ? "&" : "?") + "cb=" + Date.now();
+                }
+              }
+            }
+          } catch (e) {}
+
+          player.ima({
+            id: targetId,
+            adTagUrl: resolvedUrl,
+            vpaidMode: (window as any).google?.ima?.ImaSdkSettings?.VpaidMode?.INSECURE || 2,
+            debug: false,
+            disableCustomPlaybackForIOS10Plus: false,
+            nativeControlsForTouch: false,
+            autoComputeAdSize: true,
+            showCountdown: true,
+            showControlsForJSAds: true,
+            adLabel: translate("common.advertisement"),
+            adsRenderingSettings: {
+              restoreCustomPlaybackStateOnAdBreakComplete: true,
+              enablePreloading: true,
+              useStyledLinearAds: true,
+              useStyledNonLinearAds: true,
+            },
+          });
+
+          const adContainer = player.el()?.querySelector(".ima-ad-container");
+          if (adContainer) {
+            adContainer.addEventListener("click", (e: Event) => {
+              e.stopPropagation();
+            }, true);
+          }
+
+          player.on("ima-ad-start", () => {
+            const ac = player.el()?.querySelector(".ima-ad-container");
+            if (ac && !ac.getAttribute("data-click-fixed")) {
+              ac.setAttribute("data-click-fixed", "1");
+              ac.addEventListener("click", (e: Event) => {
+                e.stopPropagation();
+              }, true);
+            }
+          });
+
+          player.on("adend", () => {
+            if (cancelledRef.current) return;
+            const resume = () => {
+              if (cancelledRef.current || !playerRef.current) return;
+              try {
+                const p = playerRef.current;
+                if (p.ima && p.ima.isAdPlaying()) return;
+                if (p.paused()) {
+                  p.currentTime = p.currentTime;
+                  p.play().catch(() => {});
+                }
+              } catch (e) {}
+            };
+            for (const delay of [0, 100, 300, 600]) {
+              setTimeout(resume, delay);
+            }
+          });
+
+          player.on("contentresumeended", () => {
+            if (cancelledRef.current || !playerRef.current) return;
+            try {
+              const p = playerRef.current;
+              if (p.paused()) {
+                p.play().catch(() => {});
+              }
+            } catch (e) {}
+          });
+
+          player.on("ads-ad-ended", () => {
+            if (cancelledRef.current || !playerRef.current) return;
+            const resume = () => {
+              try {
+                const p = playerRef.current;
+                if (p && p.paused()) {
+                  p.play().catch(() => {});
+                }
+              } catch (e) {}
+            };
+            setTimeout(resume, 0);
+            setTimeout(resume, 200);
+          });
+
+          player.on("adskip", () => {
+            if (cancelledRef.current || !playerRef.current) return;
+            const resume = () => {
+              if (cancelledRef.current || !playerRef.current) return;
+              try {
+                const p = playerRef.current;
+                if (p.paused()) {
+                  p.play().catch(() => {});
+                }
+              } catch (e) {}
+            };
+            setTimeout(resume, 0);
+            setTimeout(resume, 200);
+            setTimeout(resume, 500);
+          });
+
+          const mimeMap: Record<string, string> = { mp4: "video/mp4", webm: "video/webm", mov: "video/quicktime", m4v: "video/mp4" };
+          const ext = src.split("?")[0].split(".").pop()?.toLowerCase() || "";
+          player.src({ src, type: mimeMap[ext] || "video/mp4" });
+          player.load();
+
+          player.ready(() => {
+            if (cancelledRef.current) return;
+            onReady?.();
+            setTimeout(() => {
+              if (cancelledRef.current) return;
+              try {
+                const playPromise = player.play();
+                if (playPromise !== undefined) {
+                  playPromise.catch(() => {});
+                }
+              } catch (e) {}
+            }, 0);
+          });
+        } catch (e) {}
+      }
+    };
+
+    initPlayer();
+
+    return () => {
+      cancelledRef.current = true;
+      if (playerRef.current) {
+        try { playerRef.current.dispose(); } catch (e) {}
+        playerRef.current = null;
+      }
+      if (containerRef.current) {
+        containerRef.current.innerHTML = "";
+      }
+    };
+  }, [src, poster, vastTagUrl]);
+
+  return <div ref={containerRef} className="absolute inset-0 w-full h-full" />;
 }
 
 export default function VideoNews({ articles }: VideoNewsProps) {
@@ -99,8 +390,24 @@ export default function VideoNews({ articles }: VideoNewsProps) {
   const rightCards = articles.slice(4, 7);
   const color = categoryColors[featured?.category || ""] || "#f27100";
 
+  const [activeArticle, setActiveArticle] = useState<Article>(featured);
+  const [playerStarted, setPlayerStarted] = useState(false);
   const leftAdIndex = useRandomAdIndex(leftCards.length);
   const rightAdIndex = useRandomAdIndex(rightCards.length);
+
+  const handleSelect = (article: Article) => {
+    setActiveArticle(article);
+    setPlayerStarted(false);
+  };
+
+  const heroUrl = activeArticle.articleMedia?.heroCoverMedia?.url || "";
+  const videoSrc = (activeArticle.videoUrl && isVideoUrl(activeArticle.videoUrl))
+    ? activeArticle.videoUrl
+    : (isVideoUrl(heroUrl) ? heroUrl : "");
+  const hasVideoUrl = !!videoSrc;
+  const vastTagUrl = activeArticle.articleMedia?.heroCoverMedia?.vastTagUrl || "";
+  const posterImage = activeArticle.articleMedia?.heroCoverMedia?.poster || activeArticle.image;
+  const hasVast = !!vastTagUrl && vastTagUrl.trim() !== "";
 
   if (articles.length === 0) return null;
 
@@ -128,27 +435,64 @@ export default function VideoNews({ articles }: VideoNewsProps) {
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr_1fr] gap-6">
           <div className="travel-videos-left flex flex-col gap-4">
-            <VideoColumn posts={leftCards} color={color} adPosition="in-feed-5" adIndex={leftAdIndex} />
+            <VideoColumn posts={leftCards} color={color} adPosition="in-feed-5" adIndex={leftAdIndex} activeSlug={activeArticle.slug} onSelect={handleSelect} />
           </div>
 
-          <Link href={getHref(featured)} className="block relative rounded-xl overflow-hidden group min-h-[400px]">
-            <img src={featured.image} alt={featured.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <CategoryPill label={featured.categoryLabel} color={color} />
-              <h3 className="mt-3 text-xl md:text-[22px] font-semibold text-white leading-snug">{featured.title}</h3>
-              <ul className="flex items-center gap-3 mt-3 text-[13px] text-white/70">
-                <li>{featured.authorName}</li>
-                <li>{featured.views} {translate("common.views")}</li>
+          <div>
+            <div className="relative rounded-t-xl overflow-hidden group bg-black aspect-[3/2.3]">
+              {hasVideoUrl && hasVast && playerStarted ? (
+                <VastVideoPlayer
+                  key={activeArticle.slug}
+                  src={videoSrc}
+                  poster={posterImage}
+                  vastTagUrl={vastTagUrl}
+                />
+              ) : hasVideoUrl && playerStarted ? (
+                <video
+                  key={activeArticle.slug}
+                  src={videoSrc}
+                  poster={posterImage}
+                  controls
+                  autoPlay
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : hasVideoUrl ? (
+                <div
+                  className="absolute inset-0 cursor-pointer"
+                  onClick={() => setPlayerStarted(true)}
+                >
+                  <img src={posterImage || activeArticle.image} alt={activeArticle.title} className="w-full h-full object-cover" />
+                  <span className="fpg-play-btn fpg-play-btn--large">
+                    <i className="ri-play-fill" />
+                  </span>
+                </div>
+              ) : (
+                <>
+                  <img src={activeArticle.image} alt={activeArticle.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <span className="fpg-play-btn fpg-play-btn--large">
+                    <i className="ri-play-fill" />
+                  </span>
+                </>
+              )}
+            </div>
+            <div className="bg-black rounded-b-xl px-4 py-3">
+              <CategoryPill label={activeArticle.categoryLabel} color={color} />
+              <h3 className="mt-2 text-lg md:text-xl font-semibold text-white leading-snug">
+                <Link href={getHref(activeArticle)} className="hover:underline decoration-white/50 underline-offset-4 transition-all">
+                  {activeArticle.title}
+                </Link>
+              </h3>
+              <ul className="flex items-center gap-3 mt-2 text-[12px] text-white/60">
+                <li>{activeArticle.authorName}</li>
+                <li>{activeArticle.views} {translate("common.views")}</li>
               </ul>
             </div>
-            <span className="fpg-play-btn fpg-play-btn--large">
-              <i className="ri-play-fill" />
-            </span>
-          </Link>
+          </div>
 
           <div className="travel-videos-right flex flex-col gap-4">
-            <VideoColumn posts={rightCards} color={color} adPosition="in-feed-6" adIndex={rightAdIndex} />
+            <VideoColumn posts={rightCards} color={color} adPosition="in-feed-6" adIndex={rightAdIndex} activeSlug={activeArticle.slug} onSelect={handleSelect} />
           </div>
         </div>
       </div>

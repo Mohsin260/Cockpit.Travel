@@ -97,6 +97,8 @@ export interface Article {
   locale?: string;
   hreflang_group_id?: string;
   videoAsset?: VideoAsset;
+  videoUrl?: string;
+  destination?: string;
   createdAt?: string;
   updatedAt?: string;
 }

@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import ArticleTemplate from "@/components/ArticleTemplate";
 import { fetchArticles, fetchArticleBySlug, fetchCategories } from "@/lib/api";
 import { ItemPageJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
@@ -52,16 +54,19 @@ export default async function PostPage({ params }: Props) {
     const article = await fetchArticleBySlug(slug);
     if (!article) notFound();
 
-    const [categories, relatedData, trendingData, recentData] = await Promise.all([
+    const [categories, relatedData, trendingData, recentData, destinationsData] = await Promise.all([
         fetchCategories(),
         fetchArticles({ category: article.category, limit: 4 }),
         fetchArticles({ limit: 5, sort: 'views' }),
-        fetchArticles({ limit: 6 })
+        fetchArticles({ limit: 6 }),
+        fetchArticles({ category: 'destinations', limit: 5, sort: 'views' })
     ]);
 
     const related = relatedData.articles
         .filter(a => a.slug !== slug)
         .slice(0, 3);
+
+    const topDestinations = destinationsData.articles.slice(0, 5);
 
     const baseUrl = "https://cockpit.travel";
 
@@ -87,13 +92,20 @@ export default async function PostPage({ params }: Props) {
                 ]}
             />
 
-            <ArticleTemplate
-                article={article}
-                related={related}
-                categories={categories}
-                trending={trendingData.articles}
-                recent={recentData.articles}
-            />
+            <div className="nerio-page-wrapper flex flex-col min-h-screen">
+                <Header />
+                <main className="flex-1">
+                    <ArticleTemplate
+                        article={article}
+                        related={related}
+                        categories={categories}
+                        trending={trendingData.articles}
+                        recent={recentData.articles}
+                        topDestinations={topDestinations}
+                    />
+                </main>
+                <Footer />
+            </div>
         </>
     );
 }

@@ -59,7 +59,7 @@ export default function TabWidget({ recentArticles = [], popularArticles = [], t
       <div>
         {posts.map((post, i) => (
           <div key={i} className="flex items-center gap-[16px] py-[15px] group">
-            <Link href={`/${post.slug}`} className="w-[85px] h-[85px] rounded-full overflow-hidden flex-shrink-0">
+            <Link href={`/posts/${post.slug}`} className="w-[85px] h-[85px] rounded-full overflow-hidden flex-shrink-0">
               <img
                 src={post.image}
                 alt={post.title}
@@ -68,7 +68,7 @@ export default function TabWidget({ recentArticles = [], popularArticles = [], t
             </Link>
             <div className="flex-1 min-w-0">
               <h6 className="text-[16px] font-normal text-black leading-[1.35] line-clamp-2 group-hover:text-primary transition-colors">
-                <Link href={`/${post.slug}`}>{post.title}</Link>
+                <Link href={`/posts/${post.slug}`}>{post.title}</Link>
               </h6>
               <ul className="fpg-post-meta flex flex-wrap items-center gap-[12px] mt-[10px] text-[13px] text-bodyColor">
                 <li>

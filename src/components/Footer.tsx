@@ -58,6 +58,7 @@ export default function Footer() {
       if (!res.ok) throw new Error("Failed to load recent posts");
       const json = (await res.json()) as { items?: Array<{
         title: string; slug: string; image?: string;
+        articleMedia?: { heroCoverMedia?: { url?: string; poster?: string } };
         authorName?: string; views?: number;
       }> };
       return json.items || [];
@@ -66,15 +67,18 @@ export default function Footer() {
   });
 
   const recentPosts = isSuccess && recentArticles?.length
-    ? recentArticles.map((post) => ({
-        title: post.title,
-        href: `/posts/${post.slug}`,
-        author: post.authorName || "RSTheme",
-        views: `${post.views ?? 0} ${t("common.views")}`,
-        image: post.image
-          ? `${post.image}${post.image.includes("?") ? "&" : "?"}w=200&h=200&fit=crop`
-          : staticRecentPosts[0].image,
-      }))
+    ? recentArticles.map((post) => {
+        const rawImage = post.articleMedia?.heroCoverMedia?.url || post.image || "";
+        return {
+          title: post.title,
+          href: `/posts/${post.slug}`,
+          author: post.authorName || "RSTheme",
+          views: `${post.views ?? 0} ${t("common.views")}`,
+          image: rawImage
+            ? `${rawImage}${rawImage.includes("?") ? "&" : "?"}w=200&h=200&fit=crop`
+            : staticRecentPosts[0].image,
+        };
+      })
     : staticRecentPosts;
 
   const tags = useMemo(() => [
@@ -200,12 +204,16 @@ export default function Footer() {
                 <div className="footer-post-card" key={i}>
                   <div className="footer-post-thumb">
                     <a href={post.href}>
-                      <Image
+                      <img
                         src={post.image}
                         alt={post.title}
                         width={100}
                         height={100}
-                        priority={false}
+                        className="w-[100px] h-[100px] object-cover rounded"
+                        loading="lazy"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = staticRecentPosts[0].image;
+                        }}
                       />
                     </a>
                   </div>

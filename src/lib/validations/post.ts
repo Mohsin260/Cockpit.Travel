@@ -107,6 +107,8 @@ export const PostCreateSchema = z.object({
   seo_metadata: SeoMetadataSchema.optional(),
   hreflang_group_id: z.string().optional().default(""),
   videoAsset: VideoAssetSchema.optional(),
+  destination: z.string().optional().default(""),
+  videoUrl: z.string().optional().default(""),
   is_product: z.boolean().optional().default(false),
   product_name: z.string().optional().default(""),
   product_brand: z.string().optional().default(""),

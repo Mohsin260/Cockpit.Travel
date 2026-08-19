@@ -17,6 +17,8 @@ import SearchWidget from "@/components/article/SearchWidget";
 import AdSlot from "@/components/ui/AdSlot";
 import InFeedNativeAd from "@/components/ads/InFeedNativeAd";
 import SectionAudioButton from "@/components/ui/SectionAudioButton";
+import ArticleWeatherWidget from "@/components/article/ArticleWeatherWidget";
+import TopDestinationsWidget from "@/components/article/TopDestinationsWidget";
 import { useTranslations } from "@/hooks/useTranslations";
 
 interface ArticleTemplateProps {
@@ -25,9 +27,10 @@ interface ArticleTemplateProps {
   categories: any[];
   trending: any[];
   recent: any[];
+  topDestinations?: any[];
 }
 
-export default function ArticleTemplate({ article, related, categories, trending, recent }: ArticleTemplateProps) {
+export default function ArticleTemplate({ article, related, categories, trending, recent, topDestinations }: ArticleTemplateProps) {
   const t = useTranslations();
   if (!article) return null;
 
@@ -55,6 +58,7 @@ export default function ArticleTemplate({ article, related, categories, trending
       <div className="flex flex-col lg:flex-row gap-[30px] items-start">
         <div className="w-full lg:w-[67%] min-w-0">
           <FeaturedImage src={article.articleMedia?.heroCoverMedia?.url || article.featuredImage} poster={article.articleMedia?.heroCoverMedia?.poster} vastTagUrl={article.articleMedia?.heroCoverMedia?.vastTagUrl} alt={article.title} />
+          <ArticleWeatherWidget destination={article.destination} category={article.category} />
           <ArticleTitle title={article.title} />
           <PostMeta
             author={{ name: article.authorName || "Admin", avatar: article.author_photo || article.author_avatar || "" }}
@@ -68,6 +72,7 @@ export default function ArticleTemplate({ article, related, categories, trending
           </div>
           <AdSlot pageType="article" position="atf-rectangle" articleSlug={article.slug} />
           <ArticleBody content={article.bodyContent || article.content} />
+          <TopDestinationsWidget destinations={topDestinations || []} />
           <TagsAndShare tags={article.tags || []} />
           <AuthorBox author={{ name: article.authorName || "Admin", avatar: article.author_photo || article.author_avatar || "", bio: article.author_bio || "" }} />
           <PostNavigation

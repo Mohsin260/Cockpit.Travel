@@ -36,7 +36,7 @@ const categoryColors: Record<string, string> = {
 };
 
 function getHref(article: Article) {
-  return `/${article.slug}`;
+  return `/posts/${article.slug}`;
 }
 
 function formatDate(dateStr: string) {

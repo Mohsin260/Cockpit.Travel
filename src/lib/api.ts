@@ -120,6 +120,8 @@ function mapArticle(article: any): Article {
     locale: article.locale,
     hreflang_group_id: article.hreflang_group_id,
     videoAsset: article.videoAsset,
+    videoUrl: article.videoUrl || "",
+    destination: article.destination || "",
     createdAt: article.createdAt?.toISOString?.(),
     updatedAt: article.updatedAt?.toISOString?.(),
   };

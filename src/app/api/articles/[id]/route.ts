@@ -211,6 +211,8 @@ export async function PUT(
     if (parsed.seo_metadata !== undefined) updateData.seo_metadata = parsed.seo_metadata;
     if (parsed.hreflang_group_id !== undefined) updateData.hreflang_group_id = parsed.hreflang_group_id;
     if (parsed.videoAsset !== undefined) updateData.videoAsset = parsed.videoAsset;
+    if (parsed.destination !== undefined) updateData.destination = parsed.destination;
+    if (parsed.videoUrl !== undefined) updateData.videoUrl = parsed.videoUrl;
     if (parsed.is_product !== undefined) updateData.is_product = parsed.is_product;
     if (parsed.product_name !== undefined) updateData.product_name = parsed.product_name;
     if (parsed.product_brand !== undefined) updateData.product_brand = parsed.product_brand;

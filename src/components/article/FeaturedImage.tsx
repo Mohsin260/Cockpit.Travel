@@ -71,6 +71,11 @@ function VastVideoPlayer({ src, poster, vastTagUrl }: { src: string; poster?: st
   useEffect(() => {
     cancelledRef.current = false;
 
+    // Prevent duplicate players from React Strict Mode double-mount
+    if (containerRef.current && containerRef.current.querySelector('.video-js')) {
+      return;
+    }
+
     const ensurePlugins = async () => {
       const vjsExists = !!(window as any).videojs;
       const imaExists = vjsExists && !!(

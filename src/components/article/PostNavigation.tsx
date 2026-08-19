@@ -19,7 +19,7 @@ export default function PostNavigation({
       <div className={`post-nav-item-wrap flex ${hasPrev ? 'w-1/2 justify-start' : 'w-full justify-center'}`}>
         {hasPrev ? (
           <Link
-            href={`/${prevPost.slug}`}
+            href={`/posts/${prevPost.slug}`}
             className="post-nav-item prev-post flex items-center gap-[20px] group"
           >
             <div className="post-thumb flex-shrink-0">
@@ -49,7 +49,7 @@ export default function PostNavigation({
       <div className={`post-nav-item-wrap flex ${hasNext ? 'w-1/2 justify-end' : 'w-full justify-center'}`}>
         {hasNext ? (
           <Link
-            href={`/${nextPost.slug}`}
+            href={`/posts/${nextPost.slug}`}
             className="post-nav-item next-post flex items-center gap-[20px] flex-row-reverse group text-right"
           >
             <div className="post-thumb flex-shrink-0">
