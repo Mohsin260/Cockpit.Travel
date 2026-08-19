@@ -482,7 +482,10 @@
       "humidity": "الرطوبة",
       "condition": "الحالة",
       "currentCity": "المدينة الحالية",
+      "precipitation": "الهطول",
       "windInfo": "معلومات الرياح",
+      "forecast": "التوقعات",
+      "pickDate": "اختر تاريخاً",
       "windSpeed": "سرعة الرياح",
       "country": "البلد"
     },

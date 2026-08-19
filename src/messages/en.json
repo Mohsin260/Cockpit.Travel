@@ -482,7 +482,10 @@
       "humidity": "Humidity",
       "condition": "Condition",
       "currentCity": "Current City",
+      "precipitation": "Precipitation",
       "windInfo": "Wind Info",
+      "forecast": "Forecast",
+      "pickDate": "Pick a date",
       "windSpeed": "Wind Speed",
       "country": "Country"
     },

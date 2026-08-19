@@ -482,7 +482,10 @@
       "humidity": "Humedad",
       "condition": "Condición",
       "currentCity": "Ciudad actual",
+      "precipitation": "Precipitación",
       "windInfo": "Información del viento",
+      "forecast": "Pronóstico",
+      "pickDate": "Elegir fecha",
       "windSpeed": "Velocidad del viento",
       "country": "País"
     },

@@ -90,6 +90,7 @@ export function PostEditor({
   const [bodyContent, setBodyContent] = useState<string>((initial as any)?.bodyContent ?? "");
   const [keyTakeawaysContent, setKeyTakeawaysContent] = useState<string>((initial as any)?.keyTakeawaysContent ?? "");
   const [finalThoughtsContent, setFinalThoughtsContent] = useState<string>((initial as any)?.finalThoughtsContent ?? "");
+  const [destination, setDestination] = useState<string>((initial as any)?.destination ?? "");
 
   const isVideoUrl = (url?: string) => {
     if (!url) return false;
@@ -192,6 +193,7 @@ export function PostEditor({
       bodyContent: bodyContent || undefined,
       keyTakeawaysContent: keyTakeawaysContent || undefined,
       finalThoughtsContent: finalThoughtsContent || undefined,
+      destination: destination || undefined,
       adOverrides: (initial as any)?.adOverrides || [], // Preserve overrides for now if not editable in this form
     };
     
@@ -339,6 +341,17 @@ export function PostEditor({
                     ))}
                   </SelectContent>
                 </Select>
+              </div>
+
+              <div className="grid gap-2">
+                <Label htmlFor="destination">Destination City</Label>
+                <Input
+                  id="destination"
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
+                  placeholder="e.g. Paris, Tokyo, New York"
+                />
+                <p className="text-xs text-muted-foreground">Used for weather widget on destination articles</p>
               </div>
 
               <div className="grid gap-2">

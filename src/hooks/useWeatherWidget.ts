@@ -7,11 +7,13 @@ import { useLocale } from "@/hooks/useLocale";
 export interface WeatherWidgetData {
   city?: string;
   country?: string;
+  timezone?: string;
   temp: number;
   high: number;
   low: number;
   feelsLike: number;
   humidity: number;
+  precipitation?: number;
   wind: number;
   windDirection: string;
   conditionCode?: number;
