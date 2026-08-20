@@ -42,6 +42,7 @@ type PostPayload = {
   bodyContent?: string;
   keyTakeawaysContent?: string;
   finalThoughtsContent?: string;
+  destination?: string;
 };
 
 export function PostEditor({
